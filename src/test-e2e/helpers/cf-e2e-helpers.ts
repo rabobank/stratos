@@ -50,6 +50,7 @@ export class CFHelpers {
       return promise.fullyResolved({});
     }
     return this.fetchUsers(cnsiGuid).then(users => {
+      e2e.log(`DEBUG: endpoint url:  ${endpoint}`);
       expect(users).toBeDefined(`No users fetched from endpoint with api ${endpoint.url}`);
       expect(users.length).toBeGreaterThanOrEqual(2, `Less than two users detected`);
       const testUser = this.findUser(users, endpoint.creds.nonAdmin.username);
