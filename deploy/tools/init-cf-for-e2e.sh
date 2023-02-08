@@ -87,12 +87,12 @@ function createOrgSpace() {
   cf create-space $SPACE
   cf target -o $ORG -s $SPACE
 
-  cf set-org-role $ADMIN $ORG OrgManager
+#  cf set-org-role $ADMIN $ORG OrgManager
   cf set-org-role $USER $ORG OrgManager
   cf set-org-role $REMOVE_USER $ORG OrgManager
 
-  cf set-space-role $ADMIN $ORG $SPACE SpaceManager
-  cf set-space-role $ADMIN $ORG $SPACE SpaceDeveloper
+#  cf set-space-role $ADMIN $ORG $SPACE SpaceManager
+#  cf set-space-role $ADMIN $ORG $SPACE SpaceDeveloper
 
   cf set-space-role $USER $ORG $SPACE SpaceManager
   cf set-space-role $USER $ORG $SPACE SpaceDeveloper
