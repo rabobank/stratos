@@ -62,7 +62,7 @@ describe('Application Deploy Docker -', () => {
       expect(appSummary.cardUptime.getUptimeText()).not.toBeNull();
 
       expect(appSummary.cardInfo.memQuota.getValue()).toBe('768 MB');
-      expect(appSummary.cardInfo.diskQuota.getValue()).toBe('768 MB');
+      expect(appSummary.cardInfo.diskQuota.getValue()).toBe('1 GB');
       expect(appSummary.cardInfo.appState.getValue()).toBe('STARTED');
       expect(appSummary.cardInfo.packageState.getValue()).toBe('STAGED');
       expect(appSummary.cardInfo.services.getValue()).toBe('0');
