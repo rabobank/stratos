@@ -1,6 +1,6 @@
 module github.com/cloudfoundry-incubator/stratos/src/jetstream
 
-go 1.18
+go 1.19
 
 require (
 	bitbucket.org/liamstask/goose v0.0.0-20150115234039-8488cc47d90c
