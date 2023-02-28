@@ -10,13 +10,15 @@ HTTP_CLIENT_TIMEOUT_MUTATING_IN_SECS=120
 HTTP_CLIENT_TIMEOUT_LONGRUNNING_IN_SECS=600
 SKIP_SSL_VALIDATION=true
 CONSOLE_PROXY_TLS_ADDRESS=:5443
-CONSOLE_CLIENT=console
-CF_CLIENT=cf
-UAA_ENDPOINT=
+CONSOLE_CLIENT=stratos-console
+CF_CLIENT=stratos-console
+UAA_ENDPOINT=CHANGE
+#UAA_ENDPOINT=http://localhost:8080
 CONSOLE_ADMIN_SCOPE=stratos.admin
 CF_ADMIN_ROLE=cloud_controller.admin
-ALLOWED_ORIGINS=http://nginx
-SESSION_STORE_SECRET=stratos_development
+#ALLOWED_ORIGINS=http://nginx
+ALLOWED_ORIGINS=https://localhost,https://127.0.0.1,https://localhost:4200,https://localhost:5443
+SESSION_STORE_SECRET=wheeee!
 CONSOLE_PROXY_CERT_PATH=../../dev-ssl/server.crt
 CONSOLE_PROXY_CERT_KEY_PATH=../../dev-ssl/server.key
 ENCRYPTION_KEY=B374A26A71490437AA024E4FADD5B497FDFF1A8EA6FF12F6FB65AF2720B59CCF
@@ -27,8 +29,9 @@ LOG_TO_JSON=false
 LOG_API_REQUESTS=true
 
 SSO_LOGIN=false
+
 # Allow-list for the SSO redirect url. Paths can contain wildcard `*`
-SSO_ALLOWLIST=
+SSO_ALLOWLIST=http://localhost:4200/*,https://localhost:4200/*
 
 # Enable feature in tech preview
 ENABLE_TECH_PREVIEW=true
@@ -52,7 +55,7 @@ INVITE_USER_CLIENT_ID=
 INVITE_USER_CLIENT_SECRET=
 
 # Use local admin user rather than UAA users
-AUTH_ENDPOINT_TYPE=local
+AUTH_ENDPOINT_TYPE=remote
 LOCAL_USER=admin
 LOCAL_USER_PASSWORD=admin
 LOCAL_USER_SCOPE=stratos.admin
@@ -71,3 +74,4 @@ HELM_CACHE_FOLDER=./.helm-cache
 # DB_PASSWORD=strat0s
 # DB_DATABASE_NAME=stratosdb
 # DB_SSL_MODE=disable
+
