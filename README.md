@@ -1,11 +1,24 @@
 # Stratos
 
-<a href="https://travis-ci.com/cloudfoundry/stratos/branches"><img src="https://travis-ci.com/cloudfoundry/stratos.svg?branch=master"></a>&nbsp;<a style="padding-left: 4px" href="https://codeclimate.com/github/cloudfoundry/stratos/maintainability"><img src="https://api.codeclimate.com/v1/badges/61af8b605f385e894632/maintainability" /></a>
-<a href="https://goreportcard.com/report/github.com/cloudfoundry/stratos"><img src="https://goreportcard.com/badge/github.com/cloudfoundry-incubator/stratos"/></a>
-<a href="https://codecov.io/gh/cloudfoundry/stratos/branch/master"><img src="https://codecov.io/gh/cloudfoundry/stratos/branch/master/graph/badge.svg"/></a>
-[![GitHub release](https://img.shields.io/github/release/cloudfoundry/stratos.svg)](https://github.com/cloudfoundry/stratos/releases/latest)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/cloudfoundry/stratos/blob/master/LICENSE)
-[![slack.cloudfoundry.org](https://slack.cloudfoundry.org/badge.svg)](https://cloudfoundry.slack.com/messages/C80EP4Y57/)
+# Rabobank adjusted
+Since Stratos is now an archived project, Rabobank has forked the repo to maintain a copy adjusted for Rabobank itself.
+
+There is no guarantee for this code to work in a broader way. 
+
+[//]: # ()
+[//]: # (<a href="https://travis-ci.com/cloudfoundry/stratos/branches"><img src="https://travis-ci.com/cloudfoundry/stratos.svg?branch=master"></a>&nbsp;<a style="padding-left: 4px" href="https://codeclimate.com/github/cloudfoundry/stratos/maintainability"><img src="https://api.codeclimate.com/v1/badges/61af8b605f385e894632/maintainability" /></a>)
+
+[//]: # (<a href="https://goreportcard.com/report/github.com/cloudfoundry/stratos"><img src="https://goreportcard.com/badge/github.com/cloudfoundry-incubator/stratos"/></a>)
+
+[//]: # (<a href="https://codecov.io/gh/cloudfoundry/stratos/branch/master"><img src="https://codecov.io/gh/cloudfoundry/stratos/branch/master/graph/badge.svg"/></a>)
+
+[//]: # ([![GitHub release]&#40;https://img.shields.io/github/release/cloudfoundry/stratos.svg&#41;]&#40;https://github.com/cloudfoundry/stratos/releases/latest&#41;)
+
+[//]: # ([![License]&#40;https://img.shields.io/badge/License-Apache%202.0-blue.svg&#41;]&#40;https://github.com/cloudfoundry/stratos/blob/master/LICENSE&#41;)
+
+[//]: # ([![slack.cloudfoundry.org]&#40;https://slack.cloudfoundry.org/badge.svg&#41;]&#40;https://cloudfoundry.slack.com/messages/C80EP4Y57/&#41;)
+
+# Stratos
 
 Stratos is an Open Source Web-based UI (Console) for managing Cloud Foundry. It allows users and administrators to both manage applications running in the Cloud Foundry cluster and perform cluster management tasks.
 
