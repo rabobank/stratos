@@ -215,7 +215,7 @@ describe('Application View -', () => {
         expect(appEvents.list.isTableView()).toBeTruthy();
         expect(appEvents.list.getTotalResults()).toBe(1);
         expect(appEvents.list.table.getCell(0, 1).getText()).toBe('audit\napp\ncreate');
-        expect(appEvents.list.table.getCell(0, 0).getText()).toBe('person\nadmin');
+        expect(appEvents.list.table.getCell(0, 0).getText()).toBe('person\nstratos-e2e-admin');
       });
 
     });
