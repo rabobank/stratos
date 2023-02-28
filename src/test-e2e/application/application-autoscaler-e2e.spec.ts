@@ -299,7 +299,7 @@ describe('Autoscaler -', () => {
         .then(appAutoscaler => {
           appDetails.cfGuid = appAutoscaler.cfGuid;
           appDetails.appGuid = appAutoscaler.appGuid;
-          expect(appAutoscaler.bannerAutoscalerTab.getButtonsCount()).toBe(2);
+          expect(appAutoscaler.bannerAutoscalerTab.getButtonsCount()).toBe(3);
           expect(appAutoscaler.bannerAutoscalerTab.getEditButtonExistence()).toBe(true);
           expect(appAutoscaler.bannerAutoscalerTab.getDeleteButtonExistence()).toBe(true);
 
@@ -617,7 +617,7 @@ describe('Autoscaler -', () => {
       });
       confirm.cancel();
       confirm.waitUntilNotShown();
-      expect(appAutoscaler.bannerAutoscalerTab.getButtonsCount()).toBe(2);
+      expect(appAutoscaler.bannerAutoscalerTab.getButtonsCount()).toBe(3);
       expect(appAutoscaler.bannerAutoscalerTab.getEditButtonExistence()).toBe(true);
       expect(appAutoscaler.bannerAutoscalerTab.getDeleteButtonExistence()).toBe(true);
     });
