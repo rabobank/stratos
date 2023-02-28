@@ -124,7 +124,7 @@ export class ApplicationE2eHelper {
         // Delete service instance
         const serviceBindings = app.entity.service_bindings || [];
         serviceBindings.forEach(serviceBinding => {
-          const url = 'service_instances/' + serviceBinding.entity.service_instance_guid + '?recursive=true&async=false';
+          const url = 'service_bindings/' + serviceBinding.entity.service_instance_guid + '?recursive=true&async=false';
           promises.push(this.cfRequestHelper.sendCfDelete(cfGuid, url));
         });
 
