@@ -58,7 +58,13 @@ export class StackedInputActionsPo extends Component {
 
   isInputSuccess(index: number): promise.Promise<boolean> {
     const bool = new BooleanIndicatorComponent(this.getInput(index).element(by.css('.input-action__detail')));
+    bool.getComponent().getText().then (text => text === 'No authentication provider found');
     return bool.getIcon().then(icon => icon === 'check_circle');
+  }
+
+  isNotSetupSuccess(index: number): promise.Promise<boolean> {
+    const bool = new BooleanIndicatorComponent(this.getInput(index).element(by.css('.input-action__detail')));
+    return bool.getComponent().getText().then (text => text === 'No authentication provider found');
   }
 
   getInputMessage(index: number): promise.Promise<string> {

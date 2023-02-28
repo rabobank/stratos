@@ -109,7 +109,8 @@ describe('Application Routes -', () => {
     expect(appRoutes.list.table.getRows().count()).toBe(1);
     appRoutes.list.table.getCell(0, 1).getText().then(route => {
       expect(route).toBeTruthy();
-      expect(route.startsWith(routeHostName, 7)).toBeTruthy();
+      // NDT NOTE: Change to 8 for httpS
+      expect(route.startsWith(routeHostName, 8)).toBeTruthy();
       expect(route.endsWith('/' + routePath)).toBeTruthy();
       expect(spaceContainsRoute(app.entity.space_guid, routeHostName, routePath)).toBeTruthy();
     });
@@ -156,7 +157,8 @@ describe('Application Routes -', () => {
     // Find the row index of the route that's just been unbound
     mapExistingRoutesList.header.setSearchText(routeHostName);
     const rowIndexP = mapExistingRoutesList.table.getTableData().then(rows =>
-      rows.findIndex(row => row.route.startsWith(routeHostName, 7) && row.route.endsWith('/' + routePath))
+      rows.findIndex(row => row.route.startsWith(routeHostName, 8) && row.route.endsWith('/' + routePath))
+      // NDT NOTE: changed 7 to 8 for httpS
     );
 
     expect(rowIndexP).toBeGreaterThanOrEqual(0);
@@ -175,7 +177,7 @@ describe('Application Routes -', () => {
       expect(appRoutes.list.table.getRows().count()).toBe(1);
       appRoutes.list.table.getCell(0, 1).getText().then(route => {
         expect(route).toBeTruthy();
-        expect(route.startsWith(routeHostName, 7)).toBeTruthy();
+        expect(route.startsWith(routeHostName, 8)).toBeTruthy();
         expect(route.endsWith('/' + routePath)).toBeTruthy();
       });
       expect(appRoutes.list.table.getCell(0, 2).getText()).toBe('highlight_off');

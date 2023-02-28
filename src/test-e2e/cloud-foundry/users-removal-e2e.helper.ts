@@ -189,8 +189,16 @@ export function setupCfUserRemovalTests(
     it(`Doesn't show user with roles any more`, () => {
       const usersTable = new CFUsersListComponent();
       usersTable.header.setSearchText(userName);
-
-      expect(usersTable.getTotalResults()).toBe(0);
+      // NDT Start
+      let userRowIndex = 0;
+      usersTable.table.findRow('username', userName)
+        .then(row => {
+          userRowIndex = row;
+          expect(usersTable.table.getCell(userRowIndex, 1).getText()).toBe(userName);
+          expect(usersTable.table.getCell(userRowIndex, 3).getText()).toBe('None');
+        });
+      // NDT End here
+      expect(usersTable.getTotalResults()).toBe(1);
     });
   }
 

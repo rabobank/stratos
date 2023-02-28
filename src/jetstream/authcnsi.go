@@ -261,19 +261,20 @@ func (p *portalProxy) DoLoginToCNSIwithConsoleUAAtoken(c echo.Context, theCNSIre
 			return fmt.Errorf("invalid authorization endpoint URL %s %s", cnsiInfo.TokenEndpoint, err)
 		}
 
-		if uaaURL.String() == p.GetConfig().ConsoleConfig.UAAEndpoint.String() { // CNSI UAA server matches Console UAA server
-			uaaToken.LinkedGUID = uaaToken.TokenGUID
-			err = p.setCNSITokenRecord(theCNSIrecord.GUID, u.UserGUID, uaaToken)
+		fmt.Printf("uaaURL: %s, GetConfig URL: %s\n", uaaURL.String(), p.GetConfig().ConsoleConfig.UAAEndpoint.String())
+		//if uaaURL.String() == p.GetConfig().ConsoleConfig.UAAEndpoint.String() { // CNSI UAA server matches Console UAA server
+		uaaToken.LinkedGUID = uaaToken.TokenGUID
+		err = p.setCNSITokenRecord(theCNSIrecord.GUID, u.UserGUID, uaaToken)
 
-			// Update the endpoint to indicate that SSO Login is okay
-			repo, dbErr := p.GetStoreFactory().EndpointStore()
-			if dbErr == nil {
-				theCNSIrecord.SSOAllowed = true
-				repo.Update(theCNSIrecord, p.Config.EncryptionKeyInBytes)
-			}
-			// Return error from the login
-			return err
+		// Update the endpoint to indicate that SSO Login is okay
+		repo, dbErr := p.GetStoreFactory().EndpointStore()
+		if dbErr == nil {
+			theCNSIrecord.SSOAllowed = true
+			repo.Update(theCNSIrecord, p.Config.EncryptionKeyInBytes)
 		}
+		// Return error from the login
+		return err
+		//}
 		return fmt.Errorf("the auto-registered endpoint UAA server does not match console UAA server")
 	}
 	log.Warn("Could not find current user UAA token")

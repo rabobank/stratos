@@ -1,4 +1,4 @@
-import { browser, by, element, protractor } from 'protractor';
+import {browser, by, element, promise, protractor} from 'protractor';
 
 import { e2e } from '../e2e';
 import { CFHelpers } from '../helpers/cf-e2e-helpers';
@@ -10,6 +10,8 @@ import { StepperComponent } from '../po/stepper.po';
 import { CfTopLevelPage } from './cf-level/cf-top-level-page.po';
 import { ManagerUsersPage } from './manage-users-page.po';
 import { setUpTestOrgSpaceE2eTest } from './users-list-e2e.helper';
+import {CfOrgLevelPage} from "./org-level/cf-org-level-page.po";
+import {CfSpaceLevelPage} from "./space-level/cf-space-level-page.po";
 
 const until = protractor.ExpectedConditions;
 
@@ -25,17 +27,27 @@ describe('Manage Users Stepper', () => {
   let cfHelper: CFHelpers;
   let cfGuid: string;
   let userGuid: string;
+  let orgGuid: string;
+  let spaceGuid: string;
 
   beforeAll(() => {
     setUpTestOrgSpaceE2eTest(orgName, spaceName, userName, true).then(res => {
       cfHelper = res.cfHelper;
       cfGuid = res.cfGuid;
+      orgGuid = res.orgGuid;
+      spaceGuid = res.spaceGuid;
+      console.log ('NDT: cfGuid: ' + cfGuid + '  -  orgGuid: ' + orgGuid + '  -  spaceGuid: ' + spaceGuid);
       return cfHelper.fetchUser(cfGuid, userName).then(user => {
+        console.log('NDT: User: ' + user.metadata.guid);
         expect(user).toBeTruthy();
         userGuid = user.metadata.guid;
       });
     });
   }, 75000);
+
+  afterEach(() => {
+    console.log('NDT: Finished test');
+  });
 
   const timeout = 100000;
   extendE2ETestTime(timeout);
@@ -53,7 +65,8 @@ describe('Manage Users Stepper', () => {
   // Note - Test are sequential, all are required in the stated order
 
   it('Open stepper and check initial state', () => {
-    const cfPage = CfTopLevelPage.forEndpoint(cfGuid);
+    // const cfPage = CfTopLevelPage.forEndpoint(cfGuid); // Removed: Too many users in environment
+    const cfPage = CfSpaceLevelPage.forEndpoint(cfGuid, orgGuid, spaceGuid);
     cfPage.navigateTo();
     cfPage.goToUsersTab();
 
@@ -77,7 +90,9 @@ describe('Manage Users Stepper', () => {
         browser.wait(until.visibilityOf(usersButton));
         usersButton.click();
 
-        manageUsersPage = new ManagerUsersPage(cfGuid, null, null, userGuid);
+        manageUsersPage = new ManagerUsersPage(cfGuid, orgGuid, null, userGuid);
+        console.log('NDT: URL = ' + manageUsersPage.navLink);
+        manageUsersPage.navigateTo();
         manageUsersPage.waitForPage();
         expect(manageUsersPage.stepper.getActiveStepName()).toBe('Select Roles');
 
@@ -88,18 +103,16 @@ describe('Manage Users Stepper', () => {
         managerUsersStepper = manageUsersPage.stepper;
 
         orgsList.waitUntilShown();
-        modifyStep.setOrg(orgName);
+        // modifyStep.setOrg(orgName);
         // ... check button state
         expect(managerUsersStepper.canPrevious()).toBeFalsy();
         expect(managerUsersStepper.canCancel()).toBeTruthy();
         expect(managerUsersStepper.canNext()).toBeFalsy();
-
         // ... check org state
         orgManagerCheckbox = modifyStep.getOrgManagerCheckbox();
         orgAuditorCheckbox = modifyStep.getOrgAuditorCheckbox();
         orgBillingManagerCheckbox = modifyStep.getOrgBillingManagerCheckbox();
         orgUserCheckbox = modifyStep.getOrgUserCheckbox();
-
         expect(orgManagerCheckbox.isDisabled()).toBeFalsy();
         expect(orgManagerCheckbox.isChecked()).toBeTruthy();
         expect(orgAuditorCheckbox.isDisabled()).toBeFalsy();
@@ -108,7 +121,6 @@ describe('Manage Users Stepper', () => {
         expect(orgBillingManagerCheckbox.isChecked()).toBeFalsy();
         expect(orgUserCheckbox.isDisabled()).toBeTruthy();
         expect(orgUserCheckbox.isChecked()).toBeTruthy();
-
         // ... check space state
         expect(spacesList.getTotalResults()).toBe(1);
         expect(spacesList.table.getCell(0, 0).getText()).toBe(spaceName);
@@ -121,14 +133,16 @@ describe('Manage Users Stepper', () => {
         expect(spaceAuditorCheckbox.isChecked()).toBeTruthy();
         expect(spaceDeveloperCheckbox.isDisabled()).toBeFalsy();
         expect(spaceDeveloperCheckbox.isChecked()).toBeTruthy();
-
         // ... check button state on toggle changes
         orgManagerCheckbox.getComponent().click();
         expect(managerUsersStepper.canNext()).toBeTruthy();
         orgManagerCheckbox.getComponent().click();
         expect(managerUsersStepper.canNext()).toBeFalsy();
       })
-      .catch(err => fail(err));
+      .catch(err => {
+        console.log('NDT: In the catch block');
+        fail(err);
+      });
 
   });
 
@@ -183,7 +197,7 @@ describe('Manage Users Stepper', () => {
     managerUsersStepper.next();
     expect(managerUsersStepper.getActiveStepName()).toBe('Confirm');
 
-    // Wait until all of the spinners have gone
+    // Wait until all the spinners have gone
     const spinners = element.all(by.tagName('mat-progress-spinner'));
     browser.wait(() => spinners.isPresent().then(present => !present));
 

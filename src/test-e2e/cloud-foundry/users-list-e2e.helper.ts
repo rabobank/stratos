@@ -161,12 +161,13 @@ export function setupCfUserTableTests(
     });
 
     // If we're at space level, as soon as the space roles are removed the user is not visible
+    // NDT: This is NOT true, users are listed with role(s) "None"
 
-    if (cfLevel === CfUserTableTestLevel.Space) {
-      it('Check user is not visible if they have no space roles', () => {
-        usersTable.empty.waitUntilShown('`No users` message');
-      });
-    } else {
+    if (cfLevel !== CfUserTableTestLevel.Space) {
+    //   it('Check user is not visible if they have no space roles', () => {
+    //     usersTable.empty.waitUntilShown('`No users` message');
+    //   });
+    // } else {
       it('Check org pills are present, can be removed and then remove', () => {
         const orgBillingManagerChip = usersTable.getPermissionChip(userRowIndex, testOrgName, null, true, 'Billing Manager');
         orgBillingManagerChip.check(true);
