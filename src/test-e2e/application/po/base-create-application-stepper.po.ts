@@ -6,6 +6,7 @@ export enum APPLICATION_CREATION_TYPES {
   DEPLOY = 'application-deploy',
   DEPLOY_URL = 'application-deploy-url',
   SHELL = 'application-shell',
+  LOCAL = 'application-archive',
   DOCKER = 'application-docker'
 }
 export class BaseCreateApplicationStepper {
@@ -15,6 +16,9 @@ export class BaseCreateApplicationStepper {
       case APPLICATION_CREATION_TYPES.SHELL:
         this.tiles.select('Application Shell');
         return new CreateApplicationShellStepper();
+      case APPLICATION_CREATION_TYPES.LOCAL:
+        this.tiles.select('Application Archive');
+        return new DeployApplication();
       case APPLICATION_CREATION_TYPES.DEPLOY:
         this.tiles.select('GitHub');
         return new DeployApplication();

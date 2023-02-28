@@ -13,6 +13,10 @@ export class CreateApplication extends Page {
     return this.baseStepper.selectCreationType(APPLICATION_CREATION_TYPES.SHELL) as CreateApplicationShellStepper;
   }
 
+  public selectLocal() {
+    return this.baseStepper.selectCreationType(APPLICATION_CREATION_TYPES.LOCAL) as DeployApplication;
+  }
+
   public selectDeploy() {
     return this.baseStepper.selectCreationType(APPLICATION_CREATION_TYPES.DEPLOY) as DeployApplication;
   }

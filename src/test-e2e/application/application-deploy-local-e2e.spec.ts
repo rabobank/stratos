@@ -23,7 +23,9 @@ const spaceName = e2e.secrets.getDefaultCFEndpoint().testSpace;
 let applicationZipFile;
 
 describe('Application Deploy - ', () => {
-  const testAppName = ApplicationE2eHelper.createApplicationName();
+  // NDT: Create app go-env for test later, do not use createApplicationName
+  // const testAppName = ApplicationE2eHelper.createApplicationName();
+  const testAppName = 'go-env';
   const appDetails = {
     cfGuid: '',
     appGuid: ''
@@ -61,7 +63,7 @@ describe('Application Deploy - ', () => {
   });
 
   // Allow up to 2 minutes for the application to be deployed
-  xdescribe('Should deploy app from local archive file', () => {
+  describe('Should deploy app from local archive file', () => {
 
     let deployApp: DeployApplication;
 
@@ -77,12 +79,15 @@ describe('Application Deploy - ', () => {
       appWall.waitForPage();
       const baseCreateAppStep = appWall.clickCreateApp();
       baseCreateAppStep.waitForPage();
-      deployApp = baseCreateAppStep.selectDeploy();
+      // NDT: Deploy = from github. But we want local
+      // deployApp = baseCreateAppStep.selectDeploy();
+      // NDT: Create new selection for local = application archive
+      deployApp = baseCreateAppStep.selectLocal();
     });
 
     it('Should deploy app', () => {
 
-      expect(deployApp.header.getTitleText()).toBe('Deploy');
+      expect(deployApp.header.getTitleText()).toBe('Deploy from Application Archive');
       // Fill in form
       deployApp.stepper.getStepperForm().fill({ 'cf': cfName });
       deployApp.stepper.getStepperForm().fill({ 'org': orgName });
@@ -95,7 +100,7 @@ describe('Application Deploy - ', () => {
       // Select 'Local Archive file'
       const stepperForm = deployApp.stepper.getStepperForm();
       stepperForm.waitUntilShown();
-      stepperForm.fill({ 'sourcetype': 'Application Archive File' });
+      // stepperForm.fill({ 'sourcetype': 'Application Archive File' });
       const fileInputElement = element(by.id('localPathSelectFile'));
       browser.wait(until.presenceOf(fileInputElement));
       fileInputElement.sendKeys(applicationZipFile);
@@ -150,6 +155,9 @@ describe('Application Deploy - ', () => {
     });
   });
 
-  afterAll(() => applicationE2eHelper.deleteApplication(null, { appName: testAppName }));
+  // NDT: App is needed later (Create Service Instance with binding), do not delete
+  // NDT: TODO This should not be commented out.
+  // NDT: "Create Service Instance with binding" should have its own app deployed
+  // afterAll(() => applicationE2eHelper.deleteApplication(null, { appName: testAppName }));
 
 });
