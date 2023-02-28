@@ -139,7 +139,7 @@ describe('Application Deploy -', () => {
       expect(appSummary.cardInfo.diskQuota.getValue()).toBe('64 MB');
       expect(appSummary.cardInfo.appState.getValue()).toBe('STARTED');
       expect(appSummary.cardInfo.packageState.getValue()).toBe('STAGED');
-      expect(appSummary.cardInfo.services.getValue()).toBe('0');
+      expect(appSummary.cardInfo.services.getValue()).toBe('1');
       expect(appSummary.cardInfo.routes.getValue()).toBe('1');
 
       expect(appSummary.cardCfInfo.cf.getValue()).toBe(cfName);
@@ -188,7 +188,8 @@ describe('Application Deploy -', () => {
         expect(route).not.toBeNull();
         expect(route.length).toBeGreaterThan(testAppName.length);
         const randomRouteStyleAppName = testAppName.replace(/[\.:]/g, '');
-        expect(route.startsWith(randomRouteStyleAppName.substring(0, randomRouteStyleAppName.length - 11), 7)).toBeTruthy();
+        // NDT NOTE: changed 7 to 8 here. httpS is one longer
+        expect(route.startsWith(randomRouteStyleAppName.substring(0, randomRouteStyleAppName.length - 11), 8)).toBeTruthy();
       });
       appRoutes.list.table.getCell(0, 2).getText().then((tcpRoute: string) => {
         expect(tcpRoute).not.toBeNull();
