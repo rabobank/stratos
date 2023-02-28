@@ -26,7 +26,7 @@ export function createApplicationDeployTests(type = CREATE_APP_DEPLOY_TEST_TYPE.
   dockerUrl: string,
 } {
   const res = {
-    testApp: e2e.secrets.getDefaultCFEndpoint().testDeployApp || 'nwmac/cf-quick-app',
+    testApp: e2e.secrets.getDefaultCFEndpoint().testDeployApp || 'rabobank/cf-quick-app',
     testAppName: ApplicationE2eHelper.createApplicationName(),
     deployedCommit: null,
     appDetails: {
