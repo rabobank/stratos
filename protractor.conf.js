@@ -75,6 +75,10 @@ const fullSuite = globby.sync([
   './src/test-e2e/**/*-e2e.spec.ts',
 ]);
 
+const shortTest = globby.sync([
+  './src/test-e2e/cloud-foundry/manage-users-stepper-e2e.spec.ts'
+]);
+
 const longSuite = globby.sync([
   './src/test-e2e/application/application-delete-e2e.spec.ts',
   './src/test-e2e/application/application-deploy-e2e.spec.ts',
@@ -141,6 +145,10 @@ const config = {
   suites: {
     e2e: globby.sync([
       ...fullSuite,
+      ...excludeTests
+    ]),
+    shortTest: globby.sync([
+      ...shortTest,
       ...excludeTests
     ]),
     longSuite: globby.sync([
@@ -243,7 +251,7 @@ const config = {
 
     // Validate that the Github API url that the client will use during e2e tests is responding
     const githubApiUrl = secrets.stratosGitHubApiUrl || 'https://api.github.com';
-    const path = '/repos/nwmac/cf-quick-app';
+    const path = '/repos/rabobank/cf-quick-app';
     console.log(`Validating Github API Url Using: '${githubApiUrl + path}'`);
 
     // This chunk can disappear when we update node to include the version of http that accepts `get(url, option, callback)`
@@ -291,7 +299,7 @@ exports.config = config;
 // Should we run e2e tests in headless Chrome?
 const headless = secrets.headless || process.env['STRATOS_E2E_HEADLESS'];
 if (headless) {
-  exports.config.capabilities.chromeOptions.args = ['--headless', '--allow-insecure-localhost', '--disable-gpu', '--window-size=1366,768', '--no-sandbox'];
+  exports.config.capabilities.chromeOptions.args = ['--headless', '--allow-insecure-localhost', '--disable-gpu', '--window-size=1920,1080', '--no-sandbox'];
 }
 
 // Browserstack support
