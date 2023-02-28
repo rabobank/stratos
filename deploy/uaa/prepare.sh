@@ -15,7 +15,7 @@ TOMCAT_FILE=${DOWNLOAD_FOLDER}/apache-tomcat-8.0.28.tar.gz
 # Get war directly from Maven repository
 UAA_VERSION=4.19.0
 UAA_FILE=${DOWNLOAD_FOLDER}/cloudfoundry-identity-uaa-${UAA_VERSION}.war
-URL_URL=http://central.maven.org/maven2/org/cloudfoundry/identity/cloudfoundry-identity-uaa/${UAA_VERSION}/cloudfoundry-identity-uaa-${UAA_VERSION}.war
+URL_URL=https://repo.maven.apache.org/maven2/org/cloudfoundry/identity/cloudfoundry-identity-uaa/${UAA_VERSION}/cloudfoundry-identity-uaa-${UAA_VERSION}.war
 
 if [ ! -f ${TOMCAT_FILE} ]; then
   echo "Dowloading Apache Tomcat package"
@@ -24,5 +24,5 @@ fi
 
 if [ ! -f ${UAA_FILE} ]; then
   echo "Dowloading Cloud Foundry UAA package"
-  curl -L -o ${UAA_FILE} ${URL_URL}
+  curl -L -k -o ${UAA_FILE} ${URL_URL}
 fi
