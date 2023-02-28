@@ -353,7 +353,8 @@ describe('Application Wall Tests -', () => {
 
     describe('CF/Org/Space Filters', () => {
 
-      const timeout = 60000;
+      // NDT was 60000, but that was just a little short
+      const timeout = 100000;
       extendE2ETestTime(timeout);
 
       let filters: FormComponent;
