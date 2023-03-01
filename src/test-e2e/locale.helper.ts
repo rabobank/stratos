@@ -13,8 +13,6 @@ export class LocaleHelper {
     return this.getLocale().then((wLocale: string) => {
       moment.locale(wLocale);
       console.log('getWindowLocaleData: Current LOCALE Setting: ' + wLocale);
-      console.log('getWindowLocaleData: Setting Local hardcoded: en-GB' );
-      moment.locale('en-GB');
       return moment.localeData();
     });
   }

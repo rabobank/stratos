@@ -299,7 +299,7 @@ exports.config = config;
 // Should we run e2e tests in headless Chrome?
 const headless = secrets.headless || process.env['STRATOS_E2E_HEADLESS'];
 if (headless) {
-  exports.config.capabilities.chromeOptions.args = ['--headless', '--allow-insecure-localhost', '--disable-gpu', '--window-size=1920,1080', '--no-sandbox'];
+  exports.config.capabilities.chromeOptions.args = ['--headless', '--allow-insecure-localhost', '--disable-gpu', '--window-size=1920,1080', '--no-sandbox', '--lang=en-GB'];
 }
 
 // Browserstack support
