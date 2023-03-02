@@ -40,6 +40,16 @@ describe('Delete Service Instance', () => {
     const serviceInstanceName1 = servicesHelperE2E.createServiceInstanceName();
     names.push(serviceInstanceName1);
     console.log('NDT: Delete Service Instance: Name1: ' + serviceInstanceName1);
+
+    // NDT: This block does nothing useful, but leave it in, please
+    // NDT: On our linux server, the two call to createServiceInstanceName are executed within 1 ms and therefor had the same name.
+    // NDT: This block delyas just long enough to solve that
+    // NDT: Sleep functions in TS are async and can only be executed in async functions, so they don't help here
+    // NDT: If you know a better way to build in a short delay, please let me know
+    e2e.debugLog('Do Nothing, but delay a bit: 1');
+    e2e.debugLog('Do Nothing, but delay a bit: 2');
+    e2e.debugLog('Do Nothing, but delay a bit: 3');
+
     const serviceInstanceName2 = servicesHelperE2E.createServiceInstanceName();
     names.push(serviceInstanceName2);
     console.log('NDT: Delete Service Instance: Name2: ' + serviceInstanceName2);
