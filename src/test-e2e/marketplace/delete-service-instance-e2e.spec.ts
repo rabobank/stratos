@@ -39,8 +39,11 @@ describe('Delete Service Instance', () => {
 
     const serviceInstanceName1 = servicesHelperE2E.createServiceInstanceName();
     names.push(serviceInstanceName1);
+    console.log('NDT: Delete Service Instance: Name1: ' + serviceInstanceName1);
     const serviceInstanceName2 = servicesHelperE2E.createServiceInstanceName();
     names.push(serviceInstanceName2);
+    console.log('NDT: Delete Service Instance: Name2: ' + serviceInstanceName2);
+
 
     return promise.all([
       servicesHelperE2E.createServiceViaAPI(e2e.secrets.getDefaultCFEndpoint().services.publicService.name, serviceInstanceName1),
