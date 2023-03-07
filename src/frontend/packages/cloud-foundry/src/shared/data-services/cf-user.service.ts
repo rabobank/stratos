@@ -268,6 +268,7 @@ export class CfUserService {
     cfGuid: string
   ): Observable<UserRoleInSpace> => {
     return this.getUser(cfGuid, userGuid).pipe(
+      filter(user => !!user && !!user.metadata),
       map(user => {
         return createUserRoleInSpace(
           isSpaceManager(user.entity, spaceGuid),

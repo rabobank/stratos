@@ -76,7 +76,7 @@ const fullSuite = globby.sync([
 ]);
 
 const shortTest = globby.sync([
-  './src/test-e2e/cloud-foundry/manage-users-stepper-e2e.spec.ts'
+  './src/test-e2e/cloud-foundry/space-level/cf-space-level-e2e.spec.ts'
 ]);
 
 const longSuite = globby.sync([
