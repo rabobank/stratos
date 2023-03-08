@@ -45,10 +45,6 @@ describe('Manage Users Stepper', () => {
     });
   }, 75000);
 
-  afterEach(() => {
-    console.log('NDT: Finished test');
-  });
-
   const timeout = 100000;
   extendE2ETestTime(timeout);
 
