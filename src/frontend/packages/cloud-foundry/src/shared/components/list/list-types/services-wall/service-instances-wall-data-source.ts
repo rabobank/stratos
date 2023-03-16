@@ -23,7 +23,9 @@ import { createCfOrSpaceMultipleFilterFn } from '../../../../data-services/cf-or
 export class ServiceInstancesWallDataSource extends CFListDataSource<APIResource> {
   constructor(store: Store<CFAppState>, transformEntities: any[], listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType);
+    // @ts-ignore
     const marketplaceAction = cfEntityCatalog.serviceInstance.actions.getMultiple(null, paginationKey);
+    // @ts-ignore
     const userProvidedAction = cfEntityCatalog.userProvidedService.actions.getMultiple();
     const actionSchemaConfigs = [
       new ActionSchemaConfig(

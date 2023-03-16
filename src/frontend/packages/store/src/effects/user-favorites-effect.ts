@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, first, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
@@ -40,7 +40,8 @@ export class UserFavoritesEffect {
   ) {
   }
 
-  @Effect() saveFavorite = this.actions$.pipe(
+  // @Effect() saveFavorite = this.actions$.pipe(
+  saveFavorite = createEffect( () => this.actions$.pipe(
     ofType<SaveUserFavoriteAction>(SaveUserFavoriteAction.ACTION_TYPE),
     mergeMap(action => {
       const actionType = 'update';
@@ -57,9 +58,10 @@ export class UserFavoritesEffect {
         })
       );
     })
-  );
+  ));
 
-  @Effect({ dispatch: false }) getFavorite$ = this.actions$.pipe(
+  // @Effect({ dispatch: false }) getFavorite$ = this.actions$.pipe(
+ getFavorite$ = createEffect(() => this.actions$.pipe(
     ofType<GetUserFavoritesAction>(GetUserFavoritesAction.ACTION_TYPE),
     switchMap((action: GetUserFavoritesAction) => {
       const favEntityKey = entityCatalog.getEntityKey(action);
@@ -86,9 +88,10 @@ export class UserFavoritesEffect {
         })
       );
     })
-  );
+  ));
 
-  @Effect() toggleFavorite = this.actions$.pipe(
+  // @Effect() toggleFavorite = this.actions$.pipe(
+  toggleFavorite = createEffect( () => this.actions$.pipe(
     ofType<ToggleUserFavoriteAction>(ToggleUserFavoriteAction.ACTION_TYPE),
     mergeMap(action =>
       this.userFavoriteManager.getIsFavoriteObservable(action.favorite).pipe(
@@ -102,9 +105,10 @@ export class UserFavoritesEffect {
         })
       )
     )
-  );
+  ));
 
-  @Effect({ dispatch: false }) removeFavorite$ = this.actions$.pipe(
+  // @Effect({ dispatch: false }) removeFavorite$ = this.actions$.pipe(
+  removeFavorite$ = createEffect( () => this.actions$.pipe(
     ofType<RemoveUserFavoriteAction>(RemoveUserFavoriteAction.ACTION_TYPE),
     mergeMap((action: RemoveUserFavoriteAction) => {
       const actionType = 'update';
@@ -122,9 +126,10 @@ export class UserFavoritesEffect {
         })
       );
     })
-  );
+  ));
 
-  @Effect() updateMetadata$ = this.actions$.pipe(
+  // @Effect() updateMetadata$ = this.actions$.pipe(
+  updateMetadata$ = createEffect( () => this.actions$.pipe(
     ofType<UpdateUserFavoriteMetadataAction>(UpdateUserFavoriteMetadataAction.ACTION_TYPE),
     mergeMap((action: UpdateUserFavoriteMetadataAction) => {
       const actionType = 'update';
@@ -144,10 +149,10 @@ export class UserFavoritesEffect {
         })
       );
     })
-  );
+  ));
 
-  @Effect()
-  entityDeleteRequest$ = this.actions$.pipe(
+  // @Effect()
+  entityDeleteRequest$ = createEffect( () => this.actions$.pipe(
     ofType<EntityDeleteCompleteAction>(EntityDeleteCompleteAction.ACTION_TYPE),
     withLatestFrom(this.store),
     mergeMap(([action, appState]) => {
@@ -159,6 +164,6 @@ export class UserFavoritesEffect {
       }
       return [];
     })
-  );
+  ));
 
 }

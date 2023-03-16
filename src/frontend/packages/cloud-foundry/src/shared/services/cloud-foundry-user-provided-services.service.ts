@@ -34,9 +34,11 @@ export class CloudFoundryUserProvidedServicesService {
   public getUserProvidedServices(cfGuid: string, spaceGuid?: string, relations = getUserProvidedServiceInstanceRelations)
     : Observable<APIResource<IUserProvidedServiceInstance>[]> {
 
+    // @ts-ignore
     const pagObs = cfEntityCatalog.userProvidedService.store.getAllInSpace.getPaginationService(
       cfGuid, spaceGuid, null, relations, true
     );
+    // @ts-ignore
     return combineLatest([
       pagObs.entities$, // Ensure entities is subbed to the fetch kicks off
       pagObs.fetchingEntities$
@@ -51,6 +53,7 @@ export class CloudFoundryUserProvidedServicesService {
     const parentSchemaKey = spaceGuid ? spaceEntityType : orgGuid ? organizationEntityType : 'cf';
     const uniqueKey = spaceGuid || orgGuid || cfGuid;
 
+    // @ts-ignore
     const action = cfEntityCatalog.userProvidedService.actions.getMultiple(
       createEntityRelationPaginationKey(parentSchemaKey, uniqueKey),
       cfGuid,
@@ -77,6 +80,7 @@ export class CloudFoundryUserProvidedServicesService {
     guid: string,
     data: IUserProvidedServiceInstanceData
   ): Observable<RequestInfoState> {
+    // @ts-ignore
     return cfEntityCatalog.userProvidedService.api.create<RequestInfoState>(
       cfGuid,
       guid,
@@ -87,9 +91,11 @@ export class CloudFoundryUserProvidedServicesService {
       map(([, newV]) => newV),
       first(),
       tap(v => {
+        // @ts-ignore
         if (!v.error) {
           // Problem - Lists with multiple actions aren't updated following the creation of an entity based on secondary action
           // Here the service instance list (1st action SI, 2nd action UPSI) isn't updated so manually do so
+          // @ts-ignore
           const serviceEntityConfig: EntityCatalogEntityConfig = cfEntityCatalog.serviceInstance.actions.getMultiple('', '', {});
           this.store.dispatch(new ClearPaginationOfType(serviceEntityConfig));
         }
@@ -102,6 +108,7 @@ export class CloudFoundryUserProvidedServicesService {
     guid: string,
     data: Partial<IUserProvidedServiceInstanceData>,
   ): Observable<ActionState> {
+    // @ts-ignore
     return cfEntityCatalog.userProvidedService.api.update<ActionState>(guid, cfGuid, data).pipe(
       pairwise(),
       filter(([oldV, newV]) => oldV.busy && !newV.busy),

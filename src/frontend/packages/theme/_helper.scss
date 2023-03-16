@@ -1,7 +1,7 @@
 // Stratos Theme Helper
 
 @use "sass:color";
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 @import './mat-themes';
 @import './mat-colors';
 
@@ -75,17 +75,17 @@ $oss-dark-theme: mat-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-w
   $foreground-colors: map-get($theme, foreground);
   $is-dark: map-get($theme, is-dark);
   $app-background-color: white;
-  $app-background-text-color: rgba(mat-color($foreground-colors, base), .65);
+  $app-background-text-color: rgba(mat.color($foreground-colors, base), .65);
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
-  $subdued: mat-contrast($primary, 50);
+  $subdued: mat.contrast($primary, 50);
 
   @if $is-dark == true {
-    $app-background-color: lighten(mat-color($background-colors, background), 10%);
+    $app-background-color: lighten(mat.color($background-colors, background), 10%);
     $subdued: lighten($subdued, 90);
   } @else {
-    $app-background-color: darken(mat-color($background-colors, background), 2%);
+    $app-background-color: darken(mat.color($background-colors, background), 2%);
     $subdued: lighten($subdued, 50);
   }
 
@@ -94,24 +94,24 @@ $oss-dark-theme: mat-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-w
     theme: $theme,
     app-theme: (
       app-background-color: $app-background-color,
-      app-background-text-color: rgba(mat-color($foreground-colors, base), .65),
+      app-background-text-color: rgba(mat.color($foreground-colors, base), .65),
       side-nav: app-generate-nav-theme($theme, $nav-theme),
       status: app-generate-status-theme($theme, $status-theme),
       subdued-color: $subdued,
       ansi-colors: $ansi-color-palette,
-      header-background-color: mat-color($primary),
-      header-foreground-color: mat-contrast($primary, 500),
+      header-background-color: mat.color($primary),
+      header-foreground-color: mat.contrast($primary, 500),
       header-border-color: none,
       stratos-title-show-text: false,
       // Does the header background color span across the top, or is the sidenav background color used for the top-left portion
       header-background-span: false,
       // Background colors to use for things like the about page header (underflow)
-      underflow-background-color: mat-color($primary),
-      underflow-foreground-color: mat-contrast($primary, 500),
-      link-color: mat-color($primary),
-      link-active-color: mat-color($primary, 700),
-      user-avatar-background-color: mat-color($primary),
-      user-avatar-foreground-color: mat-contrast($primary, 500),
+      underflow-background-color: mat.color($primary),
+      underflow-foreground-color: mat.contrast($primary, 500),
+      link-color: mat.color($primary),
+      link-active-color: mat.color($primary, 700),
+      user-avatar-background-color: mat.color($primary),
+      user-avatar-foreground-color: mat.contrast($primary, 500),
       user-avatar-underflow-invert-colors: true,
       user-avatar-header-invert-colors: true,
       intro-screen-background-color: null
@@ -142,6 +142,6 @@ $oss-dark-theme: mat-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-w
     $warn: map-get($theme, warn);
     $primary: map-get($theme, primary);
     $white: #fff; // Use default palette for status
-    @return (success: map-get($mat-green, 500), info: map-get($mat-blue, 500), warning: map-get($mat-orange, 500), danger: mat-color($warn), tentative: map-get($mat-grey, 500), busy: mat-color($primary), text: $white, );
+    @return (success: map-get($mat-green, 500), info: map-get($mat-blue, 500), warning: map-get($mat-orange, 500), danger: mat.color($warn), tentative: map-get($mat-grey, 500), busy: mat.color($primary), text: $white, );
   }
 }

@@ -107,8 +107,10 @@ export class GitSCMTabComponent implements OnInit, OnDestroy {
       first(),
       switchMap((stProject: EnvVarStratosProject) => {
         const gitRepInfoMeta: GitMeta = this.createBaseGitMeta(stProject);
+        // @ts-ignore
         return gitEntityCatalog.repo.store.getRepoInfo.getEntityService(gitRepInfoMeta).entityObs$;
       }),
+      // @ts-ignore
       map(entity => entity.entity ? true : entity.entityRequestInfo.error ? false : undefined),
       startWith(undefined),
       publishReplay(1),
@@ -127,15 +129,19 @@ export class GitSCMTabComponent implements OnInit, OnDestroy {
     );
 
     this.gitSCMRepo$ = blockedOnRepo$.pipe(
+      // @ts-ignore
       map(([, baseGitMeta]) => gitEntityCatalog.repo.store.getRepoInfo.getEntityService(baseGitMeta)),
       switchMap(repoService => repoService.waitForEntity$),
+      // @ts-ignore
       map(p => p.entity)
     );
 
     this.gitSCMRepoErrorSub = this.hasRepo$.pipe(
       filter(hasRepo => hasRepo === false),
       switchMap(() => coreInfo$),
+      // @ts-ignore
       switchMap(([, baseGitMeta]) => gitEntityCatalog.repo.store.getRepoInfo.getEntityService(baseGitMeta).entityMonitor.entityRequest$),
+      // @ts-ignore
       map(request => request.message),
       distinctUntilChanged(),
       withLatestFrom(coreInfo$)

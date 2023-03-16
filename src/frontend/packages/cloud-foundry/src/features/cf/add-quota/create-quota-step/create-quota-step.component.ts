@@ -38,13 +38,17 @@ export class CreateQuotaStepComponent {
 
   submit: StepOnNextFunction = () => {
     const formValues = this.form.formGroup.value;
+    // @ts-ignore
     return cfEntityCatalog.quotaDefinition.api.create<RequestInfoState>(formValues.name, this.cfGuid, formValues).pipe(
       pairwise(),
       filter(([oldV, newV]) => oldV.creating && !newV.creating),
       map(([, newV]) => newV),
       map(requestInfo => ({
+        // @ts-ignore
         success: !requestInfo.error,
+        // @ts-ignore
         redirect: !requestInfo.error,
+        // @ts-ignore
         message: requestInfo.error ? `Failed to create quota: ${requestInfo.message}` : ''
       }))
     );

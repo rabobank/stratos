@@ -150,6 +150,7 @@ export class DashboardBaseComponent implements OnInit, OnDestroy, AfterViewInit 
     });
 
     this.dispatchRelations();
+    // @ts-ignore
     stratosEntityCatalog.userFavorite.api.getAll();
   }
 

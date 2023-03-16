@@ -22,6 +22,7 @@ import {
 export class DetachAppsDataSource extends ListDataSource<APIResource> {
   constructor(cfGuid: string, serviceInstanceGuid: string, store: Store<CFAppState>, listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(serviceBindingEntityType, serviceInstanceGuid);
+    // @ts-ignore
     const getAppServiceBindingsAction = cfEntityCatalog.serviceBinding.actions.getAllForServiceInstance(
       serviceInstanceGuid, cfGuid, paginationKey, {
         includeRelations: [

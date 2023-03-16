@@ -59,13 +59,17 @@ export class EditQuotaStepComponent implements OnDestroy {
   validate = () => this.form && this.form.valid();
 
   submit: StepOnNextFunction = () =>
+    // @ts-ignore
     cfEntityCatalog.quotaDefinition.api.update<ActionState>(this.quotaGuid, this.cfGuid, this.form.formGroup.value).pipe(
       pairwise(),
       filter(([oldV, newV]) => oldV.busy && !newV.busy),
       map(([, newV]) => newV),
       map(requestInfo => ({
+        // @ts-ignore
         success: !requestInfo.error,
+        // @ts-ignore
         redirect: !requestInfo.error,
+        // @ts-ignore
         message: requestInfo.error ? `Failed to update quota: ${requestInfo.message}` : ''
       }))
     );

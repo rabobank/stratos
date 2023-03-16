@@ -64,13 +64,17 @@ export class EditSpaceQuotaStepComponent implements OnDestroy {
   validate = () => !!this.form && this.form.valid();
 
   submit: StepOnNextFunction = () =>
+    // @ts-ignore
     cfEntityCatalog.spaceQuota.api.update<ActionState>(this.spaceQuotaGuid, this.cfGuid, this.form.formGroup.value).pipe(
       pairwise(),
       filter(([oldV, newV]) => oldV.busy && !newV.busy),
       map(([, newV]) => newV),
       map(requestInfo => ({
+        // @ts-ignore
         success: !requestInfo.error,
+        // @ts-ignore
         redirect: !requestInfo.error,
+        // @ts-ignore
         message: requestInfo.error ? `Failed to update space quota: ${requestInfo.message}` : ''
       }))
     );

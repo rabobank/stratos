@@ -1,6 +1,6 @@
 @mixin app-card-boolean-metric-theme($theme, $app-theme) {
   $status-colors: map-get($app-theme, status);
-  $subdued: mat-color($app-theme, subdued-color);
+  $subdued: mat.color($app-theme, subdued-color);
   .boolean-metric-card {
     &__icon,
     &__anchor,

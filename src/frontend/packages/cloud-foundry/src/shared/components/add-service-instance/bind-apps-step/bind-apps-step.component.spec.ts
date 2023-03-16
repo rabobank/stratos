@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+// import { MaterialDesignFrameworkModule } from '@ajsf/material';
 
 import { PaginationMonitorFactory } from '../../../../../../store/src/monitors/pagination-monitor.factory';
 import {
@@ -23,7 +23,7 @@ describe('BindAppsStepComponent', () => {
       ],
       imports: [
         generateCfBaseTestModulesNoShared(),
-        MaterialDesignFrameworkModule
+        // MaterialDesignFrameworkModule
       ],
       providers: [
         { provide: ServicesService, useClass: ServicesServiceMock },

@@ -58,8 +58,8 @@
   // Override hover color for context menu to align with Stratos theme
   // Monaco doesn't seem to expose this as a theme colour
   .monaco-editor .monaco-menu .action-item.focused a.action-menu-item {
-    background: mat-color($background, 'hover') !important;
-    color: mat-color($foreground, 'text') !important;
+    background: mat.color($background, 'hover') !important;
+    color: mat.color($foreground, 'text') !important;
   }
 
 }

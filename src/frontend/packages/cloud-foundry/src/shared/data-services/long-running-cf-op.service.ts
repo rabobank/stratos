@@ -28,6 +28,7 @@ export class LongRunningCfOperationsService extends LongRunningOperationsService
      Please refresh the service instance list to check it's status`;
     // Also attempt to fetch the service instance, this will update the `last operation` value to `update` and `in progress`
     this.snackBarService.show(message, 'Dismiss');
+    // @ts-ignore
     cfEntityCatalog.serviceInstance.api.get(serviceInstanceGuid, cfGuid);
   }
 
@@ -36,6 +37,7 @@ export class LongRunningCfOperationsService extends LongRunningOperationsService
      Please refresh the service instance list to check it's status`;
     this.snackBarService.show(message, 'Dismiss');
     // Also attempt to fetch the service instance, this will update the `last operation` value to `delete` and `in progress`
+    // @ts-ignore
     cfEntityCatalog.serviceInstance.api.get(serviceInstanceGuid, cfGuid);
   }
 

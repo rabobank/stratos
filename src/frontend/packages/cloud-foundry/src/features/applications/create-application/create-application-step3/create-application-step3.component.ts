@@ -90,6 +90,7 @@ export class CreateApplicationStep3Component implements OnInit {
     const { cloudFoundry, space } = cloudFoundryDetails;
     const newAppGuid = name + space;
 
+    // @ts-ignore
     const obs$ = cfEntityCatalog.application.api.create<RequestInfoState>(
       newAppGuid,
       cloudFoundry, {
@@ -109,6 +110,7 @@ export class CreateApplicationStep3Component implements OnInit {
     const newRouteGuid = hostName + selectedDomainGuid;
 
     if (shouldCreate) {
+      // @ts-ignore
       const obs$ = cfEntityCatalog.route.api.create<RequestInfoState>(
         newRouteGuid,
         cloudFoundry,
@@ -127,6 +129,7 @@ export class CreateApplicationStep3Component implements OnInit {
   }
 
   associateRoute(appGuid: string, routeGuid: string, endpointGuid: string): Observable<RequestInfoState> {
+    // @ts-ignore
     const obs$ = cfEntityCatalog.application.api.assignRoute<ActionState>(endpointGuid, routeGuid, appGuid).pipe(
       map((actionState: ActionState): RequestInfoState => ({
         creating: actionState.busy,

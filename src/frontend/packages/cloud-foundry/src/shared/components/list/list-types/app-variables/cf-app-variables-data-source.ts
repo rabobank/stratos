@@ -31,6 +31,7 @@ export class CfAppVariablesDataSource extends ListDataSource<ListAppEnvVar, APIR
     appService: ApplicationService,
     listConfig: IListConfig<ListAppEnvVar>,
   ) {
+    // @ts-ignore
     const getAppEnvVarsAction = cfEntityCatalog.appEnvVar.actions.getMultiple(appService.appGuid, appService.cfGuid);
 
     super({
@@ -58,6 +59,7 @@ export class CfAppVariablesDataSource extends ListDataSource<ListAppEnvVar, APIR
   }
 
   saveAdd() {
+    // @ts-ignore
     cfEntityCatalog.appEnvVar.api.addNewToApplication(this.appGuid, this.cfGuid, this.transformedEntities, this.addItem);
 
     super.saveAdd();
@@ -68,6 +70,7 @@ export class CfAppVariablesDataSource extends ListDataSource<ListAppEnvVar, APIR
   }
 
   saveEdit() {
+    // @ts-ignore
     cfEntityCatalog.appEnvVar.api.editInApplication(this.appGuid, this.cfGuid, this.transformedEntities, this.editRow);
 
     super.saveEdit();

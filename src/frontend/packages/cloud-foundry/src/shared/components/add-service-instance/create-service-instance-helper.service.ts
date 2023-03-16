@@ -81,12 +81,15 @@ export class CreateServiceInstanceHelper {
     if (spaceGuid) {
       paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType, `${spaceGuid}-${servicePlanGuid}`);
       const q = [new QParam('service_plan_guid', servicePlanGuid, QParamJoiners.colon).toString()];
+      // @ts-ignore
       action = cfEntityCatalog.serviceInstance.actions.getAllInSpace(spaceGuid, cfGuid, paginationKey, q);
     } else if (servicePlanGuid) {
       paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType, servicePlanGuid);
+      // @ts-ignore
       action = cfEntityCatalog.serviceInstance.actions.getAllInServicePlan(servicePlanGuid, cfGuid, paginationKey);
     } else {
       paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType, cfGuid);
+      // @ts-ignore
       action = cfEntityCatalog.serviceInstance.actions.getMultiple(cfGuid, paginationKey);
     }
     return getPaginationObservables<APIResource<IServiceInstance>>({

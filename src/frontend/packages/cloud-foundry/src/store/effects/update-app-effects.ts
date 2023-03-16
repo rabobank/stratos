@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import { mergeMap } from 'rxjs/operators';
 
 import { WrapperRequestActionSuccess } from '../../../../store/src/types/request.types';
@@ -15,7 +15,8 @@ export class UpdateAppEffects {
   ) {
   }
 
-  @Effect() UpdateAppInStore$ = this.actions$.pipe(
+  // @Effect() UpdateAppInStore$ = this.actions$.pipe(
+  UpdateAppInStore$ = createEffect(() => this.actions$.pipe(
     ofType<WrapperRequestActionSuccess>(CF_APP_UPDATE_SUCCESS),
     mergeMap((action: WrapperRequestActionSuccess) => {
       const updateAction = action.apiAction as UpdateExistingApplication;
@@ -25,9 +26,11 @@ export class UpdateAppEffects {
         switch (updateEntity) {
           case AppMetadataTypes.ENV_VARS:
             // This is done so the app metadata env vars environment_json matches that of the app
+            // @ts-ignore
             actions.push(cfEntityCatalog.appEnvVar.actions.getMultiple(action.apiAction.guid, action.apiAction.endpointGuid));
             break;
           case AppMetadataTypes.STATS:
+            // @ts-ignore
             const statsAction = cfEntityCatalog.appStats.actions.getMultiple(
               action.apiAction.guid,
               action.apiAction.endpointGuid as string
@@ -42,11 +45,12 @@ export class UpdateAppEffects {
             }
             break;
           case AppMetadataTypes.SUMMARY:
+            // @ts-ignore
             actions.push(cfEntityCatalog.appSummary.actions.get(action.apiAction.guid, action.apiAction.endpointGuid));
             break;
         }
       });
 
       return actions;
-    }));
+    })));
 }

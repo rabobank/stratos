@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { JsonPointer } from '@cfstratos/ajsf-core';
+// import { JsonPointer } from '@ajsf/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -142,13 +142,15 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
     if (!formValidationErrors) {
       return null;
     }
-    return formValidationErrors.reduce((a, c) => {
-      const arrMessage = JsonPointer.parse(c.dataPath).reduce((aa, cc) => {
-        const dd = /^\d+$/.test(cc) ? `[${cc}]` : `.${cc}`;
-        return aa + dd;
-      }, '');
-      return `${a} ${arrMessage} ${c.message} <br>`;
-    }, '');
+// NDT take out for now, what are the consequences???
+    return null;
+  //   return formValidationErrors.reduce((a, c) => {
+  //     const arrMessage = JsonPointer.parse(c.dataPath).reduce((aa, cc) => {
+  //       const dd = /^\d+$/.test(cc) ? `[${cc}]` : `.${cc}`;
+  //       return aa + dd;
+  //     }, '');
+  //     return `${a} ${arrMessage} ${c.message} <br>`;
+  //   }, '');
   };
 
 }

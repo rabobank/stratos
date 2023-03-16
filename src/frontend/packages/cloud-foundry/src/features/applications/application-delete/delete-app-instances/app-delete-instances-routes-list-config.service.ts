@@ -56,6 +56,7 @@ export class AppDeleteServiceInstancesListConfigService extends AppServiceBindin
         return observableOf({});
       }
       if (!this.obsCache[serviceBinding.entity.service_instance_guid]) {
+        // @ts-ignore
         const action = cfEntityCatalog.serviceBinding.actions.getAllForServiceInstance(
           serviceBinding.entity.service_instance_guid,
           appService.cfGuid,

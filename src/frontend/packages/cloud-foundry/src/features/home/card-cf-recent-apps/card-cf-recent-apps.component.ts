@@ -87,6 +87,7 @@ export class CardCfRecentAppsComponent implements OnInit {
     if (!this.noStats) {
       recentApps.forEach(app => {
         if (app.entity.state === 'STARTED') {
+          // @ts-ignore
           cfEntityCatalog.appStats.api.getMultiple(app.metadata.guid, this.endpoint);
         }
       });

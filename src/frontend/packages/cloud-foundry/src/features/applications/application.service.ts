@@ -142,13 +142,16 @@ export class ApplicationService {
     const moreWaiting$ = this.app$.pipe(
       filter(entityInfo => !!(entityInfo.entity && entityInfo.entity.entity && entityInfo.entity.entity.cfGuid)),
       map(entityInfo => entityInfo.entity.entity));
+    // @ts-ignore
     this.appSpace$ = moreWaiting$.pipe(
       first(),
       switchMap(app => {
+        // @ts-ignore
         return cfEntityCatalog.space.store.getWithOrganization.getEntityService(
           app.space_guid,
           app.cfGuid,
         ).waitForEntity$.pipe(
+          // @ts-ignore
           map(entityInfo => entityInfo.entity)
         );
       }),
@@ -220,8 +223,10 @@ export class ApplicationService {
 
     // In an ideal world we'd get domains inline with the application, however the inline path from app to org domains exceeds max cf depth
     // of 2 (app --> space --> org --> domains).
+    // @ts-ignore
     this.orgDomains$ = this.appOrg$.pipe(
       switchMap(org =>
+        // @ts-ignore
         cfEntityCatalog.domain.store.getOrganizationDomains.getPaginationService(org.metadata.guid, this.cfGuid).entities$
       ),
       publishReplay(1),
@@ -283,6 +288,7 @@ export class ApplicationService {
     updatedApplication: UpdateApplication,
     updateEntities?: AppMetadataTypes[],
     existingApplication?: IApp): Observable<ActionState> {
+    // @ts-ignore
     return cfEntityCatalog.application.api.update<ActionState>(
       this.appGuid,
       this.cfGuid,

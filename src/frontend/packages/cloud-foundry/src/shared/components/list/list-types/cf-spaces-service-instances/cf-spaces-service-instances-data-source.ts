@@ -26,6 +26,7 @@ import { cfEntityFactory } from '../../../../../cf-entity-factory';
 export class CfSpacesServiceInstancesDataSource extends ListDataSource<APIResource> {
   constructor(cfGuid: string, spaceGuid: string, store: Store<CFAppState>, listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(spaceEntityType, spaceGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.serviceInstance.actions.getAllInSpace(spaceGuid, cfGuid, paginationKey, null, {
       includeRelations: [
         createEntityRelationKey(serviceInstancesEntityType, serviceBindingEntityType),

@@ -24,6 +24,7 @@ export class EndpointsDataSource extends BaseEndpointsDataSource {
     super(
       store,
       listConfig,
+      // @ts-ignore
       stratosEntityCatalog.endpoint.actions.getAll(),
       null,
       paginationMonitorFactory,

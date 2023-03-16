@@ -61,6 +61,7 @@ export class UserProfileService {
 
   fetchUserProfile() {
     // Once we have the user's guid, fetch their profile
+    // @ts-ignore
     this.userGuid$.pipe(first()).subscribe(userGuid => stratosEntityCatalog.userProfile.api.get(userGuid));
   }
 
@@ -117,7 +118,9 @@ export class UserProfileService {
       this.setPrimaryEmailAddress(updatedProfile, profileChanges.emailAddress);
     }
 
+    // @ts-ignore
     return stratosEntityCatalog.userProfile.api.updateProfile<ActionState>(updatedProfile, profileChanges.currentPassword).pipe(
+      // @ts-ignore
       filter(item => item && !item.busy)
     );
   }
@@ -127,7 +130,9 @@ export class UserProfileService {
       oldPassword: profileChanges.currentPassword,
       password: profileChanges.newPassword
     };
+    // @ts-ignore
     return stratosEntityCatalog.userProfile.api.updatePassword<ActionState>(profile.id, passwordUpdates).pipe(
+      // @ts-ignore
       filter(item => item && !item.busy)
     );
   }

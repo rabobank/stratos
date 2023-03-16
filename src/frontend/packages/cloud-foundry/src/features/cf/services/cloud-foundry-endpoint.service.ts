@@ -70,6 +70,7 @@ export class CloudFoundryEndpointService {
     const paginationKey = cfGuid ?
       createEntityRelationPaginationKey(endpointEntityType, cfGuid)
       : createEntityRelationPaginationKey(endpointEntityType);
+    // @ts-ignore
     const getAllOrganizationsAction = cfEntityCatalog.org.actions.getMultiple(cfGuid, paginationKey,
       {
         includeRelations: [
@@ -85,6 +86,7 @@ export class CloudFoundryEndpointService {
     const paginationKey = cfGuid ?
       createEntityRelationPaginationKey(endpointEntityType, cfGuid)
       : createEntityRelationPaginationKey(endpointEntityType);
+    // @ts-ignore
     const getAllOrganizationsAction = cfEntityCatalog.org.actions.getMultiple(cfGuid, paginationKey,
       {
         includeRelations: [
@@ -228,14 +230,17 @@ export class CloudFoundryEndpointService {
   }
 
   public fetchDomains() {
+    // @ts-ignore
     cfEntityCatalog.domain.api.getMultiple(this.cfGuid, null, {});
   }
 
   public deleteOrg(orgGuid: string, endpointGuid: string) {
+    // @ts-ignore
     cfEntityCatalog.org.api.remove(orgGuid, endpointGuid);
   }
 
   fetchApps() {
+    // @ts-ignore
     cfEntityCatalog.application.api.getMultiple(this.cfGuid);
   }
 

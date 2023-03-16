@@ -97,6 +97,7 @@ export class CloudFoundryOrganizationService {
   }
 
   public deleteSpace(spaceGuid: string, orgGuid: string, endpointGuid: string) {
+    // @ts-ignore
     cfEntityCatalog.space.api.remove(spaceGuid, endpointGuid, { orgGuid });
   }
 

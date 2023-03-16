@@ -2,7 +2,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Params, RouteReuseStrategy, RouterStateSnapshot } from '@angular/router';
-import { DefaultRouterStateSerializer, RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { FullRouterStateSerializer, RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { getGitHubAPIURL, GITHUB_API_URL } from '@stratosui/git';
@@ -107,7 +107,7 @@ class AppStoreDebugModule { }
     LoginModule,
     HomeModule,
     DashboardModule,
-    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }), // Create action for router navigation
+    StoreRouterConnectingModule.forRoot({ serializer: FullRouterStateSerializer }), // Create action for router navigation
     AboutModule,
     CustomImportModule,
     XSRFModule,
@@ -264,6 +264,7 @@ export class AppModule {
         if (this.metadataHasChanged(favorite.metadata, newMetadata)) {
           const fav = this.userFavoriteManager.getUserFavoriteFromObject(favorite);
           fav.metadata = newMetadata;
+          // @ts-ignore
           stratosEntityCatalog.userFavorite.api.updateFavorite(fav);
         }
       }

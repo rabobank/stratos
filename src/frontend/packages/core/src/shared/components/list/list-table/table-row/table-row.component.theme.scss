@@ -5,12 +5,12 @@
   $info-color: map-get($status-colors, info);
   $text-color: map-get($status-colors, text);
   $primary: map-get($theme, primary);
-  $primary-color: mat-color($primary);
+  $primary-color: mat.color($primary);
   $foreground: map-get($theme, foreground);
   .table-row {
-    border-bottom-color: mat-color($foreground, divider);
+    border-bottom-color: mat.color($foreground, divider);
     &.in-expanded-row {
-      border-left-color: mat-color($foreground, divider);
+      border-left-color: mat.color($foreground, divider);
     }
 
     &__inner {

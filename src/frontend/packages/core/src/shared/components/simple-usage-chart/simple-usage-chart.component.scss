@@ -23,7 +23,8 @@
     $line-height: 30px;
     align-items: baseline;
     display: flex;
-    margin-top: -#{$line-height / 2};
+    //margin-top: -#{$line-height / 2};
+    margin-top: -#calc(line-height / 2);
     position: absolute;
     top: 50%;
     &-count {

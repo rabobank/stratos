@@ -33,6 +33,7 @@ export class CfAppMapRoutesListConfigService extends CfAppRoutesListConfigServic
     currentUserPermissionsService: CurrentUserPermissionsService,
   ) {
     const spaceGuid = activatedRoute.snapshot.queryParamMap.get('spaceGuid');
+    // @ts-ignore
     const action = cfEntityCatalog.route.actions.getAllInSpace(
       spaceGuid,
       appService.cfGuid,

@@ -280,10 +280,13 @@ export class SpecifyUserProvidedDetailsComponent implements OnDestroy {
     return this.modeService.createApplicationServiceBinding(serviceGuid, data.cfGuid, data.bindAppGuid, data.bindAppParams)
       .pipe(
         map(req => {
+          // @ts-ignore
           if (!req.success) {
+            // @ts-ignore
             return { success: false, message: `Failed to create service instance binding: ${req.message}` };
           } else {
             // Refetch env vars for app, since they have been changed by CF
+            // @ts-ignore
             cfEntityCatalog.appEnvVar.api.getMultiple(data.bindAppGuid, data.cfGuid);
             return { success: true, redirect: true };
           }

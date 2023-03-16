@@ -151,6 +151,7 @@ export class CsiModeService {
   public createApplicationServiceBinding(serviceInstanceGuid: string, cfGuid: string, appGuid: string, params: object) {
 
     const guid = `${cfGuid}-${appGuid}-${serviceInstanceGuid}`;
+    // @ts-ignore
     return cfEntityCatalog.serviceBinding.api.create<RequestInfoState>(
       guid,
       cfGuid,
@@ -160,7 +161,9 @@ export class CsiModeService {
       filter(([oldS, newS]) => oldS.creating && !newS.creating),
       map(([, newS]) => newS),
       map(req => {
+        // @ts-ignore
         if (req.error) {
+          // @ts-ignore
           return { success: false, message: `Failed to create service instance binding: ${req.message}` };
         }
         return { success: true };

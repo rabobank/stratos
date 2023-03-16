@@ -18,6 +18,7 @@ import { CloudFoundrySpaceService } from '../../../../../features/cf/services/cl
 export class CfSpaceAppsDataSource extends ListDataSource<APIResource> {
   constructor(store: Store<CFAppState>, cfSpaceService: CloudFoundrySpaceService, listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(spaceEntityType, cfSpaceService.spaceGuid) + '-tab';
+    // @ts-ignore
     const action = cfEntityCatalog.application.actions.getAllInSpace(
       cfSpaceService.spaceGuid,
       cfSpaceService.cfGuid,

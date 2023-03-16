@@ -312,10 +312,12 @@ export class SpecifyDetailsStepComponent implements OnDestroy, AfterContentInit 
         state.bindAppParams
       ).pipe(
         map(req => {
+          // @ts-ignore
           if (!req.success) {
             return req;
           } else {
             // Refetch env vars for app, since they have been changed by CF
+            // @ts-ignore
             cfEntityCatalog.appEnvVar.api.getMultiple(state.bindAppGuid, state.cfGuid);
             return this.routeToServices();
           }
@@ -414,12 +416,14 @@ export class SpecifyDetailsStepComponent implements OnDestroy, AfterContentInit 
     isEditMode: boolean
   ) {
     if (isEditMode) {
+      // @ts-ignore
       return cfEntityCatalog.serviceInstance.actions.update(
         newServiceInstanceGuid,
         cfGuid,
         { name, servicePlanGuid, spaceGuid, params, tags: tagsStr }
       );
     }
+    // @ts-ignore
     return cfEntityCatalog.serviceInstance.actions.create(
       newServiceInstanceGuid,
       cfGuid,
@@ -432,6 +436,7 @@ export class SpecifyDetailsStepComponent implements OnDestroy, AfterContentInit 
       if (!isEditMode) {
         // We need to re-fetch the Service Instance in case of creation because the entity returned is incomplete
         const guid = response.result[0];
+        // @ts-ignore
         cfEntityCatalog.serviceInstance.api.get(guid, cfGuid);
         return guid;
       }

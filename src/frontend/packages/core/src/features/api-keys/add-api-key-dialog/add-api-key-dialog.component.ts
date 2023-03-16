@@ -41,6 +41,7 @@ export class AddApiKeyDialogComponent implements OnDestroy {
   }
 
   submit() {
+    // @ts-ignore
     this.sub = stratosEntityCatalog.apiKey.api.create<RequestInfoState>(this.formGroup.controls.comment.value).pipe(
       tap(() => {
         this.isBusy.next(true);
@@ -50,11 +51,15 @@ export class AddApiKeyDialogComponent implements OnDestroy {
       filter(([oldR, newR]) => oldR.creating && !newR.creating),
       map(([, newR]) => newR),
       tap(state => {
+        // @ts-ignore
         if (state.error) {
+          // @ts-ignore
           this.hasErrored.next(`Failed to create key: ${state.message}`);
           this.isBusy.next(false);
         } else {
+          // @ts-ignore
           const response: NormalizedResponse<ApiKey> = state.response;
+          // @ts-ignore
           const entityKey = entityCatalog.getEntityKey(stratosEntityCatalog.apiKey.actions.create(''));
           this.dialogRef.close(response.entities[entityKey][response.result[0]]);
         }

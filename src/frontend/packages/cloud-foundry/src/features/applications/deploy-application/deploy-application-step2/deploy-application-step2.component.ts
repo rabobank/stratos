@@ -133,6 +133,7 @@ export class DeployApplicationStep2Component
   onNext: StepOnNextFunction = () => {
     // Set the details based on which source type is selected
     if (this.sourceType.group === 'gitscm') {
+      // @ts-ignore
       gitEntityCatalog.repo.store.getRepoInfo.getEntityService({
         projectName: this.repository,
         scm: this.scm,

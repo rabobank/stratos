@@ -30,6 +30,7 @@ export class CfSpaceRoutesDataSource extends CfRoutesDataSourceBase implements I
     cfGuid: string
   ) {
     const paginationKey = createEntityRelationPaginationKey(spaceEntityType, spaceGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.route.actions.getAllInSpace(
       spaceGuid, cfGuid, paginationKey, [
       createEntityRelationKey(routeEntityType, applicationEntityType),

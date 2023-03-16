@@ -179,12 +179,14 @@ export class ApplicationDeleteComponent<T> {
     this.instanceMonitor = instanceMonitor;
     this.routeMonitor = routeMonitor;
 
+    // @ts-ignore
     this.relatedEntities$ = combineLatest(instanceMonitor.currentPage$, routeMonitor.currentPage$).pipe(
       filter(([instances, routes]) => !!routes && !!instances),
       map(([instances, routes]) => ({ instances, routes })),
     );
 
     // Are we fetching application routes or service instances?
+    // @ts-ignore
     this.fetchingRelated$ = combineLatest(instanceMonitor.fetchingCurrentPage$, routeMonitor.fetchingCurrentPage$).pipe(
       map(([fetchingInstances, fetchingRoutes]) => fetchingInstances || fetchingRoutes),
       startWith(true)
@@ -201,6 +203,7 @@ export class ApplicationDeleteComponent<T> {
       startWith(true)
     );
 
+    // @ts-ignore
     cfEntityCatalog.application.api.get(applicationService.appGuid, applicationService.cfGuid, {});
   }
 
@@ -234,10 +237,12 @@ export class ApplicationDeleteComponent<T> {
     return {
       fetch: () => {
         this.store.dispatch(instanceAction);
+        // @ts-ignore
         cfEntityCatalog.route.api.getAllForApplication(appGuid, cfGuid);
       },
       monitors: {
         instanceMonitor,
+        // @ts-ignore
         routeMonitor: cfEntityCatalog.route.store.getAllForApplication.getPaginationMonitor(appGuid, cfGuid)
       }
     };
@@ -296,21 +301,27 @@ export class ApplicationDeleteComponent<T> {
       return this.redirectToAppWall();
     }
     this.deleteStarted = true;
+    // @ts-ignore
     return cfEntityCatalog.application.api.remove<RequestInfoState>(this.applicationService.appGuid, this.applicationService.cfGuid).pipe(
+      // @ts-ignore
       filter(request => !request.deleting.busy && (request.deleting.deleted || request.deleting.error)),
+      // @ts-ignore
       map((request) => ({ success: request.deleting.deleted })),
       tap(({ success }) => {
         if (success) {
           if (this.selectedRoutes && this.selectedRoutes.length) {
             this.selectedRoutes.forEach(route => {
+              // @ts-ignore
               cfEntityCatalog.route.api.delete(route.metadata.guid, this.applicationService.cfGuid, this.applicationService.appGuid);
             });
           }
           if (this.selectedServiceInstances && this.selectedServiceInstances.length) {
             this.selectedServiceInstances.forEach(instance => {
               if (isUserProvidedServiceInstance(instance.entity.service_instance.entity)) {
+                // @ts-ignore
                 cfEntityCatalog.userProvidedService.api.remove(instance.entity.service_instance_guid, this.applicationService.cfGuid);
               } else {
+                // @ts-ignore
                 cfEntityCatalog.serviceInstance.api.remove(instance.entity.service_instance_guid, this.applicationService.cfGuid);
               }
             });

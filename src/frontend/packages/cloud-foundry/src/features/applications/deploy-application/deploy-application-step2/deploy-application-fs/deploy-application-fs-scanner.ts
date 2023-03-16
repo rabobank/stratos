@@ -47,7 +47,8 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
   }
 
   isArchiveFile(fileName: string): boolean {
-    return archiveRegex.test(name);
+    // return archiveRegex.test(name);
+    return archiveRegex.test(fileName);
   }
 
   file(context: FileScannerFolderContext, file, path) {

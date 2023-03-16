@@ -7,7 +7,7 @@
   $status-tentative: map-get($status-colors, tentative);
   $colors: 'danger' $status-danger, 'warning' $status-warning, 'ok' $status-ok, 'unknown' $status-tentative;
   .simple-graph__wrapper {
-    color: transparentize(mat-color($foreground, text), .4);
+    color: transparentize(mat.color($foreground, text), .4);
    }
   .simple-usage-graph-color {
     @each $color in $colors {

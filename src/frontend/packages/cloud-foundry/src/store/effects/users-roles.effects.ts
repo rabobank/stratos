@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, combineLatest, Observable, of as observableOf, of } from 'rxjs';
 import { catchError, filter, first, map, mergeMap, pairwise, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -38,17 +38,22 @@ export class UsersRolesEffects {
     private cfUserService: CfUserService,
   ) { }
 
-  @Effect() getCurrentUsersPermissions$ = this.actions$.pipe(
-    ofType<GetCurrentCfUserRelations>(GET_CURRENT_CF_USER_RELATION),
-    map(action => {
-      return fetchCfUserRole(this.store, action, this.httpClient).pipe(
-        map(() => ({ type: action.actions[1] })),
-        catchError(() => [{ type: action.actions[2] }])
-      );
-    })
-  );
+  // @Effect() getCurrentUsersPermissions$ = this.actions$.pipe(
+  // @ts-ignore
+  getCurrentUsersPermissions$ = createEffect(() => {
+    this.actions$.pipe(
+      ofType<GetCurrentCfUserRelations>(GET_CURRENT_CF_USER_RELATION),
+      map(action => {
+        return fetchCfUserRole(this.store, action, this.httpClient).pipe(
+          map(() => ({ type: action.actions[1] })),
+          catchError(() => [{ type: action.actions[2] }])
+        );
+      })
+    )
+  });
 
-  @Effect() clearEntityUpdates$ = this.actions$.pipe(
+  // @Effect() clearEntityUpdates$ = this.actions$.pipe(
+  clearEntityUpdates$ = createEffect(() => this.actions$.pipe(
     ofType<UsersRolesClearUpdateState>(UsersRolesActions.ClearUpdateState),
     mergeMap(action => {
       const actions = [];
@@ -66,9 +71,10 @@ export class UsersRolesEffects {
       });
       return actions;
     })
-  );
+  ));
 
-  @Effect() executeUsersRolesChange$ = this.actions$.pipe(
+  // @Effect() executeUsersRolesChange$ = this.actions$.pipe(
+  executeUsersRolesChange$ = createEffect(() => this.actions$.pipe(
     ofType<UsersRolesExecuteChanges>(UsersRolesActions.ExecuteChanges),
     withLatestFrom(
       this.store.select(selectCfUsersRoles),
@@ -146,7 +152,7 @@ export class UsersRolesEffects {
       );
 
     }),
-  );
+  ));
 
   private createAllChanges(
     orgUserChanges: CfRoleChange[],

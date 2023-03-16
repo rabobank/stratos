@@ -21,6 +21,7 @@ import { cfEntityFactory } from '../../../../../cf-entity-factory';
 export class ServiceInstancesDataSource extends ListDataSource<APIResource> {
   constructor(cfGuid: string, serviceGuid: string, store: Store<CFAppState>, listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType, cfGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.serviceInstance.actions.getMultiple(cfGuid, paginationKey);
 
     super({

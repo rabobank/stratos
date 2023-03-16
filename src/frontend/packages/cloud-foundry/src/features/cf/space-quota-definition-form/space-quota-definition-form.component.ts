@@ -62,6 +62,7 @@ export class SpaceQuotaDefinitionFormComponent implements OnInit, OnDestroy {
   }
 
   fetchQuotasDefinitions() {
+    // @ts-ignore
     this.spaceQuotaDefinitions$ = cfEntityCatalog.spaceQuota.store.getAllInOrganization.getPaginationService(
       this.orgGuid,
       this.cfGuid,
@@ -69,7 +70,9 @@ export class SpaceQuotaDefinitionFormComponent implements OnInit, OnDestroy {
     ).entities$
       .pipe(
         filter(o => !!o),
+        // @ts-ignore
         map(o => o.map(org => org.entity.name)),
+        // @ts-ignore
         tap((o) => this.allQuotas = o)
       );
 

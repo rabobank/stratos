@@ -18,6 +18,7 @@ import { cfEntityFactory } from '../../../../../cf-entity-factory';
 export class CfSecurityGroupsDataSource extends ListDataSource<APIResource> {
   constructor(store: Store<CFAppState>, cfGuid: string, listConfig?: IListConfig<APIResource>) {
     const paginationKey = createEntityRelationPaginationKey(endpointEntityType, cfGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.securityGroup.actions.getMultiple(cfGuid, paginationKey, {});
     super({
       store,

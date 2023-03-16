@@ -100,6 +100,7 @@ function dispatchRoleRequests(
       store.dispatch(new GetCfUserRelations(endpoint.guid, GET_CURRENT_CF_USER_RELATIONS));
 
       // Dispatch feature flags fetch actions
+      // @ts-ignore
       const ffAction = cfEntityCatalog.featureFlag.actions.getMultiple(endpoint.guid);
       requests[endpoint.guid] = [createPaginationCompleteWatcher(store, ffAction)];
       store.dispatch(ffAction);

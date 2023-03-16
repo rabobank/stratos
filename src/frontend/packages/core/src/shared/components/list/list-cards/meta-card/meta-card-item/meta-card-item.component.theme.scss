@@ -1,6 +1,6 @@
 @mixin app-meta-card-item-theme($theme, $app-theme) {
   $backgrounds: map-get($theme, background);
-  $background: mat-color($backgrounds, card);
+  $background: mat.color($backgrounds, card);
 
   .meta-card-item-long-text-fixed {
     .meta-card-item__value {

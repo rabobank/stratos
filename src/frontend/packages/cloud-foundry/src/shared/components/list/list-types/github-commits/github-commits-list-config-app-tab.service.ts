@@ -144,8 +144,10 @@ export class GithubCommitsListConfigServiceAppTab extends GithubCommitsListConfi
   }
 
   private getCompareURL(sha: string): Observable<string> {
+    // @ts-ignore
     return gitEntityCatalog.repo.store.getRepoInfo.getEntityService(this.scmMeta).waitForEntity$.pipe(
       first(),
+      // @ts-ignore
       map(project => this.scm.getCompareCommitURL(project.entity.html_url, this.deployedCommitSha, sha))
     );
   }

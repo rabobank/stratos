@@ -126,12 +126,14 @@ export class AddServiceInstanceComponent implements OnDestroy, AfterContentInit 
       this.initialisedService$ = observableOf(true);
     }
 
+    // @ts-ignore
     this.apps$ = this.store.select(selectCreateServiceInstance).pipe(
       filter(csi => !!csi && !!csi.spaceGuid && !!csi.cfGuid),
       distinctUntilChanged((x, y) => x.cfGuid + x.spaceGuid === y.cfGuid + y.spaceGuid),
       switchMap(csi => {
         this.appsEmitted.next(false);
         const paginationKey = createEntityRelationPaginationKey(spaceEntityType, csi.spaceGuid);
+        // @ts-ignore
         return cfEntityCatalog.application.store.getAllInSpace.getPaginationService(
           csi.spaceGuid, csi.cfGuid, paginationKey
         ).entities$;

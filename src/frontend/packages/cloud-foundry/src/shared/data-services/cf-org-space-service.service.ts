@@ -280,6 +280,7 @@ export class CfOrgSpaceDataService implements OnDestroy {
   }
 
   private createOrgPaginationAction() {
+    // @ts-ignore
     return cfEntityCatalog.org.actions.getMultiple(null, CfOrgSpaceDataService.CfOrgSpaceServicePaginationKey, {
       includeRelations: [
         createEntityRelationKey(organizationEntityType, spaceEntityType),

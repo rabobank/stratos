@@ -36,6 +36,7 @@ export class ServicesWallService {
 
   getServicesInSpace = (cfGuid: string, spaceGuid: string) => {
     const paginationKey = this.getSpaceServicePagKey(cfGuid, spaceGuid);
+    // @ts-ignore
     return cfEntityCatalog.service.store.getAllInSpace.getPaginationService(cfGuid, paginationKey, spaceGuid).entities$;
   };
 }

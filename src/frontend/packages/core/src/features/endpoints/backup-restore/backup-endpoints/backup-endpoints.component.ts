@@ -84,10 +84,12 @@ export class BackupEndpointsComponent implements OnDestroy {
   }
 
   setupSelectStep() {
+    // @ts-ignore
     const endpointObs = stratosEntityCatalog.endpoint.store.getAll.getPaginationService();
 
     const endpoints$ = endpointObs.entities$.pipe(
       filter(entities => !!entities),
+      // @ts-ignore
       map(endpoints => endpoints.sort((a, b) => a.name.localeCompare(b.name)))
     );
 

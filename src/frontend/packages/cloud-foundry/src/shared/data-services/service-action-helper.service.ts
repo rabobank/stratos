@@ -43,6 +43,7 @@ export class ServiceActionHelperService {
       return;
     }
 
+    // @ts-ignore
     const action = cfEntityCatalog.serviceBinding.actions.remove(serviceBindings[0].metadata.guid, endpointGuid, { serviceInstanceGuid });
     if (!noConfirm) {
       const confirmation = new ConfirmationDialogConfig(
@@ -71,7 +72,9 @@ export class ServiceActionHelperService {
     };
 
     const action = userProvided ?
+      // @ts-ignore
       cfEntityCatalog.userProvidedService.actions.remove(serviceInstanceGuid, endpointGuid, serviceInstancesEntityConfig) :
+      // @ts-ignore
       cfEntityCatalog.serviceInstance.actions.remove(serviceInstanceGuid, endpointGuid);
 
     const confirmation = new ConfirmationDialogConfig(

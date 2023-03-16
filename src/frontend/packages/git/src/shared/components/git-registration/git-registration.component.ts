@@ -193,6 +193,7 @@ export class GitRegistrationComponent implements OnDestroy {
       this.registerForm.controls.skipSllField.value :
       false;
 
+    // @ts-ignore
     return stratosEntityCatalog.endpoint.api.register<ActionState>(GIT_ENDPOINT_TYPE, this.epSubType, name, url, skipSSL, '', '', false)
       .pipe(
         pairwise(),
@@ -200,19 +201,23 @@ export class GitRegistrationComponent implements OnDestroy {
         map(([, newVal]) => newVal),
         map(result => {
           const data: ConnectEndpointConfig = {
+            // @ts-ignore
             guid: result.message,
             name,
             type: GIT_ENDPOINT_TYPE,
             subType: this.epSubType,
             ssoAllowed: false
           };
+          // @ts-ignore
           if (!result.error) {
             this.snackBarService.show(`Successfully registered '${name}'`);
           }
+          // @ts-ignore
           const success = !result.error;
           return {
             success,
             redirect: false,
+            // @ts-ignore
             message: success ? '' : result.message,
             data
           };

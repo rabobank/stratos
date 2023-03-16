@@ -68,6 +68,7 @@ export class SelectServiceComponent implements OnDestroy, AfterContentInit {
       tap(([cfGuid]) => this.cfGuid = cfGuid),
       switchMap(([cfGuid, spaceGuid]) => this.servicesWallService.getServicesInSpace(cfGuid, spaceGuid)),
       filter(p => !!p),
+      // @ts-ignore
       map(services => services.sort((a, b) => a.entity.label.localeCompare(b.entity.label))),
       tap(services => {
         if (services.length === 1) {

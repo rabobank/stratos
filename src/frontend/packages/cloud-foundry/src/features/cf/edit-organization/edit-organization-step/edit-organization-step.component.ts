@@ -130,6 +130,7 @@ export class EditOrganizationStepComponent implements OnInit, OnDestroy {
   }
 
   submit: StepOnNextFunction = () => {
+    // @ts-ignore
     return cfEntityCatalog.org.api.update<ActionState>(this.orgGuid, this.cfGuid, {
       name: this.editOrgName.value.orgName,
       quota_definition_guid: this.editOrgName.value.quotaDefinition,
@@ -139,8 +140,11 @@ export class EditOrganizationStepComponent implements OnInit, OnDestroy {
       filter(([oldS, newS]) => oldS.busy && !newS.busy),
       map(([, newS]) => newS),
       map(o => ({
+        // @ts-ignore
         success: !o.error,
+        // @ts-ignore
         redirect: !o.error,
+        // @ts-ignore
         message: !o.error ? '' : `Failed to update organization: ${o.message}`
       }))
     );

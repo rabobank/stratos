@@ -52,6 +52,7 @@ export class ApiKeysPageComponent {
     }).afterClosed().pipe(
       map(newApiKey => {
         if (newApiKey && newApiKey.guid) {
+          // @ts-ignore
           stratosEntityCatalog.apiKey.api.getMultiple();
           return newApiKey;
         }

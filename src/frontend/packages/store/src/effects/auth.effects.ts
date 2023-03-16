@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
@@ -44,7 +44,8 @@ export class AuthEffect {
     private store: Store<DispatchOnlyAppState>,
   ) { }
 
-  @Effect() loginRequest$ = this.actions$.pipe(
+  // @Effect() loginRequest$ = this.actions$.pipe(
+  loginRequest$ = createEffect(() => this.actions$.pipe(
     ofType<Login>(LOGIN),
     switchMap(({ username, password }) => {
       const params = new HttpParams({
@@ -63,9 +64,10 @@ export class AuthEffect {
       }).pipe(
         map(data => new VerifySession()),
         catchError((err, caught) => [new LoginFailed(err)]));
-    }));
+    })));
 
-  @Effect() verifyAuth$ = this.actions$.pipe(
+  // @Effect() verifyAuth$ = this.actions$.pipe(
+  verifyAuth$ = createEffect( () => this.actions$.pipe(
     ofType<VerifySession>(VERIFY_SESSION),
     switchMap(action => {
       const headers = {
@@ -89,6 +91,7 @@ export class AuthEffect {
             sessionData.sessionExpiresOn = parseInt(response.headers.get('x-cap-session-expires-on'), 10) * 1000;
             LocalStorageService.localStorageToStore(this.store, sessionData);
             return [
+              // @ts-ignore
               stratosEntityCatalog.systemInfo.actions.getSystemInfo(true),
               new VerifiedSession(sessionData, action.updateEndpoints)
             ];
@@ -107,24 +110,27 @@ export class AuthEffect {
           const isDomainMismatch = this.isDomainMismatch(err.headers);
           return action.login ? [new InvalidSession(setupMode, isUpgrading, isDomainMismatch, ssoOptions)] : [new ResetAuth()];
         }));
-    }));
+    })));
 
-  @Effect() EndpointsSuccess$ = this.actions$.pipe(
+  // @Effect() EndpointsSuccess$ = this.actions$.pipe(
+  EndpointsSuccess$ = createEffect(() => this.actions$.pipe(
     ofType<GetAllEndpointsSuccess>(GET_ENDPOINTS_SUCCESS),
     mergeMap(action => {
       if (action.login) {
         return [new LoginSuccess()];
       }
       return [];
-    }));
+    })));
 
-  @Effect() invalidSessionAuth$ = this.actions$.pipe(
+  // @Effect() invalidSessionAuth$ = this.actions$.pipe(
+  invalidSessionAuth$ = createEffect( () => this.actions$.pipe(
     ofType<VerifySession>(SESSION_INVALID),
     map(() => {
       return new LoginFailed('Invalid session');
-    }));
+    })));
 
-  @Effect() logoutRequest$ = this.actions$.pipe(
+  // @Effect() logoutRequest$ = this.actions$.pipe(
+  logoutRequest$ = createEffect( () => this.actions$.pipe(
     ofType<Logout>(LOGOUT),
     switchMap(() => {
       return this.http.post('/pp/v1/auth/logout', {}).pipe(
@@ -136,22 +142,24 @@ export class AuthEffect {
           }
         }),
         catchError((err, caught) => [new LogoutFailed(err)]));
-    }));
+    })));
 
-  @Effect({ dispatch: false }) resetAuth$ = this.actions$.pipe(
+  // @Effect({ dispatch: false }) resetAuth$ = this.actions$.pipe(
+  resetAuth$ = createEffect( () => this.actions$.pipe(
     ofType<ResetAuth>(RESET_AUTH),
     tap(() => {
       // Ensure that we clear any path from the location (otherwise would be stored via auth gate as redirectPath for log in)
       window.location.assign(window.location.origin);
-    }));
+    })));
 
-  @Effect({ dispatch: false }) resetSSOAuth$ = this.actions$.pipe(
+  // @Effect({ dispatch: false }) resetSSOAuth$ = this.actions$.pipe(
+  resetSSOAuth$ = createEffect( ()  => this.actions$.pipe(
     ofType<ResetSSOAuth>(RESET_SSO_AUTH),
     tap(() => {
       // Ensure that we clear any path from the location (otherwise would be stored via auth gate as redirectPath for log in)
       const returnUrl = encodeURI(window.location.origin);
       window.open('/pp/v1/auth/sso_logout?state=' + returnUrl, '_self');
-    }));
+    })));
 
   private isDomainMismatch(headers): boolean {
     if (headers.has(DOMAIN_HEADER)) {

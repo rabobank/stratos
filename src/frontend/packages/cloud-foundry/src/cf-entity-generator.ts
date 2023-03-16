@@ -272,6 +272,7 @@ export function generateCFEntities(): StratosBaseCatalogEntity[] {
     },
     listDetailsComponent: CfEndpointDetailsComponent,
     renderPriority: 1,
+    // @ts-ignore
     healthCheck: new EndpointHealthCheck(CF_ENDPOINT_TYPE, (endpoint) => cfEntityCatalog.cfInfo.api.get(endpoint.guid)),
     getEndpointIdFromEntity: (entity: CfAPIResource) => entity.entity.cfGuid,
     globalPreRequest: (request, action) => {
@@ -1098,6 +1099,7 @@ function generateCfApplicationEntity(endpointDefinition: StratosEndpointExtensio
         }),
         getLink: favorite => `/applications/${favorite.endpointId}/${favorite.entityId}/summary`,
         getGuid: entity => entity.metadata.guid,
+        // @ts-ignore
         getIsValid: (fav) => cfEntityCatalog.application.api.get(fav.entityId, fav.endpointId, {}).pipe(entityFetchedWithoutError())
       },
       actionBuilders: applicationActionBuilder
@@ -1135,6 +1137,7 @@ function generateCfSpaceEntity(endpointDefinition: StratosEndpointExtensionDefin
         }),
         getLink: favorite => `/cloud-foundry/${favorite.endpointId}/organizations/${favorite.metadata.orgGuid}/spaces/${favorite.entityId}/summary`,
         getGuid: entity => entity.metadata.guid,
+        // @ts-ignore
         getIsValid: (fav) => cfEntityCatalog.space.api.get(fav.entityId, fav.endpointId).pipe(entityFetchedWithoutError())
       }
     }
@@ -1172,6 +1175,7 @@ function generateCfOrgEntity(endpointDefinition: StratosEndpointExtensionDefinit
         }),
         getLink: favorite => `/cloud-foundry/${favorite.endpointId}/organizations/${favorite.entityId}`,
         getGuid: entity => entity.metadata.guid,
+        // @ts-ignore
         getIsValid: (favorite) => cfEntityCatalog.org.api.get(favorite.entityId, favorite.endpointId, {}).pipe(entityFetchedWithoutError())
       }
     }

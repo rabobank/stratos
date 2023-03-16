@@ -29,6 +29,7 @@ export class ApiKeyListConfigService implements IListConfig<ApiKey> {
       );
       this.confirmDialog.open(
         confirmation,
+        // @ts-ignore
         () => stratosEntityCatalog.apiKey.api.delete(item.guid)
       );
     },
@@ -81,6 +82,7 @@ export class ApiKeyListConfigService implements IListConfig<ApiKey> {
     store: Store<AppState>,
     private confirmDialog: ConfirmationDialogService,
   ) {
+    // @ts-ignore
     const action = stratosEntityCatalog.apiKey.actions.getMultiple();
     action.initialParams = {
       'order-direction': 'desc' as SortDirection,

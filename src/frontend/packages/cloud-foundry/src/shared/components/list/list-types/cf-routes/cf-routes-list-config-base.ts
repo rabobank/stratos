@@ -132,6 +132,7 @@ export abstract class CfRoutesListConfigBase implements IListConfig<APIResource>
   private dispatchDeleteAction(route: APIResource<ListCfRoute>) {
     const appGuids = (route.entity.apps || []).map(app => app.metadata.guid);
     const singleApp = appGuids.length === 1;
+    // @ts-ignore
     cfEntityCatalog.route.api.delete(
       route.metadata.guid,
       this.cfGuid,
@@ -143,6 +144,7 @@ export abstract class CfRoutesListConfigBase implements IListConfig<APIResource>
 
   private dispatchUnmapAction(routeGuid: string, appGuids: string[]) {
     appGuids.forEach(appGuid => {
+      // @ts-ignore
       cfEntityCatalog.route.api.unmap(
         routeGuid,
         appGuid,

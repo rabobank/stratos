@@ -38,7 +38,7 @@ $menu-height: 140px;
       font-weight: normal;
       margin-bottom: .5em;
       font-size: 1.2em;
-      color: mat-color($monocular-app-primary);
+      color: mat.color($monocular-app-primary);
       a.active {
         font-weight: bold;
         color: $text-white;

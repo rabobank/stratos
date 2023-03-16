@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { environment } from 'frontend/packages/core/src/environments/environment';
 import { Observable } from 'rxjs';
@@ -45,8 +45,8 @@ export class WorkloadsEffects {
   proxyAPIVersion = environment.proxyAPIVersion;
 
 
-  @Effect()
-  fetchReleases$ = this.actions$.pipe(
+  // @Effect()
+  fetchReleases$ = createEffect(() => this.actions$.pipe(
     ofType<GetHelmReleases>(GET_HELM_RELEASES),
     flatMap(action => {
       const entityKey = entityCatalog.getEntityKey(action);
@@ -71,10 +71,10 @@ export class WorkloadsEffects {
         return processedData;
       }, []);
     })
-  );
+  ));
 
-  @Effect()
-  fetchHelmRelease$ = this.actions$.pipe(
+  // @Effect()
+  fetchHelmRelease$ = createEffect(() => this.actions$.pipe(
     ofType<GetHelmRelease>(GET_HELM_RELEASE),
     flatMap(action => {
       const entityKey = entityCatalog.getEntityKey(action);
@@ -93,10 +93,10 @@ export class WorkloadsEffects {
           return processedData;
         }, [action.endpointGuid]);
     })
-  );
+  ));
 
-  @Effect()
-  fetchHelmReleaseHistory$ = this.actions$.pipe(
+  // @Effect()
+  fetchHelmReleaseHistory$ = createEffect(() => this.actions$.pipe(
     ofType<GetHelmReleaseHistory>(GET_HELM_RELEASE_HISTORY),
     flatMap(action => {
       const entityKey = entityCatalog.getEntityKey(action);
@@ -129,16 +129,17 @@ export class WorkloadsEffects {
           return processedData;
         }, [action.endpointGuid]);
     })
-  );
+  ));
 
-  @Effect()
-  helmUpgrade$ = this.actions$.pipe(
+  // @Effect()
+  helmUpgrade$ = createEffect(() => this.actions$.pipe(
     ofType<UpgradeHelmRelease>(UPGRADE_HELM_RELEASE),
     flatMap(action => {
       const requestType: ApiRequestTypes = 'update';
       const url = `/pp/v1//helm/releases/${action.endpointGuid}/${action.namespace}/${action.releaseTitle}`;
       this.store.dispatch(new StartRequestAction(action, requestType));
       // Refresh the workload after upgrade
+      // @ts-ignore
       const fetchAction = workloadsEntityCatalog.release.actions.get(action.releaseTitle, action.endpointGuid,
         { namespace: action.namespace });
       return this.httpClient.post(url, action.values).pipe(
@@ -163,7 +164,7 @@ export class WorkloadsEffects {
         })
       );
     })
-  );
+  ));
 
   private mapHelmRelease(data, endpointId, guid: string) {
     const helmRelease: HelmRelease = {

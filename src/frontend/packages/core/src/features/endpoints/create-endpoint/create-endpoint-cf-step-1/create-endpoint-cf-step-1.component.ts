@@ -75,9 +75,12 @@ export class CreateEndpointCfStep1Component implements IStepperStep, AfterConten
       clientSecretField: ['', []],
     });
 
+    // @ts-ignore
     this.existingEndpoints = stratosEntityCatalog.endpoint.store.getAll.getPaginationMonitor().currentPage$.pipe(
       map(endpoints => ({
+        // @ts-ignore
         names: endpoints.map(ep => ep.name),
+        // @ts-ignore
         urls: endpoints.map(ep => getFullEndpointApiUrl(ep)),
       }))
     );
@@ -93,6 +96,7 @@ export class CreateEndpointCfStep1Component implements IStepperStep, AfterConten
 
   onNext: StepOnNextFunction = () => {
     const { subType, type } = this.endpoint.getTypeAndSubtype();
+    // @ts-ignore
     return stratosEntityCatalog.endpoint.api.register<ActionState>(
       type,
       subType,
@@ -108,19 +112,23 @@ export class CreateEndpointCfStep1Component implements IStepperStep, AfterConten
       map(([, newVal]) => newVal),
       map(result => {
         const data: ConnectEndpointConfig = {
+          // @ts-ignore
           guid: result.message,
           name: this.registerForm.value.nameField,
           type,
           subType,
           ssoAllowed: this.registerForm.value.ssoAllowedField ? !!this.registerForm.value.ssoAllowedField : false
         };
+        // @ts-ignore
         if (!result.error) {
           this.snackBarService.show(`Successfully registered '${this.registerForm.value.nameField}'`);
         }
+        // @ts-ignore
         const success = !result.error;
         return {
           success,
           redirect: success && this.finalStep,
+          // @ts-ignore
           message: success ? '' : result.message,
           data
         };

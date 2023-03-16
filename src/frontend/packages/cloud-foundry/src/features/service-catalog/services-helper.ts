@@ -76,6 +76,7 @@ export const fetchServiceInstancesCount = (
   paginationMonitorFactory: PaginationMonitorFactory): Observable<number> => {
   const parentSchemaKey = spaceGuid ? spaceEntityType : orgGuid ? organizationEntityType : 'cf';
   const uniqueKey = spaceGuid || orgGuid || cfGuid;
+  // @ts-ignore
   const action = cfEntityCatalog.serviceInstance.actions.getMultiple(
     cfGuid,
     createEntityRelationPaginationKey(parentSchemaKey, uniqueKey),
@@ -105,6 +106,7 @@ export const getServicePlans = (
   service$: Observable<APIResource<IService>>,
   cfGuid: string
 ): Observable<APIResource<IServicePlan>[]> => {
+  // @ts-ignore
   return service$.pipe(
     filter(p => !!p),
     switchMap(service => {
@@ -114,6 +116,7 @@ export const getServicePlans = (
         // Could be a space-scoped service, make a request to fetch the plan
         const guid = service.metadata.guid;
         const paginationKey = createEntityRelationPaginationKey(servicePlanEntityType, guid);
+        // @ts-ignore
         return cfEntityCatalog.servicePlan.store.getAllForServiceInstance.getPaginationService(
           guid, cfGuid, paginationKey
         ).entities$.pipe(share(), first());

@@ -33,6 +33,7 @@ export class GithubCommitsDataSource extends ListDataSource<GitCommit> {
       projectName,
       commitSha: sha
     };
+    // @ts-ignore
     const action = gitEntityCatalog.commit.actions.getMultiple(sha, null, gitMeta);
     const paginationKey = action.paginationKey;
     const rowsState = observableOf(commitSha ? {

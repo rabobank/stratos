@@ -44,6 +44,7 @@ export class RingChartComponent implements OnInit, OnChanges {
       // Not set yet, can't set colour without it
       return;
     }
+    // @ts-ignore
     this.colors = new ColorHelper(this.scheme, 'ordinal', this.domain, this.customColors || []);
   }
 

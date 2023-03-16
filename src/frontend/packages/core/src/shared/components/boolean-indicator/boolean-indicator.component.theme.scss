@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 @mixin app-boolean-indicator-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $status: map-get($app-theme, status);
@@ -8,7 +8,7 @@
       &__icon-true {
         color: map-get($status, success);
         &.boolean-indicator__container__icon-subtle {
-          color: mat-color($primary);
+          color: mat.color($primary);
         }
       }
       &__icon-false {

@@ -447,10 +447,12 @@ export class CfUserService {
   }
 
   private createCfGetAllUsersAction = (cfGuid: string): PaginatedAction => {
+    // @ts-ignore
     return cfEntityCatalog.user.actions.getMultiple(cfGuid, null);
   };
 
   private createOrgGetUsersAction = (isAdmin: boolean, cfGuid: string, orgGuid: string): PaginatedAction => {
+    // @ts-ignore
     return cfEntityCatalog.user.actions.getAllInOrganization(
       orgGuid,
       cfGuid,
@@ -460,6 +462,7 @@ export class CfUserService {
   };
 
   private createSpaceGetUsersAction = (isAdmin: boolean, cfGuid: string, spaceGuid: string): PaginatedAction => {
+    // @ts-ignore
     return cfEntityCatalog.user.actions.getAllInSpace(
       spaceGuid,
       cfGuid,

@@ -204,6 +204,7 @@ export class AddRoutesComponent implements OnInit, OnDestroy {
       path = '/' + path;
     }
 
+    // @ts-ignore
     return cfEntityCatalog.route.api.create<RequestInfoState>(
       newRouteGuid,
       this.cfGuid,
@@ -213,9 +214,12 @@ export class AddRoutesComponent implements OnInit, OnDestroy {
       filter(([oldR, newR]) => oldR.creating && !newR.creating),
       map(([, newR]) => newR),
       mergeMap(route => {
+        // @ts-ignore
         if (route.error) {
+          // @ts-ignore
           return observableOf({ success: false, message: `Failed to create route: ${route.message}` });
         } else {
+          // @ts-ignore
           return this.mapRoute(route.response.result[0]);
         }
       })
@@ -223,6 +227,7 @@ export class AddRoutesComponent implements OnInit, OnDestroy {
   }
 
   private mapRoute(routeGuid: string): Observable<StepOnNextResult> {
+    // @ts-ignore
     return cfEntityCatalog.application.api.assignRoute<ActionState>(this.cfGuid, routeGuid, this.appGuid).pipe(
       pairwise(),
       filter(([oldR, newR]) => oldR.busy && !newR.busy),
@@ -231,6 +236,7 @@ export class AddRoutesComponent implements OnInit, OnDestroy {
         if (requestState.error) {
           return { success: false, message: `Failed to associate route with app: ${requestState.error}` };
         }
+        // @ts-ignore
         cfEntityCatalog.route.api.getAllForApplication(this.appGuid, this.cfGuid);
         this.store.dispatch(new RouterNav({ path: ['/applications', this.cfGuid, this.appGuid, 'routes'] }));
         return { success: true };

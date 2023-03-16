@@ -33,6 +33,7 @@ export class ServicePlansDataSource extends ListDataSource<APIResource<IServiceP
   ) {
 
     const paginationKey = createEntityRelationPaginationKey(serviceInstancesEntityType, serviceGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.servicePlan.actions.getAllForServiceInstance(serviceGuid, cfGuid, paginationKey, [
       createEntityRelationKey(servicePlanEntityType, serviceEntityType),
     ]) as PaginatedAction;

@@ -22,6 +22,7 @@ export class CFEndpointsDataSource extends BaseEndpointsDataSource {
     entityMonitorFactory: EntityMonitorFactory,
     internalEventMonitorFactory: InternalEventMonitorFactory
   ) {
+    // @ts-ignore
     const action = stratosEntityCatalog.endpoint.actions.getAll();
     const paginationKey = 'cf-endpoints';
     // We do this here to ensure we sync up with main endpoint table data.

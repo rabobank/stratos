@@ -2,7 +2,7 @@
   $warn: map-get($theme, warn);
   .dialog-error {
     &__content {
-      color: mat-color($warn);
+      color: mat.color($warn);
     }
   }
 }

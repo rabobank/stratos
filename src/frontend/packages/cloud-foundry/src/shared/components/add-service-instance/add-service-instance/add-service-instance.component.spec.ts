@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+// import { MaterialDesignFrameworkModule } from '@ajsf/material';
 
 import {
   ApplicationStateIconComponent,
@@ -127,7 +127,7 @@ describe('AddServiceInstanceComponent', () => {
         ...generateCfBaseTestModulesNoShared(),
         PageHeaderModule,
         SteppersModule,
-        MaterialDesignFrameworkModule,
+        // MaterialDesignFrameworkModule,
       ],
       providers: [
         { provide: ServicesService, useClass: ServicesServiceMock },

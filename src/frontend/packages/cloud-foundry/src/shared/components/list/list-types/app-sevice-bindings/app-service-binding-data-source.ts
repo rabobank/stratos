@@ -27,6 +27,7 @@ export class AppServiceBindingDataSource extends ListDataSource<APIResource<ISer
   static createGetAllServiceBindings(appGuid: string, cfGuid: string) {
 
     const paginationKey = createEntityRelationPaginationKey(serviceBindingEntityType, appGuid);
+    // @ts-ignore
     return cfEntityCatalog.serviceBinding.actions.getAllForApplication(
       appGuid, cfGuid, paginationKey, {
         includeRelations: [

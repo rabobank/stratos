@@ -31,6 +31,7 @@ export class AddEditSpaceStepBase {
   ) {
     this.cfGuid = activeRouteCfOrgSpace.cfGuid;
     this.orgGuid = activeRouteCfOrgSpace.orgGuid;
+    // @ts-ignore
     this.allSpacesInOrg$ = cfEntityCatalog.space.store.getAllInOrganization.getPaginationService(
       this.orgGuid,
       this.cfGuid,
@@ -39,12 +40,15 @@ export class AddEditSpaceStepBase {
     }
     ).entities$.pipe(
       filter(spaces => !!spaces),
+      // @ts-ignore
       map(spaces => spaces.map(space => space.entity.name)),
+      // @ts-ignore
       tap(spaceNames => this.allSpacesInOrg = spaceNames),
       first(),
     );
     this.fetchSpacesSubscription = this.allSpacesInOrg$.subscribe();
 
+    // @ts-ignore
     this.quotaDefinitions$ = cfEntityCatalog.spaceQuota.store.getAllInOrganization.getPaginationService(
       this.orgGuid,
       this.cfGuid,

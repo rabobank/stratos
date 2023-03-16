@@ -69,6 +69,7 @@ export class ConnectEndpointService {
     ).subscribe(([oldVal, newVal]) => {
       if (!newVal.error && (oldVal.busy && !newVal.busy)) {
         // Has finished fetching
+        // @ts-ignore
         stratosEntityCatalog.endpoint.api.get(this.config.guid);
       }
     }));
@@ -134,6 +135,7 @@ export class ConnectEndpointService {
   public submit(): Observable<{ success: boolean, errorMessage: string }> {
     this.hasAttemptedConnect = true;
     const { authType, authVal, systemShared, bodyContent } = this.pData;
+    // @ts-ignore
     return stratosEntityCatalog.endpoint.api.connect<ActionState>(
       this.config.guid,
       this.config.type,
@@ -146,7 +148,9 @@ export class ConnectEndpointService {
       filter(([oldV, newV]) => oldV.busy && !newV.busy),
       map(([, newV]) => newV),
       map(updateSection => ({
+        // @ts-ignore
         success: !updateSection.error,
+        // @ts-ignore
         errorMessage: updateSection.message
       }))
     );

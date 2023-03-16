@@ -95,6 +95,7 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
     this.confirmDialog.open(
       confirmation,
       () => {
+        // @ts-ignore
         cfEntityCatalog.appEnvVar.api.removeFromApplication(
           this.envVarsDataSource.appGuid,
           this.envVarsDataSource.cfGuid,

@@ -123,6 +123,7 @@ export abstract class BaseEndpointTileManager {
   }
 
   protected expandEndpointTypes(endpointEntities: StratosCatalogEndpointEntity[]): Observable<ExpandedEndpoints> {
+    // @ts-ignore
     return stratosEntityCatalog.endpoint.store.getAll.getPaginationService().entities$.pipe(
       filter(endpoints => !!endpoints),
       map(endpoints => {
@@ -130,6 +131,7 @@ export abstract class BaseEndpointTileManager {
         return endpointEntities.reduce((res, endpointEntity) => {
           const { type: endpointType, subType: endpointSubType } = endpointEntity.getTypeAndSubtype();
           res.push({
+            // @ts-ignore
             current: endpoints.filter(em => em.cnsi_type === endpointType && em.sub_type === endpointSubType).length,
             limit: this.getEndpointRegisteredLimit(endpointEntity),
             definition: endpointEntity.definition

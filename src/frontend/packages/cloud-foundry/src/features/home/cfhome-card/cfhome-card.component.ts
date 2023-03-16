@@ -180,6 +180,7 @@ export class CFHomeCardComponent implements HomePageEndpointCard {
     if (this.appStatsToLoad.length > 0) {
       const app = this.appStatsToLoad.shift();
       if (app.entity.state === 'STARTED') {
+        // @ts-ignore
         cfEntityCatalog.appStats.api.getMultiple(app.metadata.guid, this.guid).pipe(
           map(a => a as ActionState),
           pairwise(),

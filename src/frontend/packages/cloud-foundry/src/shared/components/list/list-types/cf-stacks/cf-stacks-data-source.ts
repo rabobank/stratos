@@ -13,6 +13,7 @@ import { stackEntityType } from '../../../../../cf-entity-types';
 
 export class CfStacksDataSource extends ListDataSource<APIResource> {
   constructor(store: Store<CFAppState>, cfGuid: string, listConfig?: IListConfig<APIResource>) {
+    // @ts-ignore
     const action = cfEntityCatalog.stack.actions.getMultiple(null, cfGuid);
     super({
       store,

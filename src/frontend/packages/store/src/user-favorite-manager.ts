@@ -4,7 +4,10 @@ import { combineLatest, Observable, of } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { GeneralEntityAppState, IRequestEntityTypeState } from './app-state';
-import { StratosBaseCatalogEntity } from './entity-catalog/entity-catalog-entity/entity-catalog-entity';
+import {
+  KnownActionBuilders,
+  StratosBaseCatalogEntity
+} from './entity-catalog/entity-catalog-entity/entity-catalog-entity';
 import { EntityCatalogHelpers } from './entity-catalog/entity-catalog.helper';
 import { IEntityMetadata, IStratosEntityDefinition } from './entity-catalog/entity-catalog.types';
 import { EndpointModel, entityCatalog } from './public-api';
@@ -25,6 +28,8 @@ import {
   UserFavorite,
   UserFavoriteEndpoint,
 } from './types/user-favorites.types';
+import {OrchestratedActionBuilders} from "./entity-catalog/action-orchestrator/action-orchestrator";
+import {ActionDispatchers} from "./entity-catalog/entity-catalog-entity/entity-catalog-entity-store-helpers";
 
 
 interface IGroupedFavorites {
@@ -123,6 +128,7 @@ export class UserFavoriteManager {
   }
 
   public toggleFavorite(favorite: UserFavorite<IFavoriteMetadata>) {
+    // @ts-ignore
     stratosEntityCatalog.userFavorite.api.toggle(favorite);
   }
 

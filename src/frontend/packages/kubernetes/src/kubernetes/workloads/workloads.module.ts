@@ -1,6 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+// import { MaterialDesignFrameworkModule } from '@ajsf/material';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 
@@ -42,7 +42,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     WorkloadsRouting,
     NgxGraphModule,
     KubernetesModule,
-    MaterialDesignFrameworkModule,
+    // MaterialDesignFrameworkModule,
     MonacoEditorModule.forRoot(monacoConfig),
   ],
   declarations: [

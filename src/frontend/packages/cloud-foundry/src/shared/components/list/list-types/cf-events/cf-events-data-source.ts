@@ -29,6 +29,7 @@ export class CfEventsDataSource extends ListDataSource<APIResource> {
       actee
     );
 
+    // @ts-ignore
     const action = cfEntityCatalog.event.actions.getMultiple(cfGuid, paginationKey);
 
     action.initialParams.q = CfEventsDataSource.createInitialQParams(

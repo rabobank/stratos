@@ -43,7 +43,7 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   @Input() gradient: boolean;
   @Input() showGridLines = true;
   @Input() activeEntries: any[] = [];
-  @Input() schemeType: string;
+  // @Input() schemeType: string;
   @Input() xAxisTickFormatting: any;
   @Input() yAxisTickFormatting: any;
   @Input() roundDomains = false;
@@ -344,6 +344,7 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
       domain = this.yDomain;
     }
     this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
+    // @ts-ignore
     this.colorsLine = new ColorHelper(this.colorSchemeLine, this.schemeType, domain, this.customColors);
     this.colorsExtra = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
   }
@@ -377,6 +378,7 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
     opts.colors.customColors = this.legendData;
     this.legendData.map((item) => {
       opts.colors.colorDomain.push(item.value);
+      // @ts-ignore
       opts.colors.domain.push(item.name);
       opts.domain.push(item.name);
     });

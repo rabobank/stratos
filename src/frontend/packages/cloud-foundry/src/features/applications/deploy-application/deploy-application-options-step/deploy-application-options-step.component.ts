@@ -125,9 +125,11 @@ export class DeployApplicationOptionsStepComponent implements OnInit, OnDestroy 
     // Create the domains list for the domains drop down
     this.domains$ = cfDetails$.pipe(
       switchMap(cfDetails =>
+        // @ts-ignore
         cfEntityCatalog.domain.store.getOrganizationDomains.getPaginationService(cfDetails.org, cfDetails.cloudFoundry).entities$
       ),
       // cf push overrides do not support tcp routes (no way to specify port)
+      // @ts-ignore
       map(domains => domains.filter(domain => domain.entity.router_group_type !== 'tcp')),
       share()
     );

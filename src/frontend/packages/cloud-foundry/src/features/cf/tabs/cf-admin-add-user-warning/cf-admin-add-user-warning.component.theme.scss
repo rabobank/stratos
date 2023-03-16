@@ -6,7 +6,7 @@
   .user-warning {
     background-color: lighten($warning, 45%);
     @if $is-dark == true {
-      color: mat-color($background-colors, background);
+      color: mat.color($background-colors, background);
     }
   }
 }

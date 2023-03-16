@@ -52,6 +52,7 @@ export class CfAppsDataSource extends CFListDataSource<APIResource> {
     cfGuid?: string
   ) {
     const syncNeeded = paginationKey !== seedPaginationKey;
+    // @ts-ignore
     const action = cfEntityCatalog.application.actions.getMultiple(cfGuid, CfAppsDataSource.paginationKey, {
       includeRelations: CfAppsDataSource.includeRelations,
     });
@@ -105,6 +106,7 @@ export class CfAppsDataSource extends CFListDataSource<APIResource> {
           if (app.entity.state === 'STARTED') {
             actions.push({
               id: app.metadata.guid,
+              // @ts-ignore
               action: cfEntityCatalog.appStats.actions.getMultiple(app.metadata.guid, app.entity.cfGuid)
             });
           }

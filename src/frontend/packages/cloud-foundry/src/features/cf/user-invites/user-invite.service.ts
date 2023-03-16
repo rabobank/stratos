@@ -69,6 +69,7 @@ export class UserInviteConfigureService {
     const url = `/pp/${proxyAPIVersion}/invite/${cfGUID}`;
     const obs$ = this.http.post(url, formData).pipe(
       map(v => {
+        // @ts-ignore
         stratosEntityCatalog.systemInfo.api.getSystemInfo();
         return {
           error: false
@@ -98,6 +99,7 @@ export class UserInviteConfigureService {
       const url = `/pp/${proxyAPIVersion}/invite/${cfGUID}`;
       this.http.delete(url).pipe(
         map(v => {
+          // @ts-ignore
           stratosEntityCatalog.systemInfo.api.getSystemInfo();
           return {
             error: false,

@@ -130,9 +130,12 @@ export class BuildTabComponent implements OnInit {
       map(project => {
         const scmType = project.deploySource.scm || project.deploySource.type;
         const scm = this.scmService.getSCM(scmType as GitSCMType, project.deploySource.endpointGuid);
+        // @ts-ignore
+
         return gitEntityCatalog.repo.store.getRepoInfo.getEntityService({ projectName: project.deploySource.project, scm });
       }),
       switchMap(repoService => repoService.waitForEntity$),
+      // @ts-ignore
       map(p => p.entity)
     );
 
@@ -223,6 +226,7 @@ export class BuildTabComponent implements OnInit {
 
   private dispatchAppStats = () => {
     const { cfGuid, appGuid } = this.applicationService;
+    // @ts-ignore
     cfEntityCatalog.appStats.api.getMultiple(appGuid, cfGuid);
   };
 
@@ -283,6 +287,7 @@ export class BuildTabComponent implements OnInit {
     this.updateApp(appStopConfirmation, 'stopping', 'STOPPED', () => {
       // On app reaching the 'STOPPED' state clear the app's stats pagination section
       const { cfGuid, appGuid } = this.applicationService;
+      // @ts-ignore
       const getAppStatsAction = cfEntityCatalog.appStats.actions.getMultiple(appGuid, cfGuid);
       this.store.dispatch(new ResetPagination(getAppStatsAction, getAppStatsAction.paginationKey));
     });
@@ -292,6 +297,7 @@ export class BuildTabComponent implements OnInit {
     const { cfGuid, appGuid } = this.applicationService;
     this.confirmAndPollForState(
       appRestageConfirmation,
+      // @ts-ignore
       () => cfEntityCatalog.application.api.restage(appGuid, cfGuid),
       'starting',
       'STARTED',

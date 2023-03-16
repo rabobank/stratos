@@ -40,11 +40,13 @@ export class TableCellServiceBrokerComponent extends
       );
       this.spaceLink$ = this.broker$.pipe(
         filter(broker => !!broker.entity.space_guid),
+        // @ts-ignore
         switchMap(broker => cfEntityCatalog.space.store.getWithOrganization.getEntityService(
           broker.entity.space_guid,
           broker.entity.cfGuid
         ).waitForEntity$
         ),
+        // @ts-ignore
         map(e => e.entity),
         map(space => ({
           name: space.entity.name,

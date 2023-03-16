@@ -72,8 +72,10 @@ export class ApplicationPollingService {
     this.applicationService.entityService.entityObs$.pipe(
       first(),
     ).subscribe(resource => {
+      // @ts-ignore
       cfEntityCatalog.appSummary.api.get(appGuid, cfGuid);
       if (resource && resource.entity && resource.entity.entity && resource.entity.entity.state === 'STARTED') {
+        // @ts-ignore
         cfEntityCatalog.appStats.api.getMultiple(appGuid, cfGuid);
       }
     });

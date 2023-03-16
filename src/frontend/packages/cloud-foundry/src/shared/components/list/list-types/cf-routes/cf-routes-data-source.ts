@@ -18,6 +18,7 @@ export class CfRoutesDataSource extends CfRoutesDataSourceBase implements IListD
     listConfig: IListConfig<APIResource>,
     cfGuid: string
   ) {
+    // @ts-ignore
     super(store, listConfig, cfGuid, cfEntityCatalog.route.actions.getMultiple(cfGuid, null, {}), true);
   }
 }

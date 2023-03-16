@@ -2,9 +2,9 @@
   $accent: map-get($theme, accent);
 
   .charts__repos__selected {
-    color: mat-color($accent);
+    color: mat.color($accent);
     &:hover {
-      color: mat-color($accent);
+      color: mat.color($accent);
     }
   }
 }

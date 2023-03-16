@@ -79,6 +79,7 @@ export class RestoreEndpointsComponent {
     };
 
     const restoreSuccess = () => {
+      // @ts-ignore
       stratosEntityCatalog.endpoint.api.getAll();
       result.next({
         success: true,

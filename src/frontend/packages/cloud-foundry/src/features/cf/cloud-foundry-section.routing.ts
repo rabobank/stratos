@@ -130,7 +130,7 @@ const usersRoles = [
     path: 'organizations/:orgId/spaces/:spaceId/users/invite',
     component: InviteUsersComponent,
     pathMatch: 'full'
-  },
+  }
 ];
 
 const cloudFoundry: Routes = [{
@@ -156,7 +156,46 @@ const cloudFoundry: Routes = [{
       path: 'organizations/:orgId/add-space-quota',
       component: AddSpaceQuotaComponent
     },
-    ...usersRoles,
+    {
+      path: 'users/manage',
+      component: UsersRolesComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'users/remove',
+      component: RemoveUserComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/users/manage',
+      component: UsersRolesComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/users/remove',
+      component: RemoveUserComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/users/invite',
+      component: InviteUsersComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/spaces/:spaceId/users/manage',
+      component: UsersRolesComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/spaces/:spaceId/users/remove',
+      component: RemoveUserComponent,
+      pathMatch: 'full'
+    },
+    {
+      path: 'organizations/:orgId/spaces/:spaceId/users/invite',
+      component: InviteUsersComponent,
+      pathMatch: 'full'
+    },
     {
       path: '',
       // Root for attaching CF wide actions (i.e assignments, tabs)

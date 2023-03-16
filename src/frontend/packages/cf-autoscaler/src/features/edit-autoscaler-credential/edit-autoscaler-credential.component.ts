@@ -56,7 +56,7 @@ export class EditAutoscalerCredentialComponent implements OnInit, OnDestroy {
     private confirmDialog: ConfirmationDialogService,
   ) {
     this.editCredentialForm = this.fb.group({
-      actype: new FormControl({ value: true }),
+      actype: new FormControl({ value: true , disabled: false}),
       acusername: new FormControl({ value: '', disabled: true }, Validators.required),
       acpassword: new FormControl({ value: '', disabled: true }, Validators.required),
     });

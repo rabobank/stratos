@@ -35,6 +35,7 @@ export class CfFeatureFlagsDataSource extends ListDataSource<IFeatureFlag> {
   static descriptionColumnId = 'description';
 
   constructor(store: Store<CFAppState>, cfGuid: string, listConfig?: IListConfig<IFeatureFlag>) {
+    // @ts-ignore
     const action = cfEntityCatalog.featureFlag.actions.getMultiple(cfGuid);
     super({
       store,

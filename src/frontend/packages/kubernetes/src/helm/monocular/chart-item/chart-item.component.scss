@@ -37,7 +37,7 @@ $chart-item-logo-width: 80px;
     // Remove this when chips are ready:
     // https://github.com/angular/material2/issues/120
     &__repo {
-      color: mat-color($monocular-app-accent, 500);
+      color: mat.color($monocular-app-accent, 500);
       font-size: .8em;
       padding: 2px 4px;
       border-radius: 4px;
@@ -47,7 +47,7 @@ $chart-item-logo-width: 80px;
       }
 
       &.repo-incubator {
-        color: mat-color($monocular-app-warn, 600);
+        color: mat.color($monocular-app-warn, 600);
       }
 
       a {

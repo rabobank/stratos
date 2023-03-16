@@ -79,11 +79,13 @@ export class DeployApplicationStep3Component implements OnDestroy {
       this.appGuid = guid;
 
       // Update the root app wall list
+      // @ts-ignore
       cfEntityCatalog.application.api.getMultiple(undefined, CfAppsDataSource.paginationKey, {
         includeRelations: CfAppsDataSource.includeRelations,
       });
 
       // Pre-fetch the app env vars
+      // @ts-ignore
       cfEntityCatalog.appEnvVar.api.getMultiple(this.appGuid, this.deployer.cfGuid);
     });
 
@@ -164,9 +166,11 @@ export class DeployApplicationStep3Component implements OnDestroy {
     // Take user to applications
     const { cfGuid } = this.deployer;
     if (this.appGuid) {
+      // @ts-ignore
       cfEntityCatalog.appEnvVar.api.getMultiple(this.appGuid, this.deployer.cfGuid);
 
       // Ensure the application package_state is correct
+      // @ts-ignore
       cfEntityCatalog.application.api.get(
         this.appGuid,
         cfGuid,

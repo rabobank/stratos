@@ -63,7 +63,9 @@ export class EditEndpointStepComponent implements OnDestroy, IStepperStep {
 
     this.endpointID = getIdFromRoute(activatedRoute, 'id');
 
+    // @ts-ignore
     this.existingEndpoints = stratosEntityCatalog.endpoint.store.getAll.getPaginationMonitor().currentPage$.pipe(
+      // @ts-ignore
       map(endpoints => endpoints.reduce((res, endpoint) => {
         res[endpoint.guid] = endpoint;
         return res;
@@ -126,10 +128,12 @@ export class EditEndpointStepComponent implements OnDestroy, IStepperStep {
     }
   }
 
+  // @ts-ignore
   onNext: StepOnNextFunction = () => {
     return this.endpoint$.pipe(
       first(),
       switchMap(endpoint => {
+        // @ts-ignore
         return stratosEntityCatalog.endpoint.api.update<ActionState>(
           this.endpointID,
           this.endpointID, {
@@ -148,8 +152,11 @@ export class EditEndpointStepComponent implements OnDestroy, IStepperStep {
           map(([, newV]) => newV),
           map(o => {
             return {
+              // @ts-ignore
               success: !o.error,
+              // @ts-ignore
               message: o.message,
+              // @ts-ignore
               redirect: !o.error
             };
           })

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ApplicationModule, NgModule, Type } from '@angular/core';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+// import { MaterialDesignFrameworkModule } from '@ajsf/material';
 
 import { CoreModule } from '../../../core/src/core/core.module';
 import { CardCell, TableCellCustom } from '../../../core/src/shared/components/list/list.types';
@@ -266,7 +266,7 @@ const cfListCards: Type<CardCell<any>>[] = [
     CoreModule,
     SharedModule,
     ApplicationModule,
-    MaterialDesignFrameworkModule,
+    // MaterialDesignFrameworkModule,
   ],
   declarations: [
     ServiceIconComponent,

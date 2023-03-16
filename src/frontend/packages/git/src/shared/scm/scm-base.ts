@@ -60,7 +60,9 @@ export abstract class BaseSCM {
     // endpoint that has since been removed).
     // Normally we'd get the entity directly and use a waitForEntity here... but that blocks and will fire again if the endpoint is added
     // We can't just use a entityObs$ because that fires a null for genuine endpoints on refresh
+    // @ts-ignore
     return stratosEntityCatalog.endpoint.store.getAll.getPaginationMonitor().currentPage$.pipe(
+      // @ts-ignore
       map(endpoints => endpoints?.find(e => e.guid === endpointGuid))
     );
   }

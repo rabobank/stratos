@@ -94,6 +94,7 @@ export class ApplicationDeploySourceTypes {
       [DEPLOY_TYPES_IDS.GITLAB]: this.scmService.getSCM('gitlab', null)
     };
 
+    // @ts-ignore
     this.types$ = stratosEntityCatalog.endpoint.store.getAll.getPaginationService().entities$.pipe(
       filter(e => !!e),
       map(endpoints => {
@@ -108,6 +109,7 @@ export class ApplicationDeploySourceTypes {
             const eSubType: GIT_ENDPOINT_SUB_TYPES = scm.getType() === DEPLOY_TYPES_IDS.GITHUB ?
               GIT_ENDPOINT_SUB_TYPES.GITHUB :
               GIT_ENDPOINT_SUB_TYPES.GITLAB;
+            // @ts-ignore
             for (const e of endpoints) {
               const url = getFullEndpointApiUrl(e);
               if (
@@ -127,6 +129,7 @@ export class ApplicationDeploySourceTypes {
         });
 
         // Add all enterprise github/gitlab types
+        // @ts-ignore
         endpoints.forEach(e => {
           if (e.cnsi_type !== GIT_ENDPOINT_TYPE) {
             return;

@@ -79,7 +79,9 @@ export class EditSpaceStepComponent extends AddEditSpaceStepBase implements OnDe
       switchMap((spaceStateAction) => {
         let message = '';
 
+        // @ts-ignore
         if (spaceStateAction.error) {
+          // @ts-ignore
           message = spaceStateAction.message;
 
           return of({
@@ -100,6 +102,7 @@ export class EditSpaceStepComponent extends AddEditSpaceStepBase implements OnDe
   };
 
   updateSpace() {
+    // @ts-ignore
     return cfEntityCatalog.space.api.update<ActionState>(this.spaceGuid, this.cfGuid, {
       name: this.editSpaceForm.value.spaceName,
       allow_ssh: this.editSpaceForm.value.toggleSsh as boolean,
@@ -112,16 +115,22 @@ export class EditSpaceStepComponent extends AddEditSpaceStepBase implements OnDe
 
   updateSpaceQuota() {
     const spaceQuotaGuid = this.editSpaceForm.value.quotaDefinition;
+
     const mon = spaceQuotaGuid ?
+      // @ts-ignore
       cfEntityCatalog.spaceQuota.api.associateWithSpace<ActionState>(this.spaceGuid, this.cfGuid, spaceQuotaGuid) :
+      // @ts-ignore
       cfEntityCatalog.spaceQuota.api.disassociateFromSpace<ActionState>(this.spaceGuid, this.cfGuid, this.originalSpaceQuotaGuid);
     return mon.pipe(
       pairwise(),
       filter(([oldS, newS]) => oldS.busy && !newS.busy),
       map(([, newS]) => newS),
       map(stateAction => ({
+        // @ts-ignore
         success: !stateAction.error,
+        // @ts-ignore
         redirect: !stateAction.error,
+        // @ts-ignore
         message: !stateAction.error ? '' : `Failed to update space quota: ${stateAction.message}`
       }))
     );

@@ -66,7 +66,7 @@ $layout-text: #38383F;
 $text-white: white;
 $background-light: #EAEDEF;
 $background-white: white;
-$header-backgound-gradient: linear-gradient(to left, $layout-base, mat-color($monocular-app-primary, 900));
+$header-backgound-gradient: linear-gradient(to left, $layout-base, mat.color($monocular-app-primary, 900));
 $border-color: #D7D9DD;
 
 // Other common sizes

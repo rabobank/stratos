@@ -22,6 +22,7 @@ export class CfAppInstancesDataSource extends ListDataSource<ListAppInstance, Ap
     listConfig: IListConfig<ListAppInstance>
   ) {
     const paginationKey = createEntityRelationPaginationKey(applicationEntityType, appGuid);
+    // @ts-ignore
     const action = cfEntityCatalog.appStats.actions.getMultiple(appGuid, cfGuid);
 
     super(
