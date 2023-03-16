@@ -29,7 +29,6 @@ Please visit our new [documentation site](https://stratos.app/). There you can d
 1. Our [introduction](https://stratos.app/docs/), including quick start, contributing and troubleshooting guides.
 1. How to [deploy](https://stratos.app/docs/deploy/overview) Stratos in a number of environments.
     1. [Cloud Foundry](https://stratos.app/docs/deploy/cloud-foundry/cloud-foundry), as an application.
-    1. [Kubernetes](https://stratos.app/docs/deploy/kubernetes), using a Helm chart.
     1. [Docker](https://stratos.app/docs/deploy/all-in-one), as a single container deploying all components.
 1. Configuring advanced features such a [Single Sign On](https://stratos.app/docs/advanced/sso) and Cloud Foundry '[invite to org](https://stratos.app/docs/advanced/invite-user-guide)'.
 1. Guides for [developers](https://stratos.app/docs/developer/introduction).

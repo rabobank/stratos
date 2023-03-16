@@ -49,7 +49,6 @@ Alternatively, you can use an existing UAA Client, if one is already available w
 Configuration depends on how you have deployed Stratos.
 
 1. For cf push, see [Configuration for CF Push](#configuration-for-cf-push)
-1. For Kubernetes with Helm, see: [Configuration for Helm Installation](#configuration-for-helm-installation)
 
 ## Enabling User Invite support in Stratos
 
@@ -87,10 +86,6 @@ To use custom email templates, create a folder and add the two templates with th
 1. user-invite-email.helm = HTML text template
 
 When deploying Stratos with `cf push` set the environment variable `TEMPLATE_DIR` to the folder name where your custom templates are located. This can be done on the command line or by adding this environment variable to the `manifest.yml` file.
-
-## Configuration for Helm Installation
-
-When deploying Stratos to Kubernetes using Helm, User Invites can be configured as follows.
 
 ### General Configuration
 

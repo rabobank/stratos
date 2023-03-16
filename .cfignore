@@ -15,7 +15,6 @@ deploy/ci/
 deploy/containers/
 deploy/docker-compose/
 deploy/fissile/
-deploy/kubernetes/
 deploy/stratos-base-images/
 deploy/stratos-ui-release/
 deploy/uaa/

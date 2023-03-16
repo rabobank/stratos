@@ -12,18 +12,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 pushd $DIR > /dev/null
 echo "Building website ..."
 
-# Copy helm chart readme
-cat << EOF > ./docs/deploy/kubernetes/install.md
----
-id: helm-installation
-title: Deploying Using Helm
-sidebar_label: Deploy using Helm 
----
-EOF
-
-# Concatentate the helm chart readme file
-tail -n +2 ${DIR}/../deploy/kubernetes/console/README.md >> ./docs/deploy/kubernetes/install.md
-
 # License file
 
 cat << EOF > ./docs/license.md

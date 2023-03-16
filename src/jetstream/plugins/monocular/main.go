@@ -45,10 +45,6 @@ type HelmHubChartResponse struct {
 	Data HelmHubChart `json:"data"`
 }
 
-func init() {
-	interfaces.AddPlugin("monocular", []string{"kubernetes"}, Init)
-}
-
 // Init creates a new Monocular
 func Init(portalProxy interfaces.PortalProxy) (interfaces.StratosPlugin, error) {
 	store.InitRepositoryProvider(portalProxy.GetConfig().DatabaseProviderName)

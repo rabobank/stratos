@@ -9,7 +9,6 @@
 <!--- Put an 'x' in one of the boxes below.  -->
 <!--- Put an 'x' in one or more boxes below.  -->
 * [ ] Cloud Foundry Application (cf push)
-* [ ] Kubernetes, using a helm chart
 * [ ] Docker, single container deploying all components
 * [ ] npm run start
 * [ ] Other (please specify below)
@@ -18,7 +17,6 @@
 <!--- Where is the backend deployed?  -->
 <!--- Put an 'x' in one or more boxes below.  -->
 * [ ] Cloud Foundry Application (cf push)
-* [ ] Kubernetes, using a helm chart
 * [ ] Docker, single container deploying all components
 * [ ] Other (please specify below)
 

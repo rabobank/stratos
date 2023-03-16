@@ -11,13 +11,9 @@ Depending on the deployment mode, you may require access to an UAA. Stratos also
 In a Cloud Foundry deployment, the Console will be configured to use the UAA used by the Cloud Foundry instance.
 Therefore, the login credentials will be the CF credentials for the user. A Cloud Foundry administrator (a user with the `cloud_controller.admin` scope) will also be a Console administrator.
 
-## Kubernetes deployment
-
-In a Kubernetes deployment using Helm, no UAA instance is deployed. Users have the choice to either provide their own UAA to authenticate against, or alternatively Stratos may be configured at deployment, to use a local user account.
-
 ## Docker, single container deployment
 
-The single container deployment does not contain a UAA. The instructions specified for a Kubernetes deployment apply to this, including the local user account option.
+The single container deployment does not contain a UAA.
 
 ## Console Login
 

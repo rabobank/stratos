@@ -78,22 +78,6 @@ func (c *Analysis) runReport(ec echo.Context) error {
 
 func (c *Analysis) doRunReport(ec echo.Context, analyzer, endpointID, userID string, dbStore store.AnalysisStore, report *store.AnalysisRecord) error {
 
-	// Get Kube Config
-	k8s := c.portalProxy.GetPlugin("kubernetes")
-	if k8s == nil {
-		return errors.New("Could not find Kubernetes plugin")
-	}
-
-	k8sConfig, ok := k8s.(KubeConfigExporter)
-	if !ok {
-		return errors.New("Could not find Kubernetes plugin interface")
-	}
-
-	config, err := k8sConfig.GetKubeConfigForEndpointUser(endpointID, userID)
-	if err != nil {
-		return errors.New("Could not get Kube Config for the endpoint")
-	}
-
 	id := fmt.Sprintf("%s/%s/%s", userID, endpointID, report.ID)
 
 	// Create a multi-part form to send to the analyzer container

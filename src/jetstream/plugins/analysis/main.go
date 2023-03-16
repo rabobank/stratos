@@ -33,10 +33,6 @@ type Analysis struct {
 	analysisServer string
 }
 
-func init() {
-	interfaces.AddPlugin("analysis", []string{"kubernetes"}, Init)
-}
-
 // Init creates a new Analysis
 func Init(portalProxy interfaces.PortalProxy) (interfaces.StratosPlugin, error) {
 	store.InitRepositoryProvider(portalProxy.GetConfig().DatabaseProviderName)

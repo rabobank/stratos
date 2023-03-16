@@ -3,7 +3,7 @@ title: Stratos Endpoints
 sidebar_label: Introduction
 ---
 
-Stratos uses endpoints to communicate with other systems such as Cloud Foundries, Kubernetes, Helm Repositories, etc. A Stratos Administrator
+Stratos uses endpoints to communicate with other systems such as Cloud Foundries. A Stratos Administrator
 will register these endpoints in Stratos. All users will then be able to supply credentials per endpoint. Stratos can then communicate with
 these systems on behalf of the user.
 

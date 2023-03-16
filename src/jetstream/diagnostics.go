@@ -42,8 +42,6 @@ func (p *portalProxy) StoreDiagnostics() {
 
 	// Deployment type
 	switch {
-	case len(diagnostics.HelmName) > 0:
-		diagnostics.DeploymentType = "Kubernetes"
 	case p.Config.IsCloudFoundry:
 		diagnostics.DeploymentType = "Cloud Foundry"
 	case len(p.Env().String("STRATOS_DEPLOYMENT_DOCKER", "")) > 0:

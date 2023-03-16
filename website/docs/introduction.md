@@ -4,11 +4,9 @@ title: Introduction
 sidebar_label: Introduction 
 ---
 
-Stratos is an Open Source Web-based UI for Cloud Foundry and Kubernetes.
+Stratos is an Open Source Web-based UI for Cloud Foundry.
 
 For Cloud Foundry, it allows users and administrators to both manage applications running in the Cloud Foundry cluster and perform cluster management tasks.
-
-For Kubernetes, it provides Developers with views of their Kubernetes resources, the ability to view and deploy Helm Charts and view Workloads.
 
 ![Stratos Application view](/images/screenshots/app-summary.png)
 
@@ -29,7 +27,6 @@ Once that has finished, you can then access Stratos by visiting https://localhos
 Stratos can be deployed in the following environments:
 
 1. Cloud Foundry, as an application. See [guide](deploy/cloud-foundry/cloud-foundry)
-2. Kubernetes, using a Helm chart. See [guide](deploy/kubernetes)
 3. Docker, single container deploying all components. See [guide](deploy/all-in-one)
 
 ## Troubleshooting

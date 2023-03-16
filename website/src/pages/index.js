@@ -20,22 +20,11 @@ const features = [
     cls: 'cf-logo'
   },
   {
-    title: <>Kubernetes</>,
-    imageUrl: 'img/kubernetes.svg',
-    description: (
-      <>
-        Stratos sports a growing feature set for Kubernetes developers, extending its reach further
-        towards providing a single-pane-of-glass for your Cloud Native application development needs.
-      </>
-    ),
-  },
-  {
     title: <>Multi-Cluster</>,
     imageUrl: 'img/multi-cluster.svg',
     description: (
       <>
-        Stratos allows you to manage multiple Cloud Foundry and Kubernetes cluster from a single
-        management UI
+        Stratos allows you to manage multiple Cloud Foundry from a single management UI
       </>
     ),
   },
@@ -64,8 +53,7 @@ const features = [
     imageUrl: 'img/deploy.svg',
     description: (
       <>
-        Stratos is easy to deploy and can be pushed as an application to Cloud Foundry, deployed to Kubernetes using Helm
-        or run locally in a Docker container
+        Stratos is easy to deploy and can be pushed as an application to Cloud Foundry or run locally in a Docker container
       </>
     ),
   },
@@ -94,11 +82,11 @@ function Home() {
   return (
     <Layout
       title={`Home`}
-      description="Stratos - Web-based Management Interface for Cloud Foundry and Kubernetes">
+      description="Stratos - Web-based Management Interface for Cloud Foundry">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container home-intro">
           <h1 className="hero__title">{siteConfig.title}</h1>
-          <h2 className="hero__subtitle">Open-Source Multi-Cluster UI for <br /> Cloud Foundry and Kubernetes</h2>
+          <h2 className="hero__subtitle">Open-Source Multi-Cluster UI for <br /> Cloud Foundry</h2>
           <div className={clsx(styles.buttons, 'get-started')}>
             <Link
               className={clsx(
@@ -139,28 +127,13 @@ function Home() {
           </div>
         </section>
 
-        <section className={clsx(styles.features)}>
-          <div className="container">
-            <div className="screenshot">
-              <div>
-                <h2>Kubernetes</h2>
-                <p>View cluster-level metadata</p>
-                <p>Browse, view and install Helm Charts</p>
-                <p>View Helm Releases and see relationships between Kubernetes Resources</p>
-                <p>and lots more ...</p>
-              </div>
-              <img className="right" src="img/screens/kube-graph.png" />
-            </div>
-          </div>
-        </section>
-
         <section className={clsx(styles.features, 'screenshot-section', 'blue')}>
           <div className="container">
             <div className="screenshot">
               <img className="left" src="img/screens/endpoints.png" />
               <div>
                 <h2>Multi-Cluster</h2>
-                <p>Add and Connect multiple Cloud Foundry and/or Kubernetes clusters.</p>
+                <p>Add and Connect multiple Cloud Foundry.</p>
                 <p>Seemlessly switch between clusters and get aggregated views across clusters.</p>
                 <p>Favorite clusters and entities for easy access from the Home screen.</p>
               </div>
