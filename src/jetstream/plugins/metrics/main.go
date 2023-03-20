@@ -170,7 +170,7 @@ func (m *MetricsSpecification) Connect(ec echo.Context, cnsiRecord interfaces.CN
 
 	log.Debug("Looking for Stratos metrics metadata resource....")
 
-	// Metadata indicates which Cloud Foundry/Kubernetes endpoints the metrics endpoint can supply data for
+	// Metadata indicates which Cloud Foundry endpoints the metrics endpoint can supply data for
 	metricsMetadataEndpoint := fmt.Sprintf("%s/stratos", cnsiRecord.APIEndpoint)
 	req, err := http.NewRequest("GET", metricsMetadataEndpoint, nil)
 	if err != nil {
@@ -377,12 +377,6 @@ func (m *MetricsSpecification) UpdateMetadata(info *interfaces.Info, userGUID st
 				endpoint.Metadata["metrics_job"] = provider.Job
 				endpoint.Metadata["metrics_environment"] = provider.Environment
 			}
-			// For K8S
-			if provider, ok := hasMetricsProvider(metricsProviders, endpoint.APIEndpoint.String()); ok {
-				endpoint.Metadata["metrics"] = provider.EndpointGUID
-				endpoint.Metadata["metrics_job"] = provider.Job
-				endpoint.Metadata["metrics_environment"] = ""
-			}
 		}
 	}
 }
@@ -496,19 +490,6 @@ func (m *MetricsSpecification) getMetricsEndpoints(userGUID string, cnsiList []s
 		for guid, info := range endpointsMap {
 			// Depends on the type
 			if info.CNSIType == metricProviderInfo.Type && compareURL(info.DopplerLoggingEndpoint, metricProviderInfo.URL) {
-				relate := EndpointMetricsRelation{}
-				relate.endpoint = info
-				// Make a copy
-				relate.metrics = &MetricsMetadata{}
-				*relate.metrics = metricProviderInfo
-				results[guid] = relate
-				delete(endpointsMap, guid)
-				break
-			}
-			// K8s
-			log.Debugf("Processing endpoint: %+v", info)
-			log.Debugf("Processing endpoint Metrics provider: %+v", metricProviderInfo)
-			if compareURL(info.APIEndpoint.String(), metricProviderInfo.URL) {
 				relate := EndpointMetricsRelation{}
 				relate.endpoint = info
 				// Make a copy

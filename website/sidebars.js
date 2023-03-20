@@ -14,13 +14,6 @@ module.exports = {
           'deploy/cloud-foundry/cf-troubleshooting'
         ],
       },
-      {
-        Kubernetes: [
-          'deploy/kubernetes',
-          'deploy/kubernetes/helm-installation',
-          'deploy/kubernetes/eksdeployment',
-        ],
-      },
       'deploy/all-in-one',
       `deploy/tech-preview`,
       'deploy/access',

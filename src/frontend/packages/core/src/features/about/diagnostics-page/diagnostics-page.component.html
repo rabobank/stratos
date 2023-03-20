@@ -44,16 +44,6 @@
     <div class="diagnostics-page__two-column">
       <app-metadata-item icon="storage" label="Deployment Type">{{ session.diagnostics.deploymentType }}
       </app-metadata-item>
-      <div *ngIf="session.diagnostics.deploymentType === 'Kubernetes'">
-        <app-metadata-item icon="storage" label="Helm Chart Version">{{ session.diagnostics.helmChartVersion || 'N/A' }}
-        </app-metadata-item>
-        <app-metadata-item icon="storage" label="Helm Release">{{ session.diagnostics.helmName || 'N/A' }}
-        </app-metadata-item>
-        <app-metadata-item icon="storage" label="Helm Revision">{{ session.diagnostics.helmRevision || 'N/A' }}
-        </app-metadata-item>
-        <app-metadata-item icon="date_range" label="Helm Last Modified">{{ helmLastModified$ | async | date:'medium' }}
-        </app-metadata-item>
-      </div>
     </div>
   </mat-card>
 

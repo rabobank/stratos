@@ -23,23 +23,11 @@ RUN wget https://github.com/derailed/popeye/releases/download/v${POPEYE_VERSION}
     tar -xvf popeye_${POPEYE_VERSION}_Linux_x86_64.tar.gz && \
     mv popeye ../analysis
 
-# Kube-score
-ARG KUBESCORE_VERSION=1.5.0
-RUN wget https://github.com/zegl/kube-score/releases/download/v${KUBESCORE_VERSION}/kube-score_${KUBESCORE_VERSION}_linux_amd64.tar.gz && \
-    tar -xvf kube-score_${KUBESCORE_VERSION}_linux_amd64.tar.gz && \
-    mv kube-score ../analysis
-
 # Sonobuoy
 # ARG SONOBUOY_VERSION=0.17.2
 # RUN wget https://github.com/vmware-tanzu/sonobuoy/releases/download/v${SONOBUOY_VERSION}/sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz && \
 #     tar -xvf sonobuoy_${SONOBUOY_VERSION}_linux_amd64.tar.gz && \
 #     mv sonobuoy ../analysis
-
-# Need kubectl for Kubescore - TODO: Use correct version depending on cluster
-ARG KUBECTL_VERSION=1.16.2
-RUN wget https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
-    chmod +x kubectl && \
-    mv kubectl ../analysis
 
 # klar
 # ARG KLAR_VERSION=2.4.0

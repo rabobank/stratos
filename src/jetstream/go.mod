@@ -10,7 +10,6 @@ require (
 	github.com/antonlindstrom/pgstore v0.0.0-20170604072116-a407030ba6d0
 	github.com/cf-stratos/mysqlstore v0.0.0-20170822100912-304308519d13
 	github.com/cloudfoundry-community/go-cfenv v1.17.0
-	github.com/cloudfoundry-incubator/stratos/src/jetstream/plugins/kubernetes v0.0.0-00010101000000-000000000000
 	github.com/cloudfoundry-incubator/stratos/src/jetstream/plugins/monocular v0.0.0-00010101000000-000000000000
 	github.com/cloudfoundry/noaa v2.1.0+incompatible
 	github.com/cloudfoundry/sonde-go v0.0.0-20171206171820-b33733203bb4
@@ -34,7 +33,6 @@ require (
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.5.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/client-go v9.0.0+incompatible
 )
 
 require (
@@ -119,7 +117,6 @@ require (
 	github.com/jtolds/gls v4.20.0+incompatible // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.1 // indirect
 	github.com/kr/pty v1.1.8 // indirect
-	github.com/kubernetes-sigs/aws-iam-authenticator v0.3.0 // indirect
 	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-08cad365cd28 // indirect
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lib/pq v1.0.0 // indirect
@@ -181,19 +178,7 @@ require (
 	gopkg.in/cheggaaa/pb.v1 v1.0.27 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	helm.sh/helm/v3 v3.0.0 // indirect
-	k8s.io/api v0.0.0 // indirect
-	k8s.io/apiextensions-apiserver v0.0.0 // indirect
-	k8s.io/apimachinery v0.0.0 // indirect
-	k8s.io/cli-runtime v0.0.0 // indirect
-	k8s.io/klog v1.0.0 // indirect
-	k8s.io/kube-openapi v0.0.0-20190918143330-0270cf2f1c1d // indirect
-	k8s.io/kubectl v0.0.0 // indirect
-	k8s.io/utils v0.0.0-20191010214722-8d271d903fe4 // indirect
-	sigs.k8s.io/kustomize v2.0.3+incompatible // indirect
-	sigs.k8s.io/yaml v1.1.0 // indirect
 )
-
-replace github.com/cloudfoundry-incubator/stratos/src/jetstream/plugins/kubernetes => ./plugins/kubernetes
 
 replace github.com/cloudfoundry-incubator/stratos/src/jetstream/plugins/monocular => ./plugins/monocular
 
@@ -201,34 +186,10 @@ replace (
 	github.com/SermoDigital/jose => github.com/SermoDigital/jose v0.9.2-0.20180104203859-803625baeddc
 	github.com/Sirupsen/logrus => github.com/sirupsen/logrus v1.4.1
 	github.com/docker/docker => github.com/moby/moby v0.7.3-0.20190826074503-38ab9da00309
-	github.com/kubernetes-sigs/aws-iam-authenticator => github.com/kubernetes-sigs/aws-iam-authenticator v0.3.1-0.20190111160901-390d9087a4bc
 	github.com/russross/blackfriday v2.0.0+incompatible => github.com/russross/blackfriday v1.5.2
 	github.com/sergi/go-diff => github.com/sergi/go-diff v1.0.0
 	github.com/smartystreets/goconvey => github.com/smartystreets/goconvey v0.0.0-20160503033757-d4c757aa9afd
 	github.com/spf13/cobra => github.com/spf13/cobra v0.0.3
 	github.com/ugorji/go => github.com/ugorji/go v1.1.11
 	gopkg.in/DATA-DOG/go-sqlmock.v1 => github.com/DATA-DOG/go-sqlmock v1.1.3
-	k8s.io/api => k8s.io/kubernetes/staging/src/k8s.io/api v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/apiextensions-apiserver => k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/apimachinery => k8s.io/kubernetes/staging/src/k8s.io/apimachinery v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/apiserver => k8s.io/kubernetes/staging/src/k8s.io/apiserver v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/cli-runtime => k8s.io/kubernetes/staging/src/k8s.io/cli-runtime v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/client-go => k8s.io/kubernetes/staging/src/k8s.io/client-go v0.0.0-20191001043732-d647ddbd755f
-	//k8s.io/kubernetes => k8s.io/kubernetes/staging/src/k8s.io/kubernetes v1.13.3
-	k8s.io/cloud-provider => k8s.io/kubernetes/staging/src/k8s.io/cloud-provider v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/cluster-bootstrap => k8s.io/kubernetes/staging/src/k8s.io/cluster-bootstrap v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/code-generator => k8s.io/kubernetes/staging/src/k8s.io/code-generator v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/component-base => k8s.io/kubernetes/staging/src/k8s.io/component-base v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/cri-api => k8s.io/kubernetes/staging/src/k8s.io/cri-api v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/csi-translation-lib => k8s.io/kubernetes/staging/src/k8s.io/csi-translation-lib v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/kube-aggregator => k8s.io/kubernetes/staging/src/k8s.io/kube-aggregator v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/kube-controller-manager => k8s.io/kubernetes/staging/src/k8s.io/kube-controller-manager v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/kube-proxy => k8s.io/kubernetes/staging/src/k8s.io/kube-proxy v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/kube-scheduler => k8s.io/kubernetes/staging/src/k8s.io/kube-scheduler v0.0.0-20191001043732-d647ddbd755f
-	//k8s.io/kube-openapi => k8s.io/kubernetes/staging/src/k8s.io/kube-openapi v0.0.0-20180509051136-39cb288412c4
-	k8s.io/kubectl => k8s.io/kubernetes/staging/src/k8s.io/kubectl v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/kubelet => k8s.io/kubernetes/staging/src/k8s.io/kubelet v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/legacy-cloud-providers => k8s.io/kubernetes/staging/src/k8s.io/legacy-cloud-providers v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/metrics => k8s.io/kubernetes/staging/src/k8s.io/metrics v0.0.0-20191001043732-d647ddbd755f
-	k8s.io/sample-apiserver => k8s.io/kubernetes/staging/src/k8s.io/sample-apiserver v0.0.0-20191001043732-d647ddbd755f
 )

@@ -13,17 +13,29 @@ $side-nav-light-active: #484848;
 
 // Themes palettes and colors
 
+// NDT New syntax // Light Theme defaults
+//$oss-theme-primary: mat-palette($mat-blue);
+//$oss-theme-accent: mat-palette($mat-blue);
+//$oss-theme-warn: mat-palette($mat-red);
+//$oss-theme: mat-light-theme($oss-theme-primary, $oss-theme-accent, $oss-theme-warn);
+//
+//// Dark Theme defaults
+//$oss-dark-primary: mat-palette($mat-blue);
+//$oss-dark-accent: mat-palette($mat-amber, A400, A100, A700);
+//$oss-dark-warn: mat-palette($mat-red);
+//$oss-dark-theme: mat-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-warn);
+
 // Light Theme defaults
-$oss-theme-primary: mat-palette($mat-blue);
-$oss-theme-accent: mat-palette($mat-blue);
-$oss-theme-warn: mat-palette($mat-red);
-$oss-theme: mat-light-theme($oss-theme-primary, $oss-theme-accent, $oss-theme-warn);
+$oss-theme-primary: mat.define-palette($mat-blue);
+$oss-theme-accent: mat.define-palette($mat-blue);
+$oss-theme-warn: mat.define-palette($mat-red);
+$oss-theme: mat.define-light-theme($oss-theme-primary, $oss-theme-accent, $oss-theme-warn);
 
 // Dark Theme defaults
-$oss-dark-primary: mat-palette($mat-blue);
-$oss-dark-accent: mat-palette($mat-amber, A400, A100, A700);
-$oss-dark-warn: mat-palette($mat-red);
-$oss-dark-theme: mat-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-warn);
+$oss-dark-primary: mat.define-palette($mat-blue);
+$oss-dark-accent: mat.define-palette($mat-amber, A400, A100, A700);
+$oss-dark-warn: mat.define-palette($mat-red);
+$oss-dark-theme: mat.define-dark-theme($oss-dark-primary, $oss-dark-accent, $oss-dark-warn);
 
 @function stratos-default-theme() {
   @return (
