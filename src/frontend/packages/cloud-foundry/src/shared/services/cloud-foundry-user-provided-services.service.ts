@@ -43,7 +43,8 @@ export class CloudFoundryUserProvidedServicesService {
       pagObs.entities$, // Ensure entities is subbed to the fetch kicks off
       pagObs.fetchingEntities$
     ]).pipe(
-      filter(([, fetching]) => !fetching),
+      // filter(([, fetching]) => !fetching),
+      filter(([fetching]) => !fetching),
       map(([entities]) => entities)
     );
   }

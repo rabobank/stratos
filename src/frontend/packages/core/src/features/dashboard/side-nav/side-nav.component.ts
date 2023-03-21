@@ -48,7 +48,7 @@ export class SideNavComponent implements OnInit {
   @Input() set iconMode(isIconMode: boolean) {
     if (isIconMode !== this.isIconMode) {
       this.isIconMode = isIconMode;
-      this.changedMode.next();
+      this.changedMode.next(null);
     }
   }
   get iconMode() {

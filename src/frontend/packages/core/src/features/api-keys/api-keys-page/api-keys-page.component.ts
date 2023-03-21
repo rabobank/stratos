@@ -43,7 +43,7 @@ export class ApiKeysPageComponent {
   }
 
   clearKeyDetails() {
-    this.keyDetails.next();
+    this.keyDetails.next(null);
   }
 
   private showDialog(): Observable<string> {

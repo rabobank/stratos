@@ -231,10 +231,10 @@ export class HomePageEndpointCardComponent implements OnInit, OnDestroy, AfterVi
 
       // Timeout after 15 seconds
       this.sub = loadObs.pipe(timeout(15000), filter(v => v === true), first()).subscribe(() => {
-        this.loaded.next();
+        this.loaded.next(null);
         setTimeout(() => this.status.next(Status.OK), 0);
       }, () => {
-        this.loaded.next();
+        this.loaded.next(null);
         this.status.next(Status.Error);
         this.sub.unsubscribe();
       });

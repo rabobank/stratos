@@ -1,5 +1,5 @@
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { tag } from 'rxjs-spy/operators/tag';
+import { tag } from 'rxjs-spy/operators';
 import { distinctUntilChanged, map, publishReplay, refCount, switchMap, tap } from 'rxjs/operators';
 
 import { LocalPaginationHelpers } from '../../../../../../store/src/helpers/local-list.helpers';

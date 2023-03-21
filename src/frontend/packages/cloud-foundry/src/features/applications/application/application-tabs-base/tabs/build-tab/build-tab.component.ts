@@ -201,6 +201,7 @@ export class BuildTabComponent implements OnInit {
       startWith({ type: 'loading' })
     );
 
+    // @ts-ignore
     this.deploySource$ = canSeeEnvVars$.pipe(
       switchMap(canSeeEnvVars => canSeeEnvVars ? deploySource$ : of(null)),
     );

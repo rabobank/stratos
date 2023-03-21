@@ -94,7 +94,7 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
     const trigger$ = new Subject();
     this.confirmDialog.open(
       confirmation,
-      () => {
+      (res) => {
         // @ts-ignore
         cfEntityCatalog.appEnvVar.api.removeFromApplication(
           this.envVarsDataSource.appGuid,
@@ -102,7 +102,7 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
           this.envVarsDataSource.transformedEntities,
           newValues
         );
-        trigger$.next();
+        trigger$.next(res);
       }
     );
     return trigger$.pipe(
