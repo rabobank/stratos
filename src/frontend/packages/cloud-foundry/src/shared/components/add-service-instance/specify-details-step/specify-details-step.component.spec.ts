@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MaterialDesignFrameworkModule } from '@ajsf/material';
 
 import { EntityMonitorFactory } from '../../../../../../store/src/monitors/entity-monitor.factory.service';
 import { PaginationMonitorFactory } from '../../../../../../store/src/monitors/pagination-monitor.factory';
@@ -15,27 +15,25 @@ describe('SpecifyDetailsStepComponent', () => {
   let component: SpecifyDetailsStepComponent;
   let fixture: ComponentFixture<SpecifyDetailsStepComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        SpecifyDetailsStepComponent,
-        SchemaFormComponent
-      ],
-      imports: [
-        generateCfBaseTestModulesNoShared(),
-        MaterialDesignFrameworkModule
-      ],
-      providers: [
-        CreateServiceInstanceHelperServiceFactory,
-        CsiGuidsService,
-        PaginationMonitorFactory,
-        EntityMonitorFactory,
-        CsiModeService,
-        LongRunningCfOperationsService
-      ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SpecifyDetailsStepComponent, SchemaFormComponent],
+        imports: [
+          generateCfBaseTestModulesNoShared(),
+          MaterialDesignFrameworkModule
+        ],
+        providers: [
+          CreateServiceInstanceHelperServiceFactory,
+          CsiGuidsService,
+          PaginationMonitorFactory,
+          EntityMonitorFactory,
+          CsiModeService,
+          LongRunningCfOperationsService
+        ]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SpecifyDetailsStepComponent);

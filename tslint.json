@@ -14,13 +14,11 @@
     "import-blacklist": [true, "rxjs/Rx"],
     "import-spacing": true,
     "indent": {
-      "options": [
-        "spaces"
-      ]
+      "options": ["spaces"]
     },
     "interface-name": false,
     "max-classes-per-file": false,
-    "max-line-length": [true, 140],
+    "max-line-length": false,
     "member-access": false,
     "member-ordering": [
       true,
@@ -46,10 +44,7 @@
     "ordered-imports": false,
     "quotemark": [true, "single"],
     "semicolon": {
-      "options": [
-        "always",
-        "ignore-bound-class-methods"
-      ]
+      "options": ["always", "ignore-bound-class-methods"]
     },
     "space-before-function-paren": {
       "options": {
@@ -68,7 +63,8 @@
     "no-input-rename": true,
     "no-output-rename": true,
     "typedef-whitespace": {
-      "options": [{
+      "options": [
+        {
           "call-signature": "nospace",
           "index-signature": "nospace",
           "parameter": "nospace",
@@ -93,11 +89,7 @@
     "rxjs-no-static-observable-methods": true,
     "rxjs-proper-imports": true,
     "variable-name": {
-      "options": [
-        "ban-keywords",
-        "check-format",
-        "allow-pascal-case"
-      ]
+      "options": ["ban-keywords", "check-format", "allow-pascal-case"]
     },
     "whitespace": {
       "options": [

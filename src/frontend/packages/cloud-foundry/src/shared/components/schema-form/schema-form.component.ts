@@ -1,7 +1,18 @@
-import { AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { JsonPointer } from '@cfstratos/ajsf-core';
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher
+} from '@angular/material/core';
+import { JsonPointer } from '@ajsf/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -26,8 +37,8 @@ export class SchemaFormConfig {
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ]
 })
-export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit {
-
+export class SchemaFormComponent
+  implements OnInit, OnDestroy, AfterContentInit {
   mode: 'JSON' | 'schema';
   schemaView: 'schemaForm' | 'schemaJson' = 'schemaForm';
   private schema;
@@ -61,7 +72,6 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
   validChange = new EventEmitter<boolean>();
   pValidChange = new BehaviorSubject<boolean>(false);
 
-
   cleanSchema: object;
 
   jsonData: object;
@@ -76,19 +86,31 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
 
   ngOnInit() {
     this.jsonForm = new FormGroup({
-      json: new FormControl('', isValidJsonValidator()),
+      json: new FormControl('', isValidJsonValidator())
     });
   }
 
   ngAfterContentInit() {
-    this.subs.push(this.jsonForm.controls.json.valueChanges.subscribe(jsonStr => {
-      this.jsonData = safeStringToObj(jsonStr);
-      this.pDataChange.next(this.jsonData);
-      this.pValidChange.next(this.isJsonFormValid());
-    }));
+    this.subs.push(
+      this.jsonForm.controls.json.valueChanges.subscribe(jsonStr => {
+        this.jsonData = safeStringToObj(jsonStr);
+        this.pDataChange.next(this.jsonData);
+        this.pValidChange.next(this.isJsonFormValid());
+      })
+    );
 
-    this.subs.push(this.pDataChange.asObservable().pipe(delay(0)).subscribe(data => this.dataChange.emit(data)));
-    this.subs.push(this.pValidChange.asObservable().pipe(delay(0)).subscribe(valid => this.validChange.emit(valid)));
+    this.subs.push(
+      this.pDataChange
+        .asObservable()
+        .pipe(delay(0))
+        .subscribe(data => this.dataChange.emit(data))
+    );
+    this.subs.push(
+      this.pValidChange
+        .asObservable()
+        .pipe(delay(0))
+        .subscribe(valid => this.validChange.emit(valid))
+    );
   }
 
   ngOnDestroy() {
@@ -113,7 +135,9 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
   }
 
   private isJsonFormValid(): boolean {
-    return !this.jsonForm.controls.json.value || this.jsonForm.controls.json.valid;
+    return (
+      !this.jsonForm.controls.json.value || this.jsonForm.controls.json.valid
+    );
   }
 
   private filterSchema = (schema?: object): any => {
@@ -121,7 +145,9 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
       return;
     }
     const filterSchema = Object.keys(schema).reduce((obj, key) => {
-      if (key !== '$schema') { obj[key] = schema[key]; }
+      if (key !== '$schema') {
+        obj[key] = schema[key];
+      }
       return obj;
     }, {});
     return Object.keys(filterSchema).length > 0 ? filterSchema : null;
@@ -134,11 +160,15 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
 
   onFormValidationErrors(data: SchemaFormValidationError[]): void {
     this.formValidationErrors = data || [];
-    this.formValidationErrorsStr = this.prettyValidationErrorsFn(this.formValidationErrors);
+    this.formValidationErrorsStr = this.prettyValidationErrorsFn(
+      this.formValidationErrors
+    );
     this.pValidChange.next(!this.formValidationErrors.length);
   }
 
-  private prettyValidationErrorsFn = (formValidationErrors: SchemaFormValidationError[]): string => {
+  private prettyValidationErrorsFn = (
+    formValidationErrors: SchemaFormValidationError[]
+  ): string => {
     if (!formValidationErrors) {
       return null;
     }
@@ -150,5 +180,4 @@ export class SchemaFormComponent implements OnInit, OnDestroy, AfterContentInit 
       return `${a} ${arrMessage} ${c.message} <br>`;
     }, '');
   };
-
 }

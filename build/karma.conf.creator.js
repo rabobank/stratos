@@ -1,8 +1,7 @@
-module.exports = function (project) {
-  var path = require('path')
-  var repoRoot = path.join(__dirname, '..')
-  return function (config) {
-
+module.exports = function(project) {
+  var path = require('path');
+  var repoRoot = path.join(__dirname, '..');
+  return function(config) {
     var testReportFile = process.env.NG_TEST_SUITE || 'report';
     testReportFile = `stratos-unittest-${testReportFile}.txt`;
     config.set({
@@ -12,7 +11,7 @@ module.exports = function (project) {
         require('karma-jasmine'),
         require('karma-chrome-launcher'),
         require('karma-jasmine-html-reporter'),
-        require('karma-coverage-istanbul-reporter'),
+        require('karma-coverage'),
         require('karma-spec-reporter'),
         require('@angular-devkit/build-angular/plugins/karma'),
         require(path.join(repoRoot, 'build/karma.test.reporter.js'))
@@ -24,7 +23,7 @@ module.exports = function (project) {
           random: false
         }
       },
-      coverageIstanbulReporter: {
+      coverageReporter: {
         dir: path.join(repoRoot, 'coverage', project),
         reports: ['html', 'lcovonly', 'json'],
         fixWebpackSourcePaths: true,
@@ -33,11 +32,11 @@ module.exports = function (project) {
             // Collate all coverage-final files into a single dir for nyc to combine (it can't pick them out from `coverage`)
             file: path.join('..', 'nyc', project + '-coverage-final.json')
           }
-        },
+        }
       },
       reporters: ['spec', 'kjhtml', 'stratos'],
       specReporter: {
-        suppressSkipped: true, // skip result of skipped tests
+        suppressSkipped: true // skip result of skipped tests
       },
       stratosReporter: {
         reportFile: path.join(repoRoot, 'coverage', testReportFile),
@@ -61,12 +60,15 @@ module.exports = function (project) {
         }
       },
       singleRun: process.env.CI_ENV ? true : false,
-      files: [{
-        pattern: path.join(repoRoot, 'node_modules/@angular/material/prebuilt-themes/indigo-pink.css')
-      }],
-      exclude: [
-        '**/*-e2e.spec.ts'
-      ]
+      files: [
+        {
+          pattern: path.join(
+            repoRoot,
+            'node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
+          )
+        }
+      ],
+      exclude: ['**/*-e2e.spec.ts']
     });
   };
-}
+};
