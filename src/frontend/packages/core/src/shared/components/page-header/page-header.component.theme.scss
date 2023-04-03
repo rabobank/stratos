@@ -1,15 +1,16 @@
+@use '~@angular/material' as mat;
 @mixin app-page-header-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $foreground: map-get($theme, foreground);
   $accent: map-get($theme, accent);
-  $primmary-color: mat-color($primary);
+  $primmary-color: mat.get-color-from-palette($primary);
   $status-colors: map-get($app-theme, status);
   $error: map-get($status-colors, danger);
   $warning: map-get($status-colors, warning);
   $info: lighten($primmary-color, 20%);
   $subdued: map-get($app-theme, subdued-color);
   $background: map-get($theme, background);
-  $menu-background-color: mat-color($background, card);
+  $menu-background-color: mat.get-color-from-palette($background, card);
   $is-dark: map-get($theme, is-dark);
   $username-background: $menu-background-color;
   $header-background: map-get($app-theme, header-background-color);
@@ -23,7 +24,7 @@
   } @else {
     $username-background: darken($menu-background-color, 5%);
   }
-  $username-color: mat-color($foreground, text);
+  $username-color: mat.get-color-from-palette($foreground, text);
 
   .page-header {
     &__toolbar {
@@ -34,17 +35,17 @@
       }
     }
     &__warning-count {
-      background-color: mat-color($primary);
-      color: mat-contrast($primary, 500);
+      background-color: mat.get-color-from-palette($primary);
+      color: mat.get-contrast-color-from-palette($primary, 500);
     }
     &__warning-icon {
       color: $warning;
     }
     &__menu-separator {
-      background-color: mat-color($foreground, divider);
+      background-color: mat.get-color-from-palette($foreground, divider);
     }
     &__history {
-      color: mat-color($foreground, text);
+      color: mat.get-color-from-palette($foreground, text);
     }
     &__underflow {
       background-color: $underflow-background;
@@ -54,18 +55,18 @@
       @if $header-border and $header-border != 'none' {
         color: $header-border;
       } @else {
-        color: mat-contrast($primary, 500);
+        color: mat.get-contrast-color-from-palette($primary, 500);
       }
     }
     &__menu-icon {
-      background-color: mat-contrast($primary, 500);
+      background-color: mat.get-contrast-color-from-palette($primary, 500);
     }
     &__username {
       background-color: $username-background;
       color: $username-color;
     }
     &__history-title {
-      border-bottom: 1px solid mat-color($foreground, divider);
+      border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
     }
 
     // Ensure any content in the header with H1 overflows nicely

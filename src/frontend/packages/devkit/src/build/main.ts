@@ -11,8 +11,7 @@ import { SassHandler } from './sass';
  */
 
 class StratosBuilder {
-
-  constructor(public webpackConfig, public options) { }
+  constructor(public webpackConfig, public options) {}
 
   public run() {
     // Read in the Stratos config file if present (and do so config initialization)

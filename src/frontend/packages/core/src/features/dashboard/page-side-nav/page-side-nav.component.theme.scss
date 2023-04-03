@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @function gradient-generator($color) {
   @return linear-gradient(to right, $color 0%, $color 50%, transparent 100%);
@@ -6,7 +6,7 @@
 
 @mixin page-side-nav-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
-  $primary-color: mat-color($primary, 500);
+  $primary-color: mat.get-color-from-palette($primary, 500);
   $side-nav-colors: map-get($app-theme, side-nav);
   $side-nav-bottom-color: map-get($app-theme, subdued-color);
   $background-color:  map-get($app-theme, app-background-color);
@@ -30,7 +30,7 @@
         color: $primary-color;
         @if $is-dark == true {
           background-color: transparentize($primary-color, .8);
-          color: mat-contrast($primary, 500);
+          color: mat.get-contrast-color-from-palette($primary, 500);
         }
       }
     }

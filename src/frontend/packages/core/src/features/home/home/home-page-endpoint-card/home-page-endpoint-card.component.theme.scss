@@ -1,16 +1,17 @@
+@use '~@angular/material' as mat;
 @mixin home-page-endpoint-card-theme($theme, $app-theme) {
   $foreground: map-get($theme, foreground);
 
   .home-endpoint-card {
     &__content {
-      border-top: 1px solid mat-color($foreground, divider);
+      border-top: 1px solid mat.get-color-from-palette($foreground, divider);
     }
   }
 
   .home-card__right {
-    border-left: 1px solid mat-color($foreground, divider);
+    border-left: 1px solid mat.get-color-from-palette($foreground, divider);
     mat-card {
-      border: 1px solid mat-color($foreground, divider);;
+      border: 1px solid mat.get-color-from-palette($foreground, divider);;
     }
   }
 }

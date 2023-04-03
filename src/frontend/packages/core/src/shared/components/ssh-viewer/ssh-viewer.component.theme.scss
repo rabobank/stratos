@@ -1,9 +1,10 @@
+@use '~@angular/material' as mat;
 @mixin app-ssh-viewer-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $foreground-colors: map-get($theme, foreground);
   $status-colors: map-get($app-theme, status);
   $ssh-error: map-get($status-colors, danger);
-  $ssh-disconnected: mat-color($primary);
+  $ssh-disconnected: mat.get-color-from-palette($primary);
   $ssh-background: #000;
   $ssh-text: map-get($status-colors, text);
 

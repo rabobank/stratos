@@ -1,10 +1,10 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin app-multiline-title-theme($theme, $app-theme) {
   // Firefox only
   @media screen and (min--moz-device-pixel-ratio:0) {
     $backgrounds: map-get($theme, background);
-    $background: mat-color($backgrounds, card);
+    $background: mat.get-color-from-palette($backgrounds, card);
     .app-multiline-title {
       // Fade
       &::after {

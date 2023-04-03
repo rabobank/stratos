@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @mixin app-no-content-message-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $subdued: map-get($app-theme, subdued-color);
@@ -7,7 +8,7 @@
     &__link,
     .icon,
     .first-line {
-      color:  mat-color($primary);
+      color:  mat.get-color-from-palette($primary);
     }
   }
 }

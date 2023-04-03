@@ -18,18 +18,24 @@ const isWindows = process.platform === 'win32';
  */
 
 export class ExtensionsHandler {
-
-  constructor() { }
+  constructor() {}
 
   // Write out the _custom-import.module.ts file importing all of the required extensions
   public apply(webpackConfig: any, config: StratosConfig, options: any) {
-
     // Generate the module file to import the appropriate extensions
     const dir = path.join(config.rootDir, path.dirname(options.main));
-    const overrideFile = path.resolve(path.join(dir, './_custom-import.module.ts'));
+    const overrideFile = path.resolve(
+      path.join(dir, './_custom-import.module.ts')
+    );
 
-    fs.writeFileSync(overrideFile, '// This file is auto-generated - DO NOT EDIT\n\n');
-    fs.appendFileSync(overrideFile, 'import { NgModule } from \'@angular/core\';\n');
+    fs.writeFileSync(
+      overrideFile,
+      '// This file is auto-generated - DO NOT EDIT\n\n'
+    );
+    fs.appendFileSync(
+      overrideFile,
+      "import { NgModule } from '@angular/core';\n"
+    );
 
     const moduleImports = {
       imports: []
@@ -47,14 +53,21 @@ export class ExtensionsHandler {
       }
       if (e.routingModule) {
         routingModuleImports.imports.push(e.routingModule);
-        modules.push(e.routingModule)
+        modules.push(e.routingModule);
       }
 
-      fs.appendFileSync(overrideFile, 'import { ' + modules.join(', ') + ' } from \'' + e.package + '\';\n');
+      fs.appendFileSync(
+        overrideFile,
+        'import { ' + modules.join(', ') + " } from '" + e.package + "';\n"
+      );
     });
 
     this.writeModule(overrideFile, 'CustomImportModule', moduleImports);
-    this.writeModule(overrideFile, 'CustomRoutingImportModule', routingModuleImports);
+    this.writeModule(
+      overrideFile,
+      'CustomRoutingImportModule',
+      routingModuleImports
+    );
 
     let regex;
     // On windows, use an absolute path with backslashes escaped
@@ -68,12 +81,13 @@ export class ExtensionsHandler {
 
     // Ignore changed in the overrides file - otherwise with ng serve we will build twice
     // The user needs to restart `ng serve` anyway if new extensions are added
-    webpackConfig.plugins.push(new WatchIgnorePlugin([overrideFile]));
+    webpackConfig.plugins.push(
+      new WatchIgnorePlugin({ paths: [overrideFile] })
+    );
 
-    webpackConfig.plugins.push(new NormalModuleReplacementPlugin(
-      regex,
-      overrideFile
-    ));
+    webpackConfig.plugins.push(
+      new NormalModuleReplacementPlugin(regex, overrideFile)
+    );
   }
 
   private writeModule(file: string, name: string, imports: any) {

@@ -1,6 +1,7 @@
+@use '~@angular/material' as mat;
 @mixin app-meta-card-item-theme($theme, $app-theme) {
   $backgrounds: map-get($theme, background);
-  $background: mat-color($backgrounds, card);
+  $background: mat.get-color-from-palette($backgrounds, card);
 
   .meta-card-item-long-text-fixed {
     .meta-card-item__value {

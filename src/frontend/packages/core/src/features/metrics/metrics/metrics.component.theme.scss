@@ -1,7 +1,8 @@
+@use '~@angular/material' as mat;
 @mixin metrics-component-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $background: map-get($theme, background);
-  $tree-background-color:  mat-color($background, background);
+  $tree-background-color:  mat.get-color-from-palette($background, background);
   $is-dark: map-get($theme, is-dark);
 
   // Last item uses background color to overwrisr the side bar to make it appear
@@ -15,7 +16,7 @@
     @if $is-dark == true {
       background-color: #ffffff;
     } @else {
-      background-color: mat-contrast($primary, 300);
+      background-color: mat.get-contrast-color-from-palette($primary, 300);
     }
   }
 }

@@ -1,12 +1,13 @@
+@use '~@angular/material' as mat;
 @mixin home-page-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $background-colors: map-get($theme, background);
   $foreground: map-get($theme, foreground);
   .recent-list {
-    background-color: darken(mat-color($background-colors, background), 5%);
-    border-left: 1px solid mat-color($foreground, divider);
+    background-color: darken(mat.get-color-from-palette($background-colors, background), 5%);
+    border-left: 1px solid mat.get-color-from-palette($foreground, divider);
   }
   .layout-menu__sep {
-    border-bottom: 1px solid mat-color($foreground, divider);;
+    border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);;
   }
 }
