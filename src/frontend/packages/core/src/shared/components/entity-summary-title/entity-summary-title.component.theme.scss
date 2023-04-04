@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin entity-summary-title-theme($theme, $app-theme) {
   $background-colors: map-get($theme, background);
   $background: mat.get-color-from-palette($background-colors, background);

@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin app-page-header-events($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $primary-color: mat.get-color-from-palette($primary);

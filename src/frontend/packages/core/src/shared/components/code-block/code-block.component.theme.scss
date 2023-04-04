@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin code-block-theme($theme, $app-theme) {
   $is-dark: map-get($theme, is-dark);
   $primary: map-get($theme, primary);

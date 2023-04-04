@@ -216,14 +216,6 @@
               }
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/core/tslint.json",
-            "files": ["src/frontend/packages/core/src/**/*.ts"]
-          }
         }
       }
     },
@@ -252,14 +244,6 @@
             "tsConfig": "src/frontend/packages/store/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/store/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/store/tslint.json",
-            "files": ["src/frontend/packages/store/src/**/*.ts"]
-          }
         }
       }
     },
@@ -282,14 +266,6 @@
             "main": "src/frontend/packages/shared/src/test.ts",
             "tsConfig": "src/frontend/packages/shared/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/shared/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/shared/tslint.json",
-            "files": ["src/frontend/packages/shared/src/**/*.ts"]
           }
         }
       }
@@ -319,14 +295,6 @@
             "tsConfig": "src/frontend/packages/cloud-foundry/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/cloud-foundry/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/cloud-foundry/tslint.json",
-            "files": ["src/frontend/packages/cloud-foundry/src/**/*.ts"]
-          }
         }
       }
     },
@@ -355,14 +323,6 @@
             "tsConfig": "src/frontend/packages/cf-autoscaler/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/cf-autoscaler/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/cf-autoscaler/tslint.json",
-            "files": ["src/frontend/packages/cf-autoscaler/src/**/*.ts"]
-          }
         }
       }
     },
@@ -378,14 +338,6 @@
             "main": "src/frontend/packages/git/src/test.ts",
             "tsConfig": "src/frontend/packages/git/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/git/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/git/tslint.json",
-            "files": ["src/frontend/packages/git/src/**/*.ts"]
           }
         }
       }

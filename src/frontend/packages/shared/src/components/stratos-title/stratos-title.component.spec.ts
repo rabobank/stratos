@@ -8,8 +8,9 @@ describe('StratosTitleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StratosTitleComponent ]
-    })
+    declarations: [StratosTitleComponent],
+    teardown: { destroyAfterEach: false }
+})
     .compileComponents();
   }));
 

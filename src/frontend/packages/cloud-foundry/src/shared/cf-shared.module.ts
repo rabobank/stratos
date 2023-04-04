@@ -250,14 +250,6 @@ const cfListCards: Type<CardCell<any>>[] = [
     EnvVarViewComponent,
     CfUserPermissionDirective
   ],
-  entryComponents: [
-    CfEndpointDetailsComponent,
-    NoServicePlansComponent,
-    EventMetadataComponent,
-    EnvVarViewComponent,
-    ...cfListTableCells,
-    ...cfListCards
-  ],
   providers: [ApplicationStateService, CloudFoundryUserProvidedServicesService]
 })
 export class CloudFoundrySharedModule {}

@@ -11,9 +11,8 @@ import { ServiceActionHelperService } from '../../../../../../../shared/data-ser
 import { CloudFoundrySpaceServiceInstancesComponent } from './cloud-foundry-space-service-instances.component';
 
 @NgModule({
-  declarations: [TableCellAppCfOrgSpaceHeaderComponent],
-  imports: [CommonModule],
-  entryComponents: [TableCellAppCfOrgSpaceHeaderComponent],
+    declarations: [TableCellAppCfOrgSpaceHeaderComponent],
+    imports: [CommonModule]
 })
 class EntryComponentModules { }
 

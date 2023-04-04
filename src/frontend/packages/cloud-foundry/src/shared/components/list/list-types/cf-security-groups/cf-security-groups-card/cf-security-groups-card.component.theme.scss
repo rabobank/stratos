@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin cf-security-group-theme($theme) {
   .app-chip.mat-chip.mat-primary.tcp-class {
     background-color: mat.get-color-from-palette(mat.$indigo-palette, 200); // color: mat-color($mat-grey, 50);

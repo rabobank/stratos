@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin side-nav-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $side-nav-colors: map-get($app-theme, side-nav);

@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin display-value-theme($theme, $app-theme) {
   $foreground-colors: map-get($theme, foreground);
   .display-value {

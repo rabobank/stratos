@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin app-sidepanel-preview-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $background-color: map-get($app-theme, app-background-color);

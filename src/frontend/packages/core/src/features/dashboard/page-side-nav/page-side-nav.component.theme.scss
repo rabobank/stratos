@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 @function gradient-generator($color) {
   @return linear-gradient(to right, $color 0%, $color 50%, transparent 100%);

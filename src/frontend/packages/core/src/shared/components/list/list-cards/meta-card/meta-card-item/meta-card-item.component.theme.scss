@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin app-meta-card-item-theme($theme, $app-theme) {
   $backgrounds: map-get($theme, background);
   $background: mat.get-color-from-palette($backgrounds, card);

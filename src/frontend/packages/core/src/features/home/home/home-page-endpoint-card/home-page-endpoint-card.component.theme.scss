@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin home-page-endpoint-card-theme($theme, $app-theme) {
   $foreground: map-get($theme, foreground);
 

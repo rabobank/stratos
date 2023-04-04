@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @mixin app-boolean-indicator-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $status: map-get($app-theme, status);

@@ -34,10 +34,9 @@ import { RouterNav } from './../../../../../../../../store/src/actions/router.ac
 import { CopyToClipboardComponent } from './../../../../copy-to-clipboard/copy-to-clipboard.component';
 
 @Component({
-  selector: 'app-endpoint-card',
-  templateUrl: './endpoint-card.component.html',
-  styleUrls: ['./endpoint-card.component.scss'],
-  entryComponents: [...coreEndpointListDetailsComponents]
+    selector: 'app-endpoint-card',
+    templateUrl: './endpoint-card.component.html',
+    styleUrls: ['./endpoint-card.component.scss']
 })
 export class EndpointCardComponent extends CardCell<EndpointModel> implements OnInit, OnDestroy {
 
