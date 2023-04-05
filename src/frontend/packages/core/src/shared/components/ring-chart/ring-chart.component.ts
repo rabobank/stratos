@@ -1,5 +1,11 @@
-import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
-import { ColorHelper } from '@swimlane/ngx-charts';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ColorHelper, ScaleType } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-ring-chart',
@@ -8,7 +14,6 @@ import { ColorHelper } from '@swimlane/ngx-charts';
   encapsulation: ViewEncapsulation.None,
 })
 export class RingChartComponent implements OnInit, OnChanges {
-
   domain: any[];
   colors: ColorHelper;
 
@@ -17,12 +22,13 @@ export class RingChartComponent implements OnInit, OnChanges {
   @Input() scheme: any = 'cool';
   @Input() customColors: any[];
 
-  @Input() onClick: ($event: Event) => void = () => { };
-  @Input() onActivate: ($event: Event) => void = () => { };
-  @Input() onDeactivate: ($event: Event) => void = () => { };
-  @Input() valueFormatting: (value: number) => any = value => value;
-  @Input() nameFormatting: (value: string) => any = label => label;
-  @Input() percentageFormatting: (value: number) => any = percentage => percentage;
+  @Input() onClick: ($event: Event) => void = () => {};
+  @Input() onActivate: ($event: Event) => void = () => {};
+  @Input() onDeactivate: ($event: Event) => void = () => {};
+  @Input() valueFormatting: (value: number) => any = (value) => value;
+  @Input() nameFormatting: (value: string) => any = (label) => label;
+  @Input() percentageFormatting: (value: number) => any = (percentage) =>
+    percentage;
 
   ngOnInit() {
     if (!this.data) {
@@ -44,17 +50,19 @@ export class RingChartComponent implements OnInit, OnChanges {
       // Not set yet, can't set colour without it
       return;
     }
-    this.colors = new ColorHelper(this.scheme, 'ordinal', this.domain, this.customColors || []);
+    this.colors = new ColorHelper(
+      this.scheme,
+      ScaleType.Ordinal,
+      this.domain,
+      this.customColors || []
+    );
   }
 
   getDomain(): any[] {
-    return this.data.map(d => d.name);
+    return this.data.map((d) => d.name);
   }
 
   getTotal(): number {
-    return this.data
-      .map(d => d.value)
-      .reduce((sum, d) => sum + d, 0);
+    return this.data.map((d) => d.value).reduce((sum, d) => sum + d, 0);
   }
-
 }

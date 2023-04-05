@@ -5,9 +5,7 @@ import { filter, first, map, switchMap } from 'rxjs/operators';
 
 import { ConfirmationDialogConfig } from '../../../../../../../core/src/shared/components/confirmation-dialog.config';
 import { ConfirmationDialogService } from '../../../../../../../core/src/shared/components/confirmation-dialog.service';
-import {
-  TableCellEditComponent,
-} from '../../../../../../../core/src/shared/components/list/list-table/table-cell-edit/table-cell-edit.component';
+import { TableCellEditComponent } from '../../../../../../../core/src/shared/components/list/list-table/table-cell-edit/table-cell-edit.component';
 import { ITableColumn } from '../../../../../../../core/src/shared/components/list/list-table/table.types';
 import {
   IListAction,
@@ -22,21 +20,26 @@ import { cfEntityCatalog } from '../../../../../cf-entity-catalog';
 import { applicationEntityType } from '../../../../../cf-entity-types';
 import { CF_ENDPOINT_TYPE } from '../../../../../cf-types';
 import { ApplicationService } from '../../../../../features/applications/application.service';
-import { CfAppVariablesDataSource, ListAppEnvVar } from './cf-app-variables-data-source';
+import {
+  CfAppVariablesDataSource,
+  ListAppEnvVar,
+} from './cf-app-variables-data-source';
 import { TableCellEditVariableComponent } from './table-cell-edit-variable/table-cell-edit-variable.component';
 
-
 @Injectable()
-export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVar> {
+export class CfAppVariablesListConfigService
+  implements IListConfig<ListAppEnvVar> {
   envVarsDataSource: CfAppVariablesDataSource;
 
   private multiListActionDelete: IMultiListAction<ListAppEnvVar> = {
     action: (items: ListAppEnvVar[]) => {
-      return this.dispatchDeleteAction(Array.from(this.envVarsDataSource.selectedRows.values()));
+      return this.dispatchDeleteAction(
+        Array.from(this.envVarsDataSource.selectedRows.values())
+      );
     },
     icon: 'delete',
     label: 'Delete',
-    description: ''
+    description: '',
   };
 
   private listActionDelete: IListAction<ListAppEnvVar> = {
@@ -46,20 +49,22 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
     label: 'Delete',
     description: '',
     createVisible: () => observableOf(true),
-    createEnabled: () => observableOf(true)
+    createEnabled: () => observableOf(true),
   };
 
   columns: Array<ITableColumn<ListAppEnvVar>> = [
     {
-      columnId: 'name', headerCell: () => 'Name',
+      columnId: 'name',
+      headerCell: () => 'Name',
       cellDefinition: {
-        valuePath: 'name'
+        valuePath: 'name',
       },
       sort: {
         type: 'sort',
         orderKey: 'name',
-        field: 'name'
-      }, cellFlex: '5'
+        field: 'name',
+      },
+      cellFlex: '5',
     },
     {
       columnId: 'value',
@@ -69,20 +74,24 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
       sort: {
         type: 'sort',
         orderKey: 'value',
-        field: 'value'
-      }, cellFlex: '10'
+        field: 'value',
+      },
+      cellFlex: '10',
     },
     {
-      columnId: 'edit', headerCell: () => '',
+      columnId: 'edit',
+      headerCell: () => '',
       cellComponent: TableCellEditComponent,
       class: 'app-table__cell--table-column-edit',
-      cellFlex: '2'
+      cellFlex: '2',
     },
   ];
 
   viewType = ListViewTypes.TABLE_ONLY;
   text = {
-    title: 'Environment Variables', filter: 'Search by name', noEntries: 'There are no variables'
+    title: 'Environment Variables',
+    filter: 'Search by name',
+    noEntries: 'There are no variables',
   };
   enableTextFilter = true;
   minRowHeight = '77px';
@@ -92,18 +101,15 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
 
     const entityReq$ = this.getEntityMonitor();
     const trigger$ = new Subject();
-    this.confirmDialog.open(
-      confirmation,
-      () => {
-        cfEntityCatalog.appEnvVar.api.removeFromApplication(
-          this.envVarsDataSource.appGuid,
-          this.envVarsDataSource.cfGuid,
-          this.envVarsDataSource.transformedEntities,
-          newValues
-        );
-        trigger$.next();
-      }
-    );
+    this.confirmDialog.open(confirmation, () => {
+      cfEntityCatalog.appEnvVar.api.removeFromApplication(
+        this.envVarsDataSource.appGuid,
+        this.envVarsDataSource.cfGuid,
+        this.envVarsDataSource.transformedEntities,
+        newValues
+      );
+      trigger$.next('');
+    });
     return trigger$.pipe(
       first(),
       switchMap(() => entityReq$)
@@ -113,26 +119,25 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
   private getEntityMonitor() {
     const catalogEntity = entityCatalog.getEntity({
       entityType: applicationEntityType,
-      endpointType: CF_ENDPOINT_TYPE
+      endpointType: CF_ENDPOINT_TYPE,
     });
-    return catalogEntity
-      .store
-      .getEntityMonitor(
-        this.envVarsDataSource.appGuid
-      )
+    return catalogEntity.store
+      .getEntityMonitor(this.envVarsDataSource.appGuid)
       .entityRequest$.pipe(
-        map(request => request.updating[UpdateExistingApplication.updateKey]),
-        filter(req => !!req)
+        map((request) => request.updating[UpdateExistingApplication.updateKey]),
+        filter((req) => !!req)
       );
   }
 
   private getConfirmationModal(newValues: ListAppEnvVar[]) {
     const singleEnvVar = newValues.length === 1;
     return new ConfirmationDialogConfig(
-      singleEnvVar ? `Delete Environment Variable?` : `Delete Environment Variables?`,
-      singleEnvVar ?
-        `Are you sure you want to delete '${newValues[0].name}'?` :
-        `Are you sure you want to delete ${newValues.length} environment variables?`,
+      singleEnvVar
+        ? `Delete Environment Variable?`
+        : `Delete Environment Variables?`,
+      singleEnvVar
+        ? `Are you sure you want to delete '${newValues[0].name}'?`
+        : `Are you sure you want to delete ${newValues.length} environment variables?`,
       'Delete',
       true
     );
@@ -148,9 +153,12 @@ export class CfAppVariablesListConfigService implements IListConfig<ListAppEnvVa
   constructor(
     private store: Store<CFAppState>,
     private appService: ApplicationService,
-    private confirmDialog: ConfirmationDialogService,
+    private confirmDialog: ConfirmationDialogService
   ) {
-    this.envVarsDataSource = new CfAppVariablesDataSource(this.store, this.appService, this);
+    this.envVarsDataSource = new CfAppVariablesDataSource(
+      this.store,
+      this.appService,
+      this
+    );
   }
-
 }

@@ -7,7 +7,7 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import {
   ErrorStateMatcher,
   ShowOnDirtyErrorStateMatcher
@@ -75,7 +75,7 @@ export class SchemaFormComponent
   cleanSchema: object;
 
   jsonData: object;
-  jsonForm: FormGroup;
+  jsonForm: UntypedFormGroup;
 
   formData: object = {};
   formInitialData: object;
@@ -85,8 +85,8 @@ export class SchemaFormComponent
   subs: Subscription[] = [];
 
   ngOnInit() {
-    this.jsonForm = new FormGroup({
-      json: new FormControl('', isValidJsonValidator())
+    this.jsonForm = new UntypedFormGroup({
+      json: new UntypedFormControl('', isValidJsonValidator())
     });
   }
 

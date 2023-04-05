@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { filter, first, map, pairwise, switchMap } from 'rxjs/operators';
@@ -31,7 +31,7 @@ interface EndpointModelMap {
 export class EditEndpointStepComponent implements OnDestroy, IStepperStep {
 
   endpointID: string;
-  editEndpoint: FormGroup;
+  editEndpoint: UntypedFormGroup;
   showAdvancedFields = false;
   clientRedirectURI: string;
   endpointTypeSupportsSSO = false;
@@ -47,14 +47,14 @@ export class EditEndpointStepComponent implements OnDestroy, IStepperStep {
   constructor(
     activatedRoute: ActivatedRoute,
   ) {
-    this.editEndpoint = new FormGroup({
-      name: new FormControl('', [Validators.required as any]),
-      url: new FormControl('', [Validators.required as any]),
-      skipSSL: new FormControl(false),
-      setClientInfo: new FormControl(false),
-      clientID: new FormControl(''),
-      clientSecret: new FormControl(''),
-      allowSSO: new FormControl(false),
+    this.editEndpoint = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required as any]),
+      url: new UntypedFormControl('', [Validators.required as any]),
+      skipSSL: new UntypedFormControl(false),
+      setClientInfo: new UntypedFormControl(false),
+      clientID: new UntypedFormControl(''),
+      clientSecret: new UntypedFormControl(''),
+      allowSSO: new UntypedFormControl(false),
     });
 
     this.clientRedirectURI = getSSOClientRedirectURI();

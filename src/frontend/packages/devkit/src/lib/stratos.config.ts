@@ -4,7 +4,14 @@ import * as path from 'path';
 
 import { GitMetadata } from './git.metadata';
 import { Logger } from './log';
-import { AssetMetadata, DEFAULT_THEME, ExtensionMetadata, PackageInfo, Packages, ThemingMetadata } from './packages';
+import {
+  AssetMetadata,
+  DEFAULT_THEME,
+  ExtensionMetadata,
+  PackageInfo,
+  Packages,
+  ThemingMetadata,
+} from './packages';
 
 /**
  * Represents the stratos.yaml file or the defaults if not found
@@ -13,7 +20,6 @@ import { AssetMetadata, DEFAULT_THEME, ExtensionMetadata, PackageInfo, Packages,
  */
 
 export class StratosConfig implements Logger {
-
   // File paths to a few files we need access to
   public packageJsonFile: string;
   public nodeModulesFile: string;
@@ -43,7 +49,9 @@ export class StratosConfig implements Logger {
 
   constructor(dir: string, options?: any, loggingEnabled = true) {
     this.angularJsonFile = this.findFileOrFolderInChain(dir, 'angular.json');
-    this.angularJson = JSON.parse(fs.readFileSync(this.angularJsonFile, 'utf8').toString());
+    this.angularJson = JSON.parse(
+      fs.readFileSync(this.angularJsonFile, 'utf8').toString()
+    );
     this.loggingEnabled = loggingEnabled;
 
     // Top-level folder
@@ -56,7 +64,9 @@ export class StratosConfig implements Logger {
       const stratosYamlFile = this.getStratosYamlPath();
       if (fs.existsSync(stratosYamlFile)) {
         try {
-          this.stratosConfig = yaml.safeLoad(fs.readFileSync(stratosYamlFile, 'utf8'));
+          this.stratosConfig = yaml.load(
+            fs.readFileSync(stratosYamlFile, 'utf8')
+          );
           // this.log(this.stratosConfig);
           this.log('Read stratos.yaml okay from: ' + stratosYamlFile);
         } catch (e) {
@@ -73,12 +83,20 @@ export class StratosConfig implements Logger {
     // Exclude packages from the STRATOS_BUILD_REMOVE environment variable
     this.excludeFromEnvVar();
 
-    this.packageJsonFile = this.findFileOrFolderInChain(this.rootDir, 'package.json');
+    this.packageJsonFile = this.findFileOrFolderInChain(
+      this.rootDir,
+      'package.json'
+    );
     if (this.packageJsonFile !== null) {
-      this.packageJson = JSON.parse(fs.readFileSync(this.packageJsonFile, 'utf8').toString());
+      this.packageJson = JSON.parse(
+        fs.readFileSync(this.packageJsonFile, 'utf8').toString()
+      );
     }
 
-    this.nodeModulesFile = this.findFileOrFolderInChain(this.rootDir, 'node_modules');
+    this.nodeModulesFile = this.findFileOrFolderInChain(
+      this.rootDir,
+      'node_modules'
+    );
 
     this.gitMetadata = new GitMetadata(this.rootDir);
     // this.log(this.gitMetadata);
@@ -86,12 +104,19 @@ export class StratosConfig implements Logger {
       this.log('Read git metadata file');
     }
 
-    this.newProjectRoot = path.join(this.rootDir, this.angularJson.newProjectRoot);
+    this.newProjectRoot = path.join(
+      this.rootDir,
+      this.angularJson.newProjectRoot
+    );
 
     // Discover all packages
 
     // Helper to discover and interpret packages
-    this.packages = new Packages(this, this.nodeModulesFile, this.newProjectRoot);
+    this.packages = new Packages(
+      this,
+      this.nodeModulesFile,
+      this.newProjectRoot
+    );
     this.packages.setLogger(this);
     this.packages.scan(this.packageJson);
 
@@ -103,7 +128,7 @@ export class StratosConfig implements Logger {
       this.log('Building without any extensions');
     } else {
       this.log('Building with these extensions:');
-      extensions.forEach(ext => this.log(` + ${ext.package}`));
+      extensions.forEach((ext) => this.log(` + ${ext.package}`));
     }
   }
 
@@ -116,20 +141,31 @@ export class StratosConfig implements Logger {
   }
 
   private applyDefaultExcludes() {
-    const defaultExcludedPackages = ['@example/theme', '@example/extensions', '@stratosui/desktop-extensions'];
-    if (this.stratosConfig && this.stratosConfig.packages && this.stratosConfig.packages.desktop) {
+    const defaultExcludedPackages = [
+      '@example/theme',
+      '@example/extensions',
+      '@stratosui/desktop-extensions',
+    ];
+    if (
+      this.stratosConfig &&
+      this.stratosConfig.packages &&
+      this.stratosConfig.packages.desktop
+    ) {
       defaultExcludedPackages.pop();
       this.log('Building with desktop package');
     }
 
     const exclude = [];
     // Are the default excluded packages explicitly in the include section?
-    if (this.stratosConfig &&
+    if (
+      this.stratosConfig &&
       this.stratosConfig.packages &&
       this.stratosConfig.packages.include &&
       this.stratosConfig.packages.include.length > 0 // Will check if this is an array
     ) {
-      defaultExcludedPackages.forEach(ep => this.addIfMissing(this.stratosConfig.packages.include, ep, exclude));
+      defaultExcludedPackages.forEach((ep) =>
+        this.addIfMissing(this.stratosConfig.packages.include, ep, exclude)
+      );
     } else {
       exclude.push(...defaultExcludedPackages);
     }
@@ -149,7 +185,9 @@ export class StratosConfig implements Logger {
     if (!this.stratosConfig.packages.exclude) {
       this.stratosConfig.packages.exclude = [];
     }
-    exclude.forEach(e => this.addIfMissing(this.stratosConfig.packages.exclude, e));
+    exclude.forEach((e) =>
+      this.addIfMissing(this.stratosConfig.packages.exclude, e)
+    );
   }
 
   private addIfMissing<T = string>(array: T[], entry: T, dest: T[] = array) {
@@ -161,7 +199,7 @@ export class StratosConfig implements Logger {
   // Exclude any packages specified in the STRATOS_BUILD_REMOVE environment variable
   private excludeFromEnvVar() {
     const buildRemove = process.env.STRATOS_BUILD_REMOVE || '';
-    if (buildRemove.length === 0 ) {
+    if (buildRemove.length === 0) {
       return;
     }
 
@@ -169,7 +207,9 @@ export class StratosConfig implements Logger {
     console.log(`Detected STRATOS_BUILD_REMOVE: ${buildRemove}`);
 
     // Add the package to the list of excludes
-    exclude.forEach(e => this.addIfMissing(this.stratosConfig.packages.exclude, e.trim()));
+    exclude.forEach((e) =>
+      this.addIfMissing(this.stratosConfig.packages.exclude, e.trim())
+    );
   }
 
   public log(msg: any) {
@@ -187,12 +227,14 @@ export class StratosConfig implements Logger {
   }
 
   public getExtensions(): ExtensionMetadata[] {
-    return this.packages.packages.filter(p => !!p.extension).map(pkg => pkg.extension);
+    return this.packages.packages
+      .filter((p) => !!p.extension)
+      .map((pkg) => pkg.extension);
   }
 
   public getAssets(): AssetMetadata[] {
     const assets: AssetMetadata[] = [];
-    this.packages.packages.forEach(pkg => {
+    this.packages.packages.forEach((pkg) => {
       if (pkg.assets) {
         assets.push(...pkg.assets);
       }
@@ -203,14 +245,14 @@ export class StratosConfig implements Logger {
 
   public getBackendPlugins(): string[] {
     const plugins = {};
-    this.packages.packages.forEach(pkg => {
-      pkg.backendPlugins.forEach(name => {
+    this.packages.packages.forEach((pkg) => {
+      pkg.backendPlugins.forEach((name) => {
         plugins[name] = true;
       });
     });
 
     if (this.stratosConfig.backend) {
-      this.stratosConfig.backend.forEach(name => {
+      this.stratosConfig.backend.forEach((name) => {
         plugins[name] = true;
       });
     }
@@ -218,7 +260,9 @@ export class StratosConfig implements Logger {
   }
 
   public getThemedPackages(): ThemingMetadata[] {
-    return this.packages.packages.filter(p => !!p.theming).map(pkg => pkg.theming);
+    return this.packages.packages
+      .filter((p) => !!p.theming)
+      .map((pkg) => pkg.theming);
   }
 
   public getPackageJsonFolder() {

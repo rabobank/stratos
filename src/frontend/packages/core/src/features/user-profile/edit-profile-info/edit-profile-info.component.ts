@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { delay, first, map, take, tap } from 'rxjs/operators';
@@ -21,14 +21,14 @@ import { StepOnNextFunction } from '../../../shared/components/stepper/step/step
 })
 export class EditProfileInfoComponent implements OnInit, OnDestroy {
 
-  editProfileForm: FormGroup;
+  editProfileForm: UntypedFormGroup;
   showPassword: boolean[] = [];
 
   needsPasswordForEmailChange: boolean;
 
   constructor(
     private userProfileService: UserProfileService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private currentUserPermissionsService: CurrentUserPermissionsService,
   ) {
     this.editProfileForm = this.fb.group({

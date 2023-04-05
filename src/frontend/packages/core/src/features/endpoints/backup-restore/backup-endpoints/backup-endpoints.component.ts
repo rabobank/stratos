@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import moment from 'moment';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
@@ -68,7 +68,7 @@ export class BackupEndpointsComponent implements OnDestroy {
 
   // Step 2
   passwordValid$: Observable<boolean>;
-  passwordForm: FormGroup;
+  passwordForm: UntypedFormGroup;
   showPassword: boolean[] = [];
 
   constructor(
@@ -109,9 +109,9 @@ export class BackupEndpointsComponent implements OnDestroy {
   }
 
   setupPasswordStep() {
-    this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      password2: new FormControl(''),
+    this.passwordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(6)]),
+      password2: new UntypedFormControl(''),
     });
     this.sub = this.passwordForm.controls.password.valueChanges.subscribe(value => this.passwordForm.controls.password2.setValidators(
       [Validators.required, Validators.pattern(value)]

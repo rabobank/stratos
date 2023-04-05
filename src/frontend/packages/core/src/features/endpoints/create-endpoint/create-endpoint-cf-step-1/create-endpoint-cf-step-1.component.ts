@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, pairwise } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { getSSOClientRedirectURI } from '../../endpoint-helpers';
 })
 export class CreateEndpointCfStep1Component implements IStepperStep, AfterContentInit {
 
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
 
   @Input() finalStep: boolean;
   private pFixedUrl: string;
@@ -61,7 +61,7 @@ export class CreateEndpointCfStep1Component implements IStepperStep, AfterConten
   showAdvancedOptions = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     activatedRoute: ActivatedRoute,
     private snackBarService: SnackBarService
   ) {
