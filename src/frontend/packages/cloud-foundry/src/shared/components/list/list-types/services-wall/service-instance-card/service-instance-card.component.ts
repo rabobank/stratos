@@ -37,7 +37,7 @@ import {
 })
 export class ServiceInstanceCardComponent extends CardCell<APIResource<IServiceInstance>> {
 
-  @Input('row')
+  @Input()
   set row(row: APIResource<IServiceInstance>) {
     super.row = row;
     if (row) {

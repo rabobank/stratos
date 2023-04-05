@@ -30,7 +30,7 @@
     "test-frontend:git": "NG_TEST_SUITE=git ng test git --code-coverage --watch=false",
     "posttest": "nyc report --reporter=html --reporter=lcovonly --reporter=json --tempDir=coverage/nyc",
     "codecov": "codecov -f coverage/coverage-final.json -F frontend",
-    "lint": "ng lint --format stylish",
+    "lint": "ng lint",
     "sass-lint": "sass-lint -v",
     "e2e": "ng e2e",
     "e2e-dev": "STRATOS_E2E_BASE_URL=https://127.0.0.1:4200 ng e2e --dev-server-target= --base-url=https://127.0.0.1:4200",
@@ -48,6 +48,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@ajsf/material": "0.7.0",
     "@angular/animations": "^13.3.12",
     "@angular/cdk": "^13.3.9",
     "@angular/common": "^13.3.12",
@@ -61,7 +62,6 @@
     "@angular/platform-browser-dynamic": "^13.3.12",
     "@angular/platform-server": "^13.3.12",
     "@angular/router": "^13.3.12",
-    "@ajsf/material": "0.7.0",
     "@cfstratos/monaco-yaml": "^2.5.0",
     "@ngrx/effects": "^13.2.0",
     "@ngrx/router-store": "^13.2.0",
@@ -73,6 +73,7 @@
     "core-js": "^3.6.5",
     "immer": "^6.0.3",
     "intersect": "^1.0.1",
+    "lodash": "^4.17.20",
     "lodash-es": "^4.17.14",
     "mappy-breakpoints": "^0.2.3",
     "marked": "^1.1.0",
@@ -80,7 +81,7 @@
     "moment-timezone": "^0.5.13",
     "ngrx-store-localstorage": "13.0.1",
     "ngx-moment": "^3.5.0",
-    "ngx-monaco-editor": "^9.0.0",
+    "ngx-monaco-editor": "^12.0.0",
     "normalizr": "^3.6.0",
     "reselect": "^4.0.0",
     "rxjs": "^6.6.3",
@@ -90,8 +91,7 @@
     "tslib": "^2.0.0",
     "xterm": "^4.5.0",
     "xterm-addon-fit": "^0.3.0",
-    "zone.js": "~0.11.4",
-    "lodash": "^4.17.20"
+    "zone.js": "~0.11.4"
   },
   "engines": {
     "node": "^14 || ^16"
@@ -102,6 +102,11 @@
     "@angular-devkit/build-angular": "^13.3.11",
     "@angular-devkit/core": "^13.3.11",
     "@angular-devkit/schematics": "^13.3.11",
+    "@angular-eslint/builder": "13.5.0",
+    "@angular-eslint/eslint-plugin": "13.5.0",
+    "@angular-eslint/eslint-plugin-template": "13.5.0",
+    "@angular-eslint/schematics": "13.5.0",
+    "@angular-eslint/template-parser": "13.5.0",
     "@angular/cli": "^13.3.11",
     "@angular/compiler-cli": "^13.3.12",
     "@angular/language-service": "^13.3.12",
@@ -112,13 +117,18 @@
     "@types/karma": "^5.0.0",
     "@types/node": "^13.11.1",
     "@types/request": "^2.48.4",
-    "acorn": "^7.1.1",
+    "@typescript-eslint/eslint-plugin": "5.27.1",
+    "@typescript-eslint/parser": "5.27.1",
+    "acorn": "^8.8.2",
     "adm-zip": "^0.4.16",
     "browserstack-local": "^1.4.5",
     "codecov": "^3.7.1",
-    "codelyzer": "^6.0.0",
     "copy-webpack-plugin": "^6.2.0",
     "delete": "^1.1.0",
+    "eslint": "^8.17.0",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-prefer-arrow": "latest",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.0",
     "istanbul": "^0.4.5",
@@ -147,12 +157,23 @@
     "q": "^1.4.1",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
-    "rxjs-tslint": "^0.1.8",
     "sass-lint": "^1.12.1",
     "stratos-protractor-reporter": "^1.2.3",
     "ts-node": "^8.8.2",
-    "tslint": "~6.1.0",
     "typescript": "4.6.4",
     "webpack": "5.77.0"
+  },
+  "overrides": {
+    "@cfstratos/monaco-yaml": {
+      "monaco-editor": "^0.24.0"
+    },
+    "ngx-monaco-editor": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core"
+    },
+    "jasmine-protractor-browser-log-reporter": {
+      "jasmine-core": "$jasmine-core",
+      "protractor": "$protractor"
+    }
   }
 }

@@ -20,7 +20,7 @@ export class UserProfileBannerComponent {
     this.canUseGravatar = allowed;
   }
 
-  @Input('user')
+  @Input()
   set user(user: UserProfileInfo) {
     this.userProfile = user;
     if (user) {

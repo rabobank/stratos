@@ -344,7 +344,7 @@ function associateChildWithParent(
         };
         if (!environment.production) {
           // Add for easier debugging
-          /* tslint:disable-next-line:no-string-literal  */
+           
           parentAction['childEntityKey'] = action.child.entityKey;
         }
 
@@ -513,12 +513,12 @@ export function populatePaginationFromParent(store: Store<GeneralEntityAppState>
         return;
       }
       // Find the property name (for instance a list of routes in a parent space would have param name `routes`)
-      /* tslint:disable-next-line:no-string-literal  */
+       
       const entities = parentEntitySchema.schema['entity'] || {};
       const params = Object.keys(entities);
       for (const paramName of params) {
         const entitySchema: EntitySchema | [EntitySchema] = entities[paramName];
-        /* tslint:disable-next-line:no-string-literal  */
+         
         const arraySafeEntitySchema: EntitySchema = entitySchema['length'] >= 0 ? entitySchema[0] : entitySchema;
         if (arraySafeEntitySchema.entityType === action.entityType) {
           // Found it! Does the entity contain a value for the property name?

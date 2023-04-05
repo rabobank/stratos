@@ -1,4 +1,4 @@
-/* tslint:disable:max-line-length */
+ 
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -25,7 +25,7 @@ import {
 import { BaseCfListConfig } from '../base-cf/base-cf-list-config';
 import { CfCellHealthDataSource, CfCellHealthEntry, CfCellHealthState } from './cf-cell-health-source';
 
-// tslint:enable:max-line-length
+/* eslint-enable max-len */
 
 @Injectable()
 export class CfCellHealthListConfigService extends BaseCfListConfig<CfCellHealthEntry> {

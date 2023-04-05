@@ -200,7 +200,9 @@
             "polyfills": "src/frontend/packages/core/src/polyfills.ts",
             "tsConfig": "src/frontend/packages/core/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/core/karma.conf.js",
-            "styles": ["src/frontend/packages/core/src/styles.css"],
+            "styles": [
+              "src/frontend/packages/core/src/styles.css"
+            ],
             "scripts": [],
             "assets": [
               "src/frontend/packages/core/src/favicon.ico",
@@ -214,6 +216,15 @@
                 "input": "custom-src/frontend/assets/custom",
                 "output": "/core/assets/custom"
               }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/core/**/*.ts",
+              "src/frontend/packages/core/**/*.html"
             ]
           }
         }
@@ -244,6 +255,15 @@
             "tsConfig": "src/frontend/packages/store/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/store/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/store/**/*.ts",
+              "src/frontend/packages/store/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -266,6 +286,15 @@
             "main": "src/frontend/packages/shared/src/test.ts",
             "tsConfig": "src/frontend/packages/shared/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/shared/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/shared/**/*.ts",
+              "src/frontend/packages/shared/**/*.html"
+            ]
           }
         }
       }
@@ -295,6 +324,15 @@
             "tsConfig": "src/frontend/packages/cloud-foundry/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/cloud-foundry/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/cloud-foundry/**/*.ts",
+              "src/frontend/packages/cloud-foundry/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -323,6 +361,15 @@
             "tsConfig": "src/frontend/packages/cf-autoscaler/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/cf-autoscaler/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/cf-autoscaler/**/*.ts",
+              "src/frontend/packages/cf-autoscaler/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -339,6 +386,15 @@
             "tsConfig": "src/frontend/packages/git/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/git/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/frontend/packages/git/**/*.ts",
+              "src/frontend/packages/git/**/*.html"
+            ]
+          }
         }
       }
     }
@@ -352,5 +408,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

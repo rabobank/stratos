@@ -13,7 +13,7 @@ import { TableCellAppCfOrgSpaceBase } from '../TableCellAppCfOrgSpaceBase';
 })
 export class TableCellAppCfOrgSpaceComponent extends TableCellAppCfOrgSpaceBase {
 
-  @Input('row')
+  @Input()
   set row(row: APIResource<IApp>) {
     super.row = row;
     if (row) {

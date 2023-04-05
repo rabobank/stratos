@@ -267,7 +267,7 @@ export abstract class ListDataSource<T, A = T> extends DataSource<T> implements 
       }
       this.entitySelectConfig = this.getEntitySelectConfig(config.schema);
     }
-    /* tslint:disable-next-line:no-string-literal  */
+     
     if (this.action['length']) {
       this.action = (this.action as PaginatedAction[]).map(a => ({
         ...a,

@@ -81,7 +81,7 @@ export class MetaCardComponent implements OnDestroy {
     }
   }
 
-  @Input('actionMenu')
+  @Input()
   set actionMenu(actionMenu: MenuItem[]) {
     if (actionMenu) {
       this.pActionMenu = actionMenu.map(menuItem => {

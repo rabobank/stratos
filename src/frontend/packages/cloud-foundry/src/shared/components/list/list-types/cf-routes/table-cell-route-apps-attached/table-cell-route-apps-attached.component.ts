@@ -17,13 +17,13 @@ export class TableCellRouteAppsAttachedComponent extends TableCellCustom<any> im
   config$ = new BehaviorSubject(null);
   row$ = new BehaviorSubject(null);
 
-  @Input('config')
+  @Input()
   set config(config: any) {
     super.config = config;
     this.config$.next(config);
   }
 
-  @Input('row')
+  @Input()
   set row(route: APIResource<CfRoute>) {
     super.row = route;
     this.row$.next(route);

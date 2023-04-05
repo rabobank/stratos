@@ -19,7 +19,7 @@ export class TableCellServiceInstanceTagsComponent
   extends TableCellCustom<APIResource<IServiceInstance> | APIResource<IUserProvidedServiceInstance>> {
 
   tags: AppChip<Tag>[] = [];
-  @Input('row')
+  @Input()
   set row(row) {
     super.row = row;
     if (row) {

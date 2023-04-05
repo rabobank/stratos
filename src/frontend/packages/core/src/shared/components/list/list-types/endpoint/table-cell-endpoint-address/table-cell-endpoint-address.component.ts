@@ -16,10 +16,10 @@ import { RowWithEndpointId } from '../table-cell-endpoint-name/table-cell-endpoi
 export class TableCellEndpointAddressComponent extends TableCellCustom<EndpointModel | RowWithEndpointId>  {
   public endpointAddress$: Observable<any>;
 
-  @Input('row')
+  @Input()
   set row(row: EndpointModel | RowWithEndpointId) {
     super.row = row;
-    /* tslint:disable-next-line:no-string-literal */
+     
     const id = row['endpointId'] || row['guid'];
     this.endpointAddress$ = stratosEntityCatalog.endpoint.store.getEntityService(id).waitForEntity$.pipe(
       map(data => data.entity),

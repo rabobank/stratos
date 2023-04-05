@@ -1,7 +1,17 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 
-import { AppAutoscalerMetricDataLine, AppAutoscalerMetricDataPoint } from '../../../../../store/app-autoscaler.types';
+import {
+  AppAutoscalerMetricDataLine,
+  AppAutoscalerMetricDataPoint,
+} from '../../../../../store/app-autoscaler.types';
 
 function formatLabel(label: any): string {
   if (label instanceof Date) {
@@ -13,11 +23,13 @@ function formatLabel(label: any): string {
   return label;
 }
 
-/* tslint:disable:component-selector  */
+/* eslint-disable @angular-eslint/component-selector */
 @Component({
   selector: 'g[ngx-combo-charts-series-vertical]',
   template: `
-    <svg:g ngx-charts-bar *ngFor="let bar of bars; trackBy: trackBy"
+    <svg:g
+      ngx-charts-bar
+      *ngFor="let bar of bars; trackBy: trackBy"
       [@animationState]="'active'"
       [width]="bar.width"
       [height]="bar.height"
@@ -38,8 +50,8 @@ function formatLabel(label: any): string {
       [tooltipDisabled]="tooltipDisabled"
       [tooltipPlacement]="'top'"
       [tooltipType]="'tooltip'"
-      [tooltipTitle]="bar.tooltipText">
-    </svg:g>
+      [tooltipTitle]="bar.tooltipText"
+    ></svg:g>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -49,13 +61,12 @@ function formatLabel(label: any): string {
           opacity: 1,
           transform: '*',
         }),
-        animate(500, style({ opacity: 0, transform: 'scale(0)' }))
-      ])
-    ])
-  ]
+        animate(500, style({ opacity: 0, transform: 'scale(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
-
   @Input() dims;
   @Input() type = 'standard';
   @Input() series;
@@ -69,6 +80,7 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
   @Input() seriesName: string;
   @Input() animations = true;
 
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() select = new EventEmitter();
   @Output() activate = new EventEmitter();
   @Output() deactivate = new EventEmitter();
@@ -92,11 +104,10 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
     let d0 = 0;
     let total;
     if (this.type === 'normalized') {
-      total = this.series.map(d => d.value).reduce((sum, d) => sum + d, 0);
+      total = this.series.map((d) => d.value).reduce((sum, d) => sum + d, 0);
     }
 
     this.bars = this.series.map((d, index) => {
-
       let value = d.value;
       const label = d.name;
       const formattedLabel = formatLabel(label);
@@ -111,7 +122,7 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
         formattedLabel,
         height: 0,
         x: 0,
-        y: 0
+        y: 0,
       };
 
       if (this.type === 'standard') {
@@ -162,7 +173,10 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
           bar.gradientStops = this.colors.getLinearGradientStops(value);
         } else {
           bar.color = this.colors.getColor(bar.offset1);
-          bar.gradientStops = this.colors.getLinearGradientStops(bar.offset1, bar.offset0);
+          bar.gradientStops = this.colors.getLinearGradientStops(
+            bar.offset1,
+            bar.offset0
+          );
         }
       }
 
@@ -183,8 +197,11 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
     });
   }
 
-  getSeriesTooltips(seriesLine: AppAutoscalerMetricDataLine[], index): AppAutoscalerMetricDataPoint[] {
-    return seriesLine.map(d => {
+  getSeriesTooltips(
+    seriesLine: AppAutoscalerMetricDataLine[],
+    index
+  ): AppAutoscalerMetricDataPoint[] {
+    return seriesLine.map((d) => {
       return d.series[index];
     });
   }
@@ -193,7 +210,7 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
     if (!this.activeEntries) {
       return false;
     }
-    const item = this.activeEntries.find(d => {
+    const item = this.activeEntries.find((d) => {
       return entry.name === d.name && entry.series === d.series;
     });
     return item !== undefined;
@@ -206,5 +223,4 @@ export class AppAutoscalerComboSeriesVerticalComponent implements OnChanges {
   trackBy(index, bar): string {
     return bar.label;
   }
-
 }

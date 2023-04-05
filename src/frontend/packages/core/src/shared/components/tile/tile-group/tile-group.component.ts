@@ -3,7 +3,6 @@ import {
   Component,
   ContentChildren,
   HostBinding,
-  OnInit,
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
@@ -14,12 +13,9 @@ import { TileComponent } from '../tile/tile.component';
   selector: 'app-tile-group',
   templateUrl: './tile-group.component.html',
   styleUrls: ['./tile-group.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class TileGroupComponent implements OnInit, AfterContentInit {
-
-  constructor() { }
-
+export class TileGroupComponent implements AfterContentInit {
   @HostBinding('class.tile-group-gutters') private hasGutters = true;
 
   @HostBinding('class.tile-group-6-cols') private isSixColumn = false;
@@ -30,14 +26,11 @@ export class TileGroupComponent implements OnInit, AfterContentInit {
 
   @ContentChildren(TileComponent) tiles: QueryList<TileComponent>;
 
-  ngOnInit() { }
-
   ngAfterContentInit() {
-    this.isSixColumn = (this.tiles.length === 6);
-    this.isFourColumn = (this.tiles.length === 5);
-    this.isThreeColumn = (this.tiles.length === 3);
-    this.isTwoColumn = (this.tiles.length === 2);
-    this.isOneColumn = (this.tiles.length === 1);
+    this.isSixColumn = this.tiles.length === 6;
+    this.isFourColumn = this.tiles.length === 5;
+    this.isThreeColumn = this.tiles.length === 3;
+    this.isTwoColumn = this.tiles.length === 2;
+    this.isOneColumn = this.tiles.length === 1;
   }
-
 }

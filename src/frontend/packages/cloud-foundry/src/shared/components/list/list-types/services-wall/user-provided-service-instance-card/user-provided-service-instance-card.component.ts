@@ -36,7 +36,7 @@ export class UserProvidedServiceInstanceCardComponent extends CardCell<APIResour
 
   cfOrgSpace: CfOrgSpaceLabelService;
 
-  @Input('row')
+  @Input()
   set row(row: APIResource<IUserProvidedServiceInstance>) {
     super.row = row;
     if (row) {

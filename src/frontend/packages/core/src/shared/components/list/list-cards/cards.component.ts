@@ -8,17 +8,18 @@ import { CardTypes } from './card/card.component';
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss']
+  styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent<T> {
   public columns = CardCell.columns;
   @Input() dataSource: IListDataSource<T>;
   private pComponent: CardTypes<T>;
   @Input()
-  get component() { return this.pComponent; }
+  get component() {
+    return this.pComponent;
+  }
   set component(cardCell: CardTypes<T>) {
     this.pComponent = cardCell;
-    /* tslint:disable-next-line */
     this.columns = cardCell['columns'];
   }
 

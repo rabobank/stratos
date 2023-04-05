@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { schema } from 'normalizr';
 import { never as observableNever, Observable, of as observableOf } from 'rxjs';
 import { map, publishReplay, refCount } from 'rxjs/operators';
 
@@ -20,9 +19,18 @@ import { ITableColumn } from '../list/list-table/table.types';
 @Component({
   selector: 'app-action-monitor',
   templateUrl: './app-action-monitor.component.html',
-  styleUrls: ['./app-action-monitor.component.scss']
+  styleUrls: ['./app-action-monitor.component.scss'],
 })
 export class AppActionMonitorComponent<T> implements OnInit {
+  public dataSource: ITableListDataSource<T>;
+
+  public allColumns: ITableColumn<T>[] = [];
+
+  @Input()
+  public columns: ITableColumn<T>[] = [];
+
+  @Input()
+  public getCellConfig: (element) => ITableCellRequestMonitorIconConfig;
 
   @Input()
   public data$: Observable<Array<T>> = observableNever();
@@ -36,7 +44,8 @@ export class AppActionMonitorComponent<T> implements OnInit {
   public schema: EntitySchema;
 
   @Input()
-  public monitorState: AppMonitorComponentTypes = AppMonitorComponentTypes.FETCHING;
+  public monitorState: AppMonitorComponentTypes =
+    AppMonitorComponentTypes.FETCHING;
 
   @Input()
   public updateKey = rootUpdatingKey;
@@ -51,22 +60,9 @@ export class AppActionMonitorComponent<T> implements OnInit {
    * Get the ID of the ROW
    */
   @Input()
-  public trackBy = ((index: number, item: T) => index.toString());
+  public trackBy = (index: number, item: T) => index.toString();
 
-  @Input()
-  public getCellConfig: (element) => ITableCellRequestMonitorIconConfig;
-
-  @Input()
-  public columns: ITableColumn<T>[] = [];
-
-  public dataSource: ITableListDataSource<T>;
-
-  public allColumns: ITableColumn<T>[] = [];
-
-  constructor(
-    private entityMonitorFactory: EntityMonitorFactory
-  ) {
-  }
+  constructor(private entityMonitorFactory: EntityMonitorFactory) {}
 
   ngOnInit() {
     const defaultGetCellConfig = () => ({
@@ -74,28 +70,25 @@ export class AppActionMonitorComponent<T> implements OnInit {
       schema: this.schema,
       monitorState: this.monitorState,
       updateKey: this.updateKey,
-      getId: this.getId
+      getId: this.getId,
     });
     const monitorColumn = {
       columnId: 'monitorState',
       cellComponent: TableCellRequestMonitorIconComponent,
       cellConfig: {
-        getConfig: this.getCellConfig || defaultGetCellConfig
+        getConfig: this.getCellConfig || defaultGetCellConfig,
       },
-      cellFlex: '0 0 24px'
+      cellFlex: '0 0 24px',
     };
 
     // Some data$ obs only ever emit once. If we subscribed directly to this then that emit would be consumed and will not be available
     // in the data source connect subscription. So wrap it in a replay to ensure the last emitted value is available
-    this.replayData$ = this.data$.pipe(
-      publishReplay(1),
-      refCount()
-    );
+    this.replayData$ = this.data$.pipe(publishReplay(1), refCount());
 
     this.allColumns = [...this.columns, monitorColumn];
     this.dataSource = {
       connect: () => this.replayData$,
-      disconnect: () => { },
+      disconnect: () => {},
       trackBy: (index, item) => {
         const fn = monitorColumn.cellConfig.getConfig(item).getId;
         if (fn) {
@@ -114,10 +107,10 @@ export class AppActionMonitorComponent<T> implements OnInit {
           cellConfig.getId(row),
           cellConfig.schema,
           cellConfig.monitorState,
-          cellConfig.updateKey,
+          cellConfig.updateKey
         );
         return monitorState.currentState.pipe(
-          map(state => {
+          map((state) => {
             return {
               busy: state.busy,
               error: state.error,
@@ -126,9 +119,7 @@ export class AppActionMonitorComponent<T> implements OnInit {
             };
           })
         );
-      }
+      },
     };
   }
-
-
 }

@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
 
-import {
-  EndpointListDetailsComponent,
-} from '../../../../../core/src/shared/components/list/list-types/endpoint/endpoint-list.helpers';
+import { EndpointListDetailsComponent } from '../../../../../core/src/shared/components/list/list-types/endpoint/endpoint-list.helpers';
 import { EndpointModel } from '../../../../../store/src/types/endpoint.types';
 import { GIT_ENDPOINT_SUB_TYPES } from '../../../store/git-entity-factory';
 
-
 @Component({
-  selector: 'lib-git-endpoint-details',
+  selector: 'app-git-endpoint-details',
   templateUrl: './git-endpoint-details.component.html',
-  styleUrls: ['./git-endpoint-details.component.scss']
+  styleUrls: ['./git-endpoint-details.component.scss'],
 })
 export class GitEndpointDetailsComponent extends EndpointListDetailsComponent {
-
   name: string;
   avatar: string;
 

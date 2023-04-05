@@ -1,5 +1,11 @@
-import { animate, query, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy } from '@angular/core';
+import {
+  animate,
+  query,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -18,25 +24,31 @@ import { goToAppWall } from '../../cf/cf.helpers';
   templateUrl: './application-wall.component.html',
   styleUrls: ['./application-wall.component.scss'],
   animations: [
-    trigger(
-      'cardEnter', [
+    trigger('cardEnter', [
       transition('* => *', [
-        query(':enter', [
-          style({ opacity: 0, transform: 'translateY(10px)' }),
-          animate('150ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-        ], { optional: true })
-      ])
-    ]
-    )
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(10px)' }),
+            animate(
+              '150ms ease-out',
+              style({ opacity: 1, transform: 'translateY(0)' })
+            ),
+          ],
+          { optional: true }
+        ),
+      ]),
+    ]),
   ],
-  providers: [{
-    provide: ListConfig,
-    useClass: CfAppConfigService
-  },
-    CfOrgSpaceDataService
-  ]
+  providers: [
+    {
+      provide: ListConfig,
+      useClass: CfAppConfigService,
+    },
+    CfOrgSpaceDataService,
+  ],
 })
-export class ApplicationWallComponent implements OnDestroy {
+export class ApplicationWallComponent {
   public cfIds$: Observable<string[]>;
 
   public canCreateApplication: string;
@@ -47,7 +59,7 @@ export class ApplicationWallComponent implements OnDestroy {
     public cloudFoundryService: CloudFoundryService,
     private store: Store<CFAppState>,
     public cfOrgSpaceService: CfOrgSpaceDataService,
-    activatedRoute: ActivatedRoute,
+    activatedRoute: ActivatedRoute
   ) {
     // If we have an endpoint ID, select it and redirect
     const { endpointId } = activatedRoute.snapshot.params;
@@ -57,15 +69,12 @@ export class ApplicationWallComponent implements OnDestroy {
     }
 
     this.cfIds$ = cloudFoundryService.cFEndpoints$.pipe(
-      map(endpoints => endpoints.map(endpoint => endpoint.guid)),
+      map((endpoints) => endpoints.map((endpoint) => endpoint.guid))
     );
     this.canCreateApplication = CfCurrentUserPermissions.APPLICATION_CREATE;
 
     this.haveConnectedCf$ = cloudFoundryService.connectedCFEndpoints$.pipe(
-      map(endpoints => !!endpoints && endpoints.length > 0)
+      map((endpoints) => !!endpoints && endpoints.length > 0)
     );
-  }
-
-  ngOnDestroy(): void {
   }
 }
