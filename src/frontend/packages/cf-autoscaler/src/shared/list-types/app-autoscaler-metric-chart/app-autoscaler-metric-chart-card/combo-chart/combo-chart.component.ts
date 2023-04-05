@@ -14,6 +14,7 @@ import {
   calculateViewDimensions,
   ColorHelper,
   LineSeriesComponent,
+  ScaleType,
   ViewDimensions,
 } from '@swimlane/ngx-charts';
 import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
@@ -23,10 +24,9 @@ import { curveLinear } from 'd3-shape';
   selector: 'app-autoscaler-combo-chart-component',
   templateUrl: './combo-chart.component.html',
   styleUrls: ['./combo-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppAutoscalerComboChartComponent extends BaseChartComponent {
-
   @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
 
   @Input() curve: any = curveLinear;
@@ -43,11 +43,11 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   @Input() gradient: boolean;
   @Input() showGridLines = true;
   @Input() activeEntries: any[] = [];
-  @Input() schemeType: string;
+  @Input() schemeType: ScaleType;
   @Input() xAxisTickFormatting: any;
   @Input() yAxisTickFormatting: any;
   @Input() roundDomains = false;
-  @Input() colorSchemeLine: any[];
+  @Input() colorSchemeLine: string;
   @Input() autoScale;
   @Input() lineChart: any;
   @Input() yLeftAxisScaleFactor: any;
@@ -60,8 +60,10 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
 
-  @ContentChild('tooltipTemplate', { static: true }) tooltipTemplate: TemplateRef<any>;
-  @ContentChild('seriesTooltipTemplate', { static: true }) seriesTooltipTemplate: TemplateRef<any>;
+  @ContentChild('tooltipTemplate', { static: true })
+  tooltipTemplate: TemplateRef<any>;
+  @ContentChild('seriesTooltipTemplate', { static: true })
+  seriesTooltipTemplate: TemplateRef<any>;
 
   dims: ViewDimensions;
   xScale: any;
@@ -171,9 +173,9 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
     this.combinedSeries = [];
     this.combinedSeries.push({
       name: this.metricName,
-      series: this.results
+      series: this.results,
     });
-    return this.combinedSeries.map(d => d.name);
+    return this.combinedSeries.map((d) => d.name);
   }
 
   isDate(value): boolean {
@@ -226,7 +228,7 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
       const max = Math.max(...values);
       domain = [min, max];
     } else if (this.scaleType === 'linear') {
-      values = values.map(v => Number(v));
+      values = values.map((v) => Number(v));
       const min = Math.min(...values);
       const max = Math.max(...values);
       domain = [min, max];
@@ -256,26 +258,20 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
     }
 
     const min = Math.min(...domain);
-    const max = this.yScaleMax
-      ? this.yScaleMax
-      : Math.max(...domain);
+    const max = this.yScaleMax ? this.yScaleMax : Math.max(...domain);
     return [min, max];
   }
 
   getXScaleLine(domain, width): any {
     let scale;
     if (this.bandwidth === undefined) {
-      this.bandwidth = (this.dims.width - this.barPadding);
+      this.bandwidth = this.dims.width - this.barPadding;
     }
 
     if (this.scaleType === 'time') {
-      scale = scaleTime()
-        .range([0, width])
-        .domain(domain);
+      scale = scaleTime().range([0, width]).domain(domain);
     } else if (this.scaleType === 'linear') {
-      scale = scaleLinear()
-        .range([0, width])
-        .domain(domain);
+      scale = scaleLinear().range([0, width]).domain(domain);
 
       if (this.roundDomains) {
         scale = scale.nice();
@@ -290,16 +286,15 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   }
 
   getYScaleLine(domain, height): any {
-    const scale = scaleLinear()
-      .range([height, 0])
-      .domain(domain);
+    const scale = scaleLinear().range([height, 0]).domain(domain);
 
     return this.roundDomains ? scale.nice() : scale;
   }
 
   getXScale(): any {
     this.xDomain = this.getXDomain();
-    const spacing = this.xDomain.length / (this.dims.width / this.barPadding + 1);
+    const spacing =
+      this.xDomain.length / (this.dims.width / this.barPadding + 1);
     return scaleBand()
       .range([0, this.dims.width])
       .paddingInner(spacing)
@@ -315,11 +310,11 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   }
 
   getXDomain(): any[] {
-    return this.results.map(d => d.name);
+    return this.results.map((d) => d.name);
   }
 
   getYDomain() {
-    const values = this.results.map(d => d.value);
+    const values = this.results.map((d) => d.value);
     const min = Math.min(0, ...values);
     const max = this.yScaleMax
       ? Math.max(this.yScaleMax, ...values)
@@ -343,9 +338,24 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
     } else {
       domain = this.yDomain;
     }
-    this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
-    this.colorsLine = new ColorHelper(this.colorSchemeLine, this.schemeType, domain, this.customColors);
-    this.colorsExtra = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
+    this.colors = new ColorHelper(
+      this.scheme,
+      this.schemeType,
+      domain,
+      this.customColors
+    );
+    this.colorsLine = new ColorHelper(
+      this.colorSchemeLine,
+      this.schemeType,
+      domain,
+      this.customColors
+    );
+    this.colorsExtra = new ColorHelper(
+      this.scheme,
+      this.schemeType,
+      domain,
+      this.customColors
+    );
   }
 
   getLegendOptions() {
@@ -354,7 +364,7 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
       colors: undefined,
       domain: this.seriesDomain,
       title: undefined,
-      position: this.legendPosition
+      position: this.legendPosition,
     };
     if (opts.scaleType === 'ordinal') {
       opts.colors = this.colorsLine;
@@ -371,13 +381,13 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
       colors: this.colorsExtra,
       domain: [],
       title: this.legendTitle,
-      position: this.legendPosition
+      position: this.legendPosition,
     };
     opts.colors.colorDomain = [];
     opts.colors.customColors = this.legendData;
     this.legendData.map((item) => {
       opts.colors.colorDomain.push(item.value);
-      opts.colors.domain.push(item.name);
+      (opts.colors.domain as any[]).push(item.name);
       opts.domain.push(item.name);
     });
     return opts;
@@ -397,8 +407,12 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   }
 
   onActivate(item) {
-    const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
+    const idx = this.activeEntries.findIndex((d) => {
+      return (
+        d.name === item.name &&
+        d.value === item.value &&
+        d.series === item.series
+      );
     });
     if (idx > -1) {
       return;
@@ -409,8 +423,12 @@ export class AppAutoscalerComboChartComponent extends BaseChartComponent {
   }
 
   onDeactivate(item) {
-    const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
+    const idx = this.activeEntries.findIndex((d) => {
+      return (
+        d.name === item.name &&
+        d.value === item.value &&
+        d.series === item.series
+      );
     });
 
     this.activeEntries.splice(idx, 1);

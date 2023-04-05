@@ -12,16 +12,16 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "deepmerge",
+              "intersect",
+              "lodash/cloneDeep",
+              "moment",
               "moment-timezone",
-              "js-yaml",
-              "webcola",
-              "dagre",
-              "lodash/isEqual",
-              "ajv",
-              "lodash/filter",
-              "lodash/map",
-              "lodash/uniqueId",
-              "lodash/cloneDeep"
+              "marked",
+              "rfdc",
+              "xterm",
+              "xterm-addon-fit",
+              "ts-md5/dist/md5"
             ],
             "customWebpackConfig": {
               "path": "./dist-devkit/build/main.js"
@@ -96,7 +96,6 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "aot": true,
             "sslCert": "dev-ssl/server.crt",
             "proxyConfig": "proxy.conf.js",
             "ssl": true,
@@ -200,9 +199,7 @@
             "polyfills": "src/frontend/packages/core/src/polyfills.ts",
             "tsConfig": "src/frontend/packages/core/tsconfig.spec.json",
             "karmaConfig": "src/frontend/packages/core/karma.conf.js",
-            "styles": [
-              "src/frontend/packages/core/src/styles.css"
-            ],
+            "styles": ["src/frontend/packages/core/src/styles.css"],
             "scripts": [],
             "assets": [
               "src/frontend/packages/core/src/favicon.ico",
@@ -399,7 +396,6 @@
       }
     }
   },
-  "defaultProject": "stratos",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -410,6 +406,6 @@
     }
   },
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

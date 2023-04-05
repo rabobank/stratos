@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from '../../../core/core.module';
@@ -17,11 +17,11 @@ import { UnlimitedInputComponent } from './unlimited-input.component';
 class WrapperComponent {
   @ViewChild(UnlimitedInputComponent, { static: true })
   unlimitedInput: UnlimitedInputComponent;
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   constructor() {
-    this.formGroup = new FormGroup({
-      inputName: new FormControl()
+    this.formGroup = new UntypedFormGroup({
+      inputName: new UntypedFormControl()
     });
 
   }

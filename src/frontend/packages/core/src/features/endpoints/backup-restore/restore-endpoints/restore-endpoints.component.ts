@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
 import { Observable, of, Subject } from 'rxjs';
@@ -27,7 +27,7 @@ export class RestoreEndpointsComponent {
 
   // Step 2
   passwordValid$: Observable<boolean>;
-  passwordForm: FormGroup;
+  passwordForm: UntypedFormGroup;
   show = false;
 
   constructor(
@@ -39,8 +39,8 @@ export class RestoreEndpointsComponent {
   }
 
   setupPasswordStep() {
-    this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    this.passwordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(6)]),
     });
     this.passwordValid$ = this.passwordForm.statusChanges.pipe(
       map(() => {

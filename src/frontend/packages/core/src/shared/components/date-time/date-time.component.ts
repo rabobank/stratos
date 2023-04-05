@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import moment from 'moment';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, map, shareReplay, tap } from 'rxjs/operators';
@@ -11,8 +11,8 @@ import { debounceTime, filter, map, shareReplay, tap } from 'rxjs/operators';
 })
 export class DateTimeComponent implements OnDestroy {
 
-  public date = new FormControl();
-  public time = new FormControl();
+  public date = new UntypedFormControl();
+  public time = new UntypedFormControl();
   private sub: Subscription;
   private changeSub: Subscription;
   private dateTimeValue: moment.Moment;
