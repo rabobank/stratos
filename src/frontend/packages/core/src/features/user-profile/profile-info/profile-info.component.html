@@ -16,7 +16,7 @@
   </app-user-profile-banner>
   <div class="user-profile__info" *ngIf="userProfile$ | async as profile">
     <div class="user-profile__content">
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title>Summary</mat-card-title>
         </mat-card-header>
@@ -48,13 +48,13 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card>
+      <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title>Local Settings</mat-card-title>
         </mat-card-header>
         <app-profile-settings></app-profile-settings>
       </mat-card>
-      <mat-card *ngIf="profile.origin === 'uaa'">
+      <mat-card appearance="outlined" *ngIf="profile.origin === 'uaa'">
         <mat-card-header>
           <mat-card-title>Groups</mat-card-title>
         </mat-card-header>

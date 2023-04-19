@@ -1,4 +1,4 @@
-<mat-card class="invite-user-details" *ngIf="(inviteUserDetails$ | async) as inviteUserDetails">
+<mat-card appearance="outlined" class="invite-user-details" *ngIf="(inviteUserDetails$ | async) as inviteUserDetails">
   <mat-card-content>
     <div class="invite-user-details__content">
       <div class="invite-user-details__text">{{inviteUserDetails.text}}</div>

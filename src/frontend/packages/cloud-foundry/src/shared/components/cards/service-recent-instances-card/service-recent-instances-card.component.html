@@ -1,4 +1,4 @@
-<mat-card class="recent-instances">
+<mat-card appearance="outlined" class="recent-instances">
   <mat-card-header class="recent-instances__header">
     <mat-card-title>Recently updated service instances</mat-card-title>
     <app-stateful-icon *ngIf="!(serviceInstances$ | async)" [state]="'busy'"></app-stateful-icon>

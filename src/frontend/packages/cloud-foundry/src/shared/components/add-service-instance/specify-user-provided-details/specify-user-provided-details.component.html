@@ -31,14 +31,14 @@
     <mat-error *ngIf="createEditServiceInstance.controls.syslog_drain_url?.hasError('pattern')">Invalid URL</mat-error>
   </mat-form-field>
   <mat-form-field class="stepper-form__tags">
-    <mat-chip-list #chipList formControlName="tags" class="stepper-form__tags__chip-list">
-      <mat-chip *ngFor="let tag of tags" class="stepper-form__tags__chip-list__chip" (removed)="removeTag(tag)">
+    <mat-chip-grid #chipList formControlName="tags" class="stepper-form__tags__chip-list">
+      <mat-chip-row *ngFor="let tag of tags" class="stepper-form__tags__chip-list__chip" (removed)="removeTag(tag)">
         {{tag.label}}
         <mat-icon matChipRemove>cancel</mat-icon>
-      </mat-chip>
+      </mat-chip-row>
       <input placeholder="Tags" name="tags" [matChipInputFor]="chipList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addTag($event)" />
-    </mat-chip-list>
+    </mat-chip-grid>
   </mat-form-field>
   <mat-form-field class="">
     <textarea matInput formControlName="credentials" placeholder="Credentials (JSON)" matAutosizeMinRows="2"

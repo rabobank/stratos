@@ -67,15 +67,17 @@ const isDirectory = source => {
   const realPath = fs.realpathSync(source);
   const stats = fs.lstatSync(realPath);
   return stats.isDirectory();
-}
+};
 const getDirectories = source =>
-  fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory);
+  fs
+    .readdirSync(source)
+    .map(name => path.join(source, name))
+    .filter(isDirectory);
 
 // Default theme to use
 export const DEFAULT_THEME = '@stratosui/theme';
 
 export class Packages {
-
   public packages: PackageInfo[] = [];
   public packageMap: Map<string, PackageInfo> = new Map<string, PackageInfo>();
 
@@ -85,7 +87,6 @@ export class Packages {
 
   public logger: Logger;
 
-
   // Try and find and load a package.json file in the specified folder
   public static loadPackageFile(dir: string) {
     const pkgFile = path.join(dir, 'package.json');
@@ -93,12 +94,16 @@ export class Packages {
     if (fs.existsSync(pkgFile)) {
       try {
         pkg = JSON.parse(fs.readFileSync(pkgFile, 'utf8').toString());
-      } catch (e) { }
+      } catch (e) {}
     }
     return pkg;
   }
 
-  constructor(public config: StratosConfig, public nodeModulesFolder: string, public localPackagesFolder) { }
+  constructor(
+    public config: StratosConfig,
+    public nodeModulesFolder: string,
+    public localPackagesFolder
+  ) {}
 
   public setLogger(logger: Logger) {
     this.logger = logger;
@@ -141,7 +146,9 @@ export class Packages {
     // Figure out the theme
     if (!this.config.stratosConfig.theme) {
       // Theme was not set, so find the first theme that is not the default theme
-      const theme = this.packages.find(pkg => pkg.theme && pkg.name !== DEFAULT_THEME);
+      const theme = this.packages.find(
+        pkg => pkg.theme && pkg.name !== DEFAULT_THEME
+      );
       if (!theme) {
         this.theme = this.packageMap[DEFAULT_THEME];
       } else {
@@ -180,12 +187,13 @@ export class Packages {
   }
 
   private hasExcludedDepenedncey(pkg: any, exclude: any): boolean {
-
     // Check peer dependencies
     if (pkg.json.peerDependencies) {
       for (const p of Object.keys(pkg.json.peerDependencies)) {
         if (exclude[p]) {
-          console.log(`Removing package ${pkg.name} due to peer dependency ${p}`);
+          console.log(
+            `Removing package ${pkg.name} due to peer dependency ${p}`
+          );
           return true;
         }
       }
@@ -212,7 +220,9 @@ export class Packages {
       if (this.includePackage(pkgFile)) {
         // Process all of the peer dependencies first
         if (pkgFile.peerDependencies) {
-          Object.keys(pkgFile.peerDependencies).forEach(dep => this.addPackage(dep));
+          Object.keys(pkgFile.peerDependencies).forEach(dep =>
+            this.addPackage(dep)
+          );
         }
         const pkg = this.processPackage(pkgFile, pkgDir);
         this.add(pkg);
@@ -242,7 +252,6 @@ export class Packages {
 
   // Should we include the specified package?
   private includePackage(pkg: PackageJson): boolean {
-
     // Must be a stratos package
     if (!pkg.stratos) {
       return false;
@@ -277,7 +286,7 @@ export class Packages {
       theme: pkg.stratos && pkg.stratos.theme,
       theming: this.getThemingConfig(pkg, folder),
       assets: this.getAssets(pkg, folder),
-      backendPlugins: pkg.stratos ? pkg.stratos.backend || [] : [],
+      backendPlugins: pkg.stratos ? pkg.stratos.backend || [] : []
     };
 
     // If this is an extension, add extension metadata
@@ -293,7 +302,10 @@ export class Packages {
   }
 
   // Get any theming metadata - this allows a package to theme its own components using the theme
-  private getThemingConfig(pkg: PackageJson, packagePath: string): ThemingMetadata {
+  private getThemingConfig(
+    pkg: PackageJson,
+    packagePath: string
+  ): ThemingMetadata {
     if (pkg.stratos && pkg.stratos.theming) {
       const refParts = pkg.stratos.theming.split('#');
       if (refParts.length === 2) {
@@ -302,9 +314,12 @@ export class Packages {
           package: pkg.name,
           scss: refParts[0],
           mixin: refParts[1],
-          importPath: '~' + pkg.name + '/' + refParts[0]
+          importPath:
+            pkg.name.replace('@stratosui', 'packages') + '/' + refParts[0]
         };
-        this.log('Found themed package: ' + pkg.name + ' (' + pkg.stratos.theming + ')');
+        this.log(
+          'Found themed package: ' + pkg.name + ' (' + pkg.stratos.theming + ')'
+        );
         return themingConfig;
       } else {
         this.log('Invalid theming reference: ' + pkg.stratos.theming);
@@ -331,5 +346,4 @@ export class Packages {
     }
     return assets.length ? assets : null;
   }
-
 }

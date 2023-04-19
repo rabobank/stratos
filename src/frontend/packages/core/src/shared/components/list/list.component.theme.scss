@@ -35,9 +35,10 @@
 }
 
 @mixin accent($colour) {
+  /* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
   .mat-select-value-text,
-  .mat-input-element.ng-dirty,
-  .mat-chip {
+  .mat-mdc-input-element.ng-dirty,
+  .mat-mdc-chip {
     color: $colour;
   }
 }

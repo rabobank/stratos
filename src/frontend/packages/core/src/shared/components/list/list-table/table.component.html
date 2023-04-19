@@ -3,7 +3,7 @@
     <mat-progress-bar color="primary" *ngIf="dataSource.isTableLoading$ | async" mode="indeterminate">
     </mat-progress-bar>
   </div>
-  <mat-card class="app-table__card"
+  <mat-card appearance="outlined" class="app-table__card"
     [ngClass]="{'in-expanded-row': !!inExpandedRow, 'has-expanded-row': expandComponent}">
     <mat-card-content class="app-table__content">
       <mat-table class="app-table__inner" #table [hidden]="hideTable" [dataSource]="dataSource"

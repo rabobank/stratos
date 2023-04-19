@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   width: 100%;
   position: relative;
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card {
     padding: $summary-card-spacing * 2
   }
@@ -13,6 +14,9 @@
   .mat-expansion-panel-body {
     padding-bottom: 0;
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+  /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
   mat-card,
   mat-expansion-panel {
     flex: 1;
@@ -26,19 +30,25 @@
       width: 100%;
       display: flex;
       flex-direction: row;
+      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
+      /* TODO(mdc-migration): The following rule targets internal classes of list that may no longer apply for the MDC version. */
       mat-list {
         flex: 1;
         padding-right: $summary-card-spacing * 2;
         &:last-of-type {
           padding-right: 0;
         }
+        /* TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
         mat-slider {
           padding-bottom: 5px;
         }
       }
     }
   }
+  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
+  /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
   mat-chip-list {
+    /* TODO(mdc-migration): The following rule targets internal classes of chips that may no longer apply for the MDC version. */
     mat-chip {
       margin-right: 7px;
       margin-bottom: 5px;

@@ -55,7 +55,7 @@ INVITE_USER_CLIENT_ID=
 INVITE_USER_CLIENT_SECRET=
 
 # Use local admin user rather than UAA users
-AUTH_ENDPOINT_TYPE=remote
+AUTH_ENDPOINT_TYPE=local
 LOCAL_USER=admin
 LOCAL_USER_PASSWORD=admin
 LOCAL_USER_SCOPE=stratos.admin

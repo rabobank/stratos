@@ -3,7 +3,7 @@
 </app-page-header>
 
 <div *ngIf="(sessionData$ | async) as session">
-  <mat-card class="diagnostics-page__card">
+  <mat-card appearance="outlined" class="diagnostics-page__card">
     <app-metadata-item icon="web_asset" label="Version">{{ session.version.proxy_version }}</app-metadata-item>
     <app-metadata-item icon="date_range" label="Build Date">{{ buildDate }}</app-metadata-item>
     <div *ngIf="(this.userIsAdmin$ | async) as isAdminUser">
@@ -22,7 +22,7 @@
     </div>
   </mat-card>
 
-  <mat-card class="diagnostics-page__card diagnostics-page__columns">
+  <mat-card appearance="outlined" class="diagnostics-page__card diagnostics-page__columns">
     <div class="diagnostics-page__two-column">
       <div *ngIf="!!gitHubRepository">
         <app-metadata-item icon="storage" label="GitHub Repository">
@@ -47,7 +47,7 @@
     </div>
   </mat-card>
 
-  <mat-card class="diagnostics-page__card">
+  <mat-card appearance="outlined" class="diagnostics-page__card">
     <app-metadata-item icon="storage" label="Database">{{ session.diagnostics.databaseBackend || 'N/A' }}
     </app-metadata-item>
     <app-metadata-item icon="storage" label="Database Migrations"></app-metadata-item>

@@ -1,7 +1,7 @@
 <app-page-header [breadcrumbs]="breadcrumbs$ | async">{{ (metricsEndpoint$ | async)?.provider.name }}</app-page-header>
 
 <div *ngIf="(metricsEndpoint$ | async) as ep">
-  <mat-card>
+  <mat-card appearance="outlined">
     <mat-card-content>
       <div class="metrics-info">
         <mat-icon>equalizer</mat-icon>
@@ -26,7 +26,7 @@
       <div class="metrics-tree__root"></div>
       <ul class="metrics-tree tree">
         <li *ngFor="let info of infos" class="metric-endpoint">
-          <mat-card class="metrics-provision">
+          <mat-card appearance="outlined" class="metrics-provision">
             <app-card-status *ngIf="info.status" [status$]="info.status"></app-card-status>
             <mat-card-content>
               <div class="metrics-info">

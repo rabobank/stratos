@@ -1,4 +1,4 @@
-<mat-card [ngClass]="{'fav-meta-card__clickable': !!routerLink}" (click)="openFavorite()" class="fav-meta-card" *ngIf="favorite">
+<mat-card appearance="outlined" [ngClass]="{'fav-meta-card__clickable': !!routerLink}" (click)="openFavorite()" class="fav-meta-card" *ngIf="favorite">
   <div class="fav-meta-card__icon-panel">
     <mat-icon class="fav-meta-card__icon" *ngIf="icon.icon" [fontSet]="icon.iconFont">{{ icon.icon }}</mat-icon>
   </div>

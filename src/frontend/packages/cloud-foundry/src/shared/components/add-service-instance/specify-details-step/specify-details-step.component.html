@@ -22,16 +22,16 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="stepper-form__tags">
-      <mat-chip-list #chipList formControlName="tags" class="stepper-form__tags__chip-list">
-        <mat-chip *ngFor="let tag of tags" class="stepper-form__tags__chip-list__chip" [selectable]="tagsSelectable"
+      <mat-chip-grid #chipList formControlName="tags" class="stepper-form__tags__chip-list">
+        <mat-chip-row *ngFor="let tag of tags" class="stepper-form__tags__chip-list__chip" [selectable]="tagsSelectable"
           [removable]="tagsRemovable" (removed)="removeTag(tag)">
           {{tag.label}}
           <mat-icon matChipRemove *ngIf="tagsRemovable">cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input placeholder="Tags" name="tags" [matChipInputFor]="chipList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="tagsAddOnBlur"
           (matChipInputTokenEnd)="addTag($event)" />
-      </mat-chip-list>
+      </mat-chip-grid>
     </mat-form-field>
     <div class="stepper-form__params">
       <div>Service Parameters</div>

@@ -1,6 +1,6 @@
 <ng-template #content>
   <div class="boolean-metric-card">
-    <mat-card *ngIf="!textOnly; else textOnlyTemplate" class="boolean-metric-card__container">
+    <mat-card appearance="outlined" *ngIf="!textOnly; else textOnlyTemplate" class="boolean-metric-card__container">
       <mat-icon *ngIf="icon" [fontSet]="iconFont" class="boolean-metric-card__icon">{{ icon }}</mat-icon>
       <div>
         <div class="boolean-metric-card__value">{{ formattedValue }}</div>

@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import {
   combineLatest as observableCombineLatest,
   combineLatest,
   Observable,
   of as observableOf,
-  of,
+  of
 } from 'rxjs';
 import {
   catchError,
@@ -18,7 +18,7 @@ import {
   pairwise,
   switchMap,
   tap,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs/operators';
 
 import { ResetPagination } from '../../../../store/src/actions/pagination.actions';
@@ -29,21 +29,21 @@ import { SessionDataEndpoint } from '../../../../store/src/types/auth.types';
 import { PaginatedAction } from '../../../../store/src/types/pagination.types';
 import {
   ICFAction,
-  UpdateCfAction,
+  UpdateCfAction
 } from '../../../../store/src/types/request.types';
 import {
   GET_CURRENT_CF_USER_RELATION,
-  GetCurrentCfUserRelations,
+  GetCurrentCfUserRelations
 } from '../../actions/permissions.actions';
 import {
   UsersRolesActions,
   UsersRolesClearUpdateState,
-  UsersRolesExecuteChanges,
+  UsersRolesExecuteChanges
 } from '../../actions/users-roles.actions';
 import {
   AddCfUserRole,
   ChangeCfUserRole,
-  RemoveCfUserRole,
+  RemoveCfUserRole
 } from '../../actions/users.actions';
 import { CFAppState } from '../../cf-app-state';
 import { organizationEntityType, spaceEntityType } from '../../cf-entity-types';
@@ -67,7 +67,7 @@ export class UsersRolesEffects {
   getCurrentUsersPermissions$ = createEffect(() =>
     this.actions$.pipe(
       ofType<GetCurrentCfUserRelations>(GET_CURRENT_CF_USER_RELATION),
-      mergeMap((action) => {
+      mergeMap(action => {
         return fetchCfUserRole(this.store, action, this.httpClient).pipe(
           map(() => ({ type: action.actions[1] })),
           catchError(() => [{ type: action.actions[2] }])
@@ -79,9 +79,9 @@ export class UsersRolesEffects {
   clearEntityUpdates$ = createEffect(() =>
     this.actions$.pipe(
       ofType<UsersRolesClearUpdateState>(UsersRolesActions.ClearUpdateState),
-      mergeMap((action) => {
+      mergeMap(action => {
         const actions = [];
-        action.changedRoles.forEach((change) => {
+        action.changedRoles.forEach(change => {
           const apiAction: ICFAction = {
             guid: change.spaceGuid ? change.spaceGuid : change.orgGuid,
             endpointType: CF_ENDPOINT_TYPE,
@@ -94,7 +94,7 @@ export class UsersRolesEffects {
             ),
             options: null,
             actions: [],
-            type: '',
+            type: ''
           };
           actions.push(new UpdateCfAction(apiAction, false, ''));
         });
@@ -172,7 +172,7 @@ export class UsersRolesEffects {
           mergeMap((listActions: PaginatedAction[]) => {
             if (listActions && listActions.length) {
               return listActions.map(
-                (listAction) =>
+                listAction =>
                   new ResetPagination(listAction, listAction.paginationKey)
               );
             }
@@ -259,7 +259,7 @@ export class UsersRolesEffects {
     usernameOrigin: string
   ): Observable<boolean[]> {
     const observables: Observable<boolean>[] = [];
-    changes.forEach((change) => {
+    changes.forEach(change => {
       const updateConnectedUser =
         !cfSession.user.admin && change.userGuid === cfSession.user.guid;
       const action = this.createAction(

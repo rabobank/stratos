@@ -11,7 +11,7 @@
     background-color: mat.get-color-from-palette($foreground, divider);
   }
 
-  .mat-card.meta-card__plain {
+  .mat-mdc-card.meta-card__plain {
     border: 1px solid mat.get-color-from-palette($foreground, divider);
 
     .meta-card__title {

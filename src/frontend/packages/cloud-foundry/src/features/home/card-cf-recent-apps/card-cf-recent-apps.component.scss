@@ -21,7 +21,7 @@
     flex: 1;
     height: 40px;
     justify-content: space-between;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
     mat-card-title {
       margin-bottom: 0;
     }
@@ -40,7 +40,8 @@
 }
 
 // Remove box shadow in plain mode
-mat-card.recent-apps-card.mat-card.recent-apps-card__plain {
+/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version.*/
+mat-card.recent-apps-card.mat-mdc-card.recent-apps-card__plain {
   box-shadow: none;
   padding: 0 1em;
 }

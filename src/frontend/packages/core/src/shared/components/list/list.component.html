@@ -6,6 +6,7 @@
     <div class="list-component__header"
       [hidden]="!(hasControls$ | async) && ((noRowsNotFiltering$ | async) && noEntries)">
       <mat-card
+        appearance="outlined"
         [ngClass]="{'list-component__header--selected': (dataSource.isSelecting$ | async), 'mat-header-row': (view$ | async) === 'table'}"
         class="list-component__header-card">
         <div class="list-component__header__left">
@@ -191,14 +192,14 @@
           [hidden]="!(hasRows$ | async)" [expandComponent]="config.expandComponent">
         </app-table>
       </div>
-      <mat-card class="list-component__paginator" [hidden]="(hidePaginator$ | async)">
+      <mat-card appearance="outlined" class="list-component__paginator" [hidden]="(hidePaginator$ | async)">
         <mat-paginator [pageSizeOptions]="paginatorSettings.pageSizeOptions" [pageSize]="paginatorSettings.pageSize"
           [pageIndex]="paginatorSettings.pageIndex" showFirstLastButtons="true" [length]="paginatorSettings.length">
         </mat-paginator>
       </mat-card>
     </div>
     <ng-template #defaultNoEntries>
-      <mat-card class="list-component__default-no-entries">
+      <mat-card appearance="outlined" class="list-component__default-no-entries">
         <mat-card-content>
           <div class="no-rows">{{config.text?.noEntries || 'There are no entries'}}</div>
         </mat-card-content>

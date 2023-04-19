@@ -61,7 +61,7 @@
     </app-tile-group>
     <app-tile-group *ngIf="appSvc.app.entity.staging_failed_description as errorMsg">
       <app-tile>
-        <mat-card class="summary__staging-error">
+        <mat-card appearance="outlined" class="summary__staging-error">
           <mat-icon class="text-warning">warning</mat-icon>
           <div>{{ errorMsg }}</div>
         </mat-card>
@@ -69,7 +69,7 @@
     </app-tile-group>
     <app-tile-group>
       <app-tile>
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Application Info</mat-card-title>
           </mat-card-header>
@@ -105,7 +105,7 @@
         </mat-card>
       </app-tile>
       <app-tile size="1of3">
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Cloud Foundry</mat-card-title>
           </mat-card-header>
@@ -137,7 +137,7 @@
     <!-- Misc -->
     <app-tile-group>
       <app-tile>
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Build Info</mat-card-title>
           </mat-card-header>
@@ -152,7 +152,7 @@
         </mat-card>
       </app-tile>
       <app-tile id="app-build-tab-deployment-info" *ngIf="(deploySource$ | async) as deploySource">
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Deployment Info</mat-card-title>
           </mat-card-header>
@@ -222,7 +222,7 @@
     <!-- Advanced info -->
     <app-tile-group>
       <app-tile>
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Additional Application Info</mat-card-title>
           </mat-card-header>
@@ -236,7 +236,7 @@
         </mat-card>
       </app-tile>
       <app-tile>
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title>Health Check Configuration</mat-card-title>
           </mat-card-header>
