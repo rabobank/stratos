@@ -1,8 +1,15 @@
-import { Component, ComponentFactoryResolver, ComponentRef, Injector, Input, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Injector,
+  Input,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
 import { ListComponent } from '../../list.component';
 import { IListConfig, ListConfig } from '../../list.component.types';
-import { ListHostDirective } from '../helpers/list-host.directive';
 import { ListConfigProvider } from '../list-config-provider.types';
 
 @Component({
@@ -18,13 +25,12 @@ export class ListViewComponent<T> implements OnDestroy {
     }
   }
 
-  @ViewChild(ListHostDirective, { static: true })
-  public listHost: ListHostDirective;
+  @ViewChild('viewContainerRef', { read: ViewContainerRef, static: true })
+  public listHost: ViewContainerRef;
 
   private componentRef: ComponentRef<ListComponent<unknown>>;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector
   ) { }
 
@@ -38,12 +44,8 @@ export class ListViewComponent<T> implements OnDestroy {
     // Clean up old component
     this.ngOnDestroy();
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ListComponent);
-    const viewContainerRef = this.listHost.viewContainerRef;
-    this.componentRef = viewContainerRef.createComponent(
-      componentFactory,
-      null,
-      this.makeCustomConfigInjector(listConfig.getListConfig())
+    this.componentRef = this.listHost.createComponent(
+      ListComponent,{injector: this.makeCustomConfigInjector(listConfig.getListConfig())}
     );
   }
 
