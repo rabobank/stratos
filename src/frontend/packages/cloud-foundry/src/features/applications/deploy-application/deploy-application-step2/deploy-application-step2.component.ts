@@ -74,7 +74,7 @@ export class DeployApplicationStep2Component
   // Observables for source types
   sourceTypeGithub$: Observable<boolean>;
   sourceTypeNeedsUpload$: Observable<boolean>;
-  // tslint:disable-next-line:ban-types
+   
   canDeployType$: Observable<Boolean>;
   isLoading$: Observable<boolean>;
 

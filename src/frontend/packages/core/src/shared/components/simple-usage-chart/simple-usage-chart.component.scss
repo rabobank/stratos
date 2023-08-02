@@ -20,15 +20,14 @@
     }
   }
   &__counts {
-    $line-height: 30px;
     align-items: baseline;
     display: flex;
-    margin-top: -#{$line-height / 2};
+    margin-top: -15px;
     position: absolute;
     top: 50%;
     &-count {
       font-size: 26px;
-      line-height: $line-height;
+      line-height: 30px;
     }
     &-divider {
       padding: 0 5px;

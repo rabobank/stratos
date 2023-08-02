@@ -12,7 +12,7 @@ import { userProvidedServiceInstanceEntityType } from '../../../../../../cf-enti
 })
 export class TableCellServiceLastOpComponent extends TableCellCustom<APIResource<IServiceInstance>> implements OnInit {
 
-  // tslint:disable-next-line:ban-types
+   
   isUserProvidedServiceInstance: Boolean;
 
   ngOnInit() {

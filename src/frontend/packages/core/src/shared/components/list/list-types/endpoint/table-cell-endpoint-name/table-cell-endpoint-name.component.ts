@@ -15,27 +15,31 @@ export interface RowWithEndpointId {
 @Component({
   selector: 'app-table-cell-endpoint-name',
   templateUrl: './table-cell-endpoint-name.component.html',
-  styleUrls: ['./table-cell-endpoint-name.component.scss']
+  styleUrls: ['./table-cell-endpoint-name.component.scss'],
 })
-export class TableCellEndpointNameComponent extends TableCellCustom<EndpointModel | RowWithEndpointId>  {
-
+export class TableCellEndpointNameComponent extends TableCellCustom<
+  EndpointModel | RowWithEndpointId
+> {
   public endpoint$: Observable<any>;
 
-  @Input('row')
+  @Input()
   set row(row: EndpointModel | RowWithEndpointId) {
     super.row = row;
-    /* tslint:disable-next-line:no-string-literal */
     const id = row['endpointId'] || row['guid'];
-    this.endpoint$ = stratosEntityCatalog.endpoint.store.getEntityMonitor(id).entity$.pipe(
-      filter(data => !!data),
-      map(data => {
-        const ep = entityCatalog.getEndpoint(data.cnsi_type, data.sub_type).definition;
-        return {
-          ...data,
-          canShowLink: data.connectionStatus === 'connected' || ep.unConnectable,
-          link: EndpointsService.getLinkForEndpoint(data)
-        };
-      })
-    );
+    this.endpoint$ = stratosEntityCatalog.endpoint.store
+      .getEntityMonitor(id)
+      .entity$.pipe(
+        filter((data) => !!data),
+        map((data) => {
+          const ep = entityCatalog.getEndpoint(data.cnsi_type, data.sub_type)
+            .definition;
+          return {
+            ...data,
+            canShowLink:
+              data.connectionStatus === 'connected' || ep.unConnectable,
+            link: EndpointsService.getLinkForEndpoint(data),
+          };
+        })
+      );
   }
 }

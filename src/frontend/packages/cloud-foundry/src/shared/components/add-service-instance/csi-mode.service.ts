@@ -133,7 +133,7 @@ export class CsiModeService {
     // Started stepper from a space's service instance list
     if (spaceGuid && orgGuid) {
       this.cancelUrl =
-        // tslint:disable-next-line:max-line-length
+         
         `/cloud-foundry/${cfId}/organizations/${orgGuid}/spaces/${spaceGuid}/${isUserProvided ? 'user-service-instances' : 'service-instances'}`;
     }
 

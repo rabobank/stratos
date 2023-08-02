@@ -39,81 +39,78 @@ import { UtilsService } from './utils.service';
 import { WindowRef } from './window-ref/window-ref.service';
 
 @NgModule({
-  imports: [
-    MDAppModule,
-    RouterModule,
-    MomentModule
-  ],
-  exports: [
-    MDAppModule,
-    RouterModule,
-    FormsModule,
-    MomentModule,
-    ReactiveFormsModule,
-    LogOutDialogComponent,
-    TruncatePipe,
-    InfinityPipe,
-    BytesToHumanSize,
-    MegaBytesToHumanSize,
-    SafeImgPipe,
-    ClickStopPropagationDirective,
-    DotContentComponent,
-    ButtonBlurOnClickDirective,
-    PageNotFoundComponentComponent,
-    PortalModule,
-    EntityFavoriteStarComponent,
-    RecentEntitiesComponent,
-    UserAvatarComponent,
-    DisableRouterLinkDirective,
-    StatefulIconComponent,
-    NoContentMessageComponent,
-    DisableRouterLinkDirective,
-    ShowHideButtonComponent
-  ],
-  providers: [
-    AuthGuardService,
-    APIKeyAuthGuardService,
-    NotSetupGuardService,
-    PageHeaderService,
-    EventWatcherService,
-    WindowRef,
-    UtilsService,
-    EndpointsService,
-    UserService,
-    EntityServiceFactory,
-    EntityMonitorFactory,
-    EntityCatalogHelper,
-    PaginationMonitorFactory,
-    UserProfileService,
-    EntityServiceFactory,
-    {
-      provide: APP_TITLE,
-      useFactory: appTitleFactory,
-      deps: [Title]
-    }
-  ],
-  declarations: [
-    StatefulIconComponent,
-    LogOutDialogComponent,
-    TruncatePipe,
-    InfinityPipe,
-    BytesToHumanSize,
-    MegaBytesToHumanSize,
-    SafeImgPipe,
-    ClickStopPropagationDirective,
-    DotContentComponent,
-    ButtonBlurOnClickDirective,
-    PageNotFoundComponentComponent,
-    EntityFavoriteStarComponent,
-    RecentEntitiesComponent,
-    DisableRouterLinkDirective,
-    NoContentMessageComponent,
-    UserAvatarComponent,
-    ShowHideButtonComponent
-  ],
-  entryComponents: [
-    LogOutDialogComponent
-  ],
+    imports: [
+        MDAppModule,
+        RouterModule,
+        MomentModule
+    ],
+    exports: [
+        MDAppModule,
+        RouterModule,
+        FormsModule,
+        MomentModule,
+        ReactiveFormsModule,
+        LogOutDialogComponent,
+        TruncatePipe,
+        InfinityPipe,
+        BytesToHumanSize,
+        MegaBytesToHumanSize,
+        SafeImgPipe,
+        ClickStopPropagationDirective,
+        DotContentComponent,
+        ButtonBlurOnClickDirective,
+        PageNotFoundComponentComponent,
+        PortalModule,
+        EntityFavoriteStarComponent,
+        RecentEntitiesComponent,
+        UserAvatarComponent,
+        DisableRouterLinkDirective,
+        StatefulIconComponent,
+        NoContentMessageComponent,
+        DisableRouterLinkDirective,
+        ShowHideButtonComponent
+    ],
+    providers: [
+        AuthGuardService,
+        APIKeyAuthGuardService,
+        NotSetupGuardService,
+        PageHeaderService,
+        EventWatcherService,
+        WindowRef,
+        UtilsService,
+        EndpointsService,
+        UserService,
+        EntityServiceFactory,
+        EntityMonitorFactory,
+        EntityCatalogHelper,
+        PaginationMonitorFactory,
+        UserProfileService,
+        EntityServiceFactory,
+        {
+            provide: APP_TITLE,
+            useFactory: appTitleFactory,
+            deps: [Title]
+        }
+    ],
+    declarations: [
+        StatefulIconComponent,
+        LogOutDialogComponent,
+        TruncatePipe,
+        InfinityPipe,
+        BytesToHumanSize,
+        MegaBytesToHumanSize,
+        SafeImgPipe,
+        ClickStopPropagationDirective,
+        DotContentComponent,
+        ButtonBlurOnClickDirective,
+        PageNotFoundComponentComponent,
+        EntityFavoriteStarComponent,
+        RecentEntitiesComponent,
+        DisableRouterLinkDirective,
+        NoContentMessageComponent,
+        UserAvatarComponent,
+        ShowHideButtonComponent
+    ]
 })
 export class CoreModule {
   constructor() { }

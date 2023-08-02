@@ -8,9 +8,15 @@ export function getDefaultCfUserMissingRoles(): CfUserMissingRoles {
   };
 }
 
-export type CfUserMissingOrgRoles = CfUserRoleParams.SPACES | CfUserRoleParams.MANAGED_SPACES | CfUserRoleParams.AUDITED_SPACES;
-export type CfUserMissingSpaceRoles = CfUserRoleParams.ORGANIZATIONS | CfUserRoleParams.MANAGED_ORGS |
-  CfUserRoleParams.BILLING_MANAGER_ORGS | CfUserRoleParams.AUDITED_ORGS;
+export type CfUserMissingOrgRoles =
+  | CfUserRoleParams.SPACES
+  | CfUserRoleParams.MANAGED_SPACES
+  | CfUserRoleParams.AUDITED_SPACES;
+export type CfUserMissingSpaceRoles =
+  | CfUserRoleParams.ORGANIZATIONS
+  | CfUserRoleParams.MANAGED_ORGS
+  | CfUserRoleParams.BILLING_MANAGER_ORGS
+  | CfUserRoleParams.AUDITED_ORGS;
 
 export enum CfUserRoleParams {
   ORGANIZATIONS = 'organizations',
@@ -19,7 +25,7 @@ export enum CfUserRoleParams {
   AUDITED_ORGS = 'audited_organizations',
   SPACES = 'spaces',
   MANAGED_SPACES = 'managed_spaces',
-  AUDITED_SPACES = 'audited_spaces'
+  AUDITED_SPACES = 'audited_spaces',
 }
 
 export interface CfUserMissingRoles {
@@ -58,7 +64,7 @@ export enum OrgUserRoleNames {
   MANAGER = 'managers',
   BILLING_MANAGERS = 'billing_managers',
   AUDITOR = 'auditors',
-  USER = 'users'
+  USER = 'users',
 }
 /**
  * Space user roles, string values as per CF API. Should match space entity role params
@@ -66,7 +72,7 @@ export enum OrgUserRoleNames {
 export enum SpaceUserRoleNames {
   MANAGER = 'managers',
   AUDITOR = 'auditors',
-  DEVELOPER = 'developers'
+  DEVELOPER = 'developers',
 }
 
 export class UserRoleInOrg {
@@ -77,7 +83,6 @@ export class UserRoleInOrg {
   /**
    * See {OrgUserRoleNames.BILLING_MANAGERS} for name
    */
-  /* tslint:disable-next-line:variable-name  */
   billing_managers: boolean;
   /**
    * See {OrgUserRoleNames.AUDITOR} for name
@@ -93,7 +98,12 @@ export class UserRoleInOrg {
  * UserRoleInOrg, thus can create roles without this workaround function. See
  * https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#constant-named-properties for details
  */
-export function createUserRoleInOrg(manager: boolean, billingManager: boolean, auditor: boolean, user: boolean): UserRoleInOrg {
+export function createUserRoleInOrg(
+  manager: boolean,
+  billingManager: boolean,
+  auditor: boolean,
+  user: boolean
+): UserRoleInOrg {
   const res = {};
   res[OrgUserRoleNames.MANAGER] = manager;
   res[OrgUserRoleNames.BILLING_MANAGERS] = billingManager;
@@ -137,7 +147,11 @@ export interface UserRoleInSpace {
  * https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#constant-named-properties for details
  *
  */
-export function createUserRoleInSpace(manager: boolean, auditor: boolean, developer: boolean): UserRoleInSpace {
+export function createUserRoleInSpace(
+  manager: boolean,
+  auditor: boolean,
+  developer: boolean
+): UserRoleInSpace {
   const res = {};
   res[SpaceUserRoleNames.MANAGER] = manager;
   res[SpaceUserRoleNames.DEVELOPER] = developer;

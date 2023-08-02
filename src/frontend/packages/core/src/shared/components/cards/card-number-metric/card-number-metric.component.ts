@@ -37,7 +37,7 @@ export class CardNumberMetricComponent implements OnInit, OnChanges {
   @Output() showAlerts = new EventEmitter<any>();
   @Input() mode: string;
 
-  @Input('alerts')
+  @Input()
   set alerts(alerts) {
     if (alerts) {
       this.processAlerts(alerts);

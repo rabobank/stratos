@@ -8,22 +8,25 @@ import { StratosConfig } from '../lib/stratos.config';
  * is applied to components and that the chosen theme is used.
  *
  * Essentially intercepts package imports of the form ~@startosui/theme
- * and ensures the correct packaeg is used.
+ * and ensures the correct package is used.
  */
 export class SassHandler {
-
-  constructor() { }
+  constructor() {}
 
   //  Set options on the Webpack sass-loader plugin to use us as a custom importer
   public apply(webpackConfig: any, config: StratosConfig) {
     // Find the node-saas plugin and add a custom import resolver
-    webpackConfig.module.rules.forEach(rule => {
-      if (rule.include) {
-        rule.use.forEach(p => {
-          if (p.loader && p.loader.indexOf('sass-loader') > 0) {
-            p.options.sassOptions = {
-              importer: this.customSassImport(config)
-            };
+    webpackConfig.module.rules.forEach(ruleSet => {
+      if (ruleSet.rules) {
+        ruleSet.rules.forEach(rule => {
+          if (rule.use) {
+            rule.use.forEach(p => {
+              if (p.loader && p.loader.indexOf('sass-loader') > 0) {
+                p.options.sassOptions = {
+                  importer: this.customSassImport(config)
+                };
+              }
+            });
           }
         });
       }
@@ -85,5 +88,4 @@ export class SassHandler {
 
     return contents;
   }
-
 }

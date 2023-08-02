@@ -3,12 +3,6 @@
   "compilerOptions": {
     "outDir": "../../../../out-tsc"
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts",
-    "src/_custom-import.module.ts"
-  ],
-  "include": [
-    "src/frontend/packages/**/*.d.ts"
-  ]
+  "files": ["src/main.ts", "src/polyfills.ts", "src/_custom-import.module.ts"],
+  "include": ["src/frontend/packages/**/*.d.ts"]
 }

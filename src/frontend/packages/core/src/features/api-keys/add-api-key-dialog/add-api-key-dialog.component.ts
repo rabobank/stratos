@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { filter, first, map, pairwise, tap } from 'rxjs/operators';
@@ -25,10 +25,10 @@ export class AddApiKeyDialogComponent implements OnDestroy {
 
   private sub: Subscription;
 
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ApiKey>,
   ) {
     this.formGroup = this.fb.group({

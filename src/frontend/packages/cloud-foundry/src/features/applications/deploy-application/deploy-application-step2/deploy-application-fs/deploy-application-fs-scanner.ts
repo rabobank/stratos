@@ -5,7 +5,7 @@ const archiveRegex = /\.(tar|zip|tar.gz)$/i;
 export interface FileScannerFolderContext {
   files: string[];
   folders: {
-    [key: string]: FileScannerFolderContext
+    [key: string]: FileScannerFolderContext;
   };
 }
 
@@ -24,7 +24,6 @@ export interface FileScannerInfo {
 }
 
 export class DeployApplicationFSScanner implements FileScannerInfo {
-
   private filter;
   public total = 0;
   public files = 0;
@@ -47,7 +46,7 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
   }
 
   isArchiveFile(fileName: string): boolean {
-    return archiveRegex.test(name);
+    return archiveRegex.test(fileName);
   }
 
   file(context: FileScannerFolderContext, file, path) {
@@ -69,7 +68,11 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
     }
   }
 
-  folder(context: FileScannerFolderContext, name: string, fullName: string): FileScannerFolderContext {
+  folder(
+    context: FileScannerFolderContext,
+    name: string,
+    fullName: string
+  ): FileScannerFolderContext {
     if (context.folders[name]) {
       return context.folders[name];
     }
@@ -101,7 +104,13 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
     let fullPath = '';
     if (fileParts.length > 1) {
       for (let i = 0; i < fileParts.length - 1; i++) {
-        if (!(this.rootFolderName && i === 0 && fileParts[i] === this.rootFolderName)) {
+        if (
+          !(
+            this.rootFolderName &&
+            i === 0 &&
+            fileParts[i] === this.rootFolderName
+          )
+        ) {
           fullPath += '/' + fileParts[i];
           context = this.folder(context, fileParts[i], fullPath);
           if (!context) {
@@ -133,11 +142,14 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
     const scanner = this;
     return new Promise((resolve, reject) => {
       item.file(file => {
-        scanner.readFileContents(file).then((data: string) => {
-          resolve(data);
-        }).catch(() => {
-          reject();
-        });
+        scanner
+          .readFileContents(file)
+          .then((data: string) => {
+            resolve(data);
+          })
+          .catch(() => {
+            reject();
+          });
       });
     });
   }
@@ -151,5 +163,4 @@ export class DeployApplicationFSScanner implements FileScannerInfo {
       reader.readAsText(file);
     });
   }
-
 }

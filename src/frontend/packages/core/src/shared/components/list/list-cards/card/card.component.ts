@@ -17,12 +17,9 @@ interface ISetupData<T> {
   item: T | MultiActionListEntity;
 }
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
-  entryComponents: [
-    ...listCards
-  ]
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss']
 })
 export class CardComponent<T> {
   private componentRef: ComponentRef<any>;

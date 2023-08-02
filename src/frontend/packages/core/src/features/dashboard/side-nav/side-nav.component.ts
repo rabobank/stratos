@@ -1,14 +1,26 @@
-import { Component, EventEmitter, InjectionToken, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  InjectionToken,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { ToggleSideNav } from '../../../../../store/src/actions/dashboard-actions';
 import { AppState } from '../../../../../store/src/app-state';
-import { CustomizationService, CustomizationsMetadata } from '../../../core/customizations.types';
+import {
+  CustomizationService,
+  CustomizationsMetadata,
+} from '../../../core/customizations.types';
 import { environment } from '../../../environments/environment';
 import { TabNavItem } from '../../../tab-nav.types';
 
-export const SIDENAV_COPYRIGHT = new InjectionToken<string>('Optional copyright string for side nav');
+export const SIDENAV_COPYRIGHT = new InjectionToken<string>(
+  'Optional copyright string for side nav'
+);
 
 export interface SideNavItem extends TabNavItem {
   label: string;
@@ -28,27 +40,22 @@ export interface SideNavItem extends TabNavItem {
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss']
+  styleUrls: ['./side-nav.component.scss'],
 })
-
 export class SideNavComponent implements OnInit {
-
   public customizations: CustomizationsMetadata;
 
   public environment = environment;
 
   tooltipDelay = 0;
 
-  constructor(
-    private store: Store<AppState>,
-    cs: CustomizationService
-  ) {
+  constructor(private store: Store<AppState>, cs: CustomizationService) {
     this.customizations = cs.get();
   }
   @Input() set iconMode(isIconMode: boolean) {
     if (isIconMode !== this.isIconMode) {
       this.isIconMode = isIconMode;
-      this.changedMode.next();
+      this.changedMode.next('');
     }
   }
   get iconMode() {
@@ -69,6 +76,5 @@ export class SideNavComponent implements OnInit {
       this.isIconMode = true;
       this.tooltipDelay = 2000;
     }
-
   }
 }

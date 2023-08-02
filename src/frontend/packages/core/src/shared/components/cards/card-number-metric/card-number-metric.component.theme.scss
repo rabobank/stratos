@@ -1,6 +1,7 @@
+@use '@angular/material' as mat;
 @mixin app-card-number-metric-theme($theme, $app-theme) {
   $status-colors: map-get($app-theme, status);
-  $subdued: mat-color($app-theme, subdued-color);
+  $subdued: mat.get-color-from-palette($app-theme, subdued-color);
   $foreground: map-get($theme, foreground);
 
   $status-colors: map-get($app-theme, status);
@@ -30,7 +31,7 @@
   }
 
   .number-metric-card__plain.mat-card {
-    border: 1px solid mat-color($foreground, divider);
+    border: 1px solid mat.get-color-from-palette($foreground, divider);
   }
   
 }

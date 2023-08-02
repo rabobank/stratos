@@ -34,10 +34,9 @@ export interface StackedInputActionsUpdate { values: { [key: string]: string }; 
  * Host for a collection of StackedInputActionComponent components
  */
 @Component({
-  selector: 'app-stacked-input-actions',
-  templateUrl: './stacked-input-actions.component.html',
-  styleUrls: ['./stacked-input-actions.component.scss'],
-  entryComponents: [StackedInputActionComponent]
+    selector: 'app-stacked-input-actions',
+    templateUrl: './stacked-input-actions.component.html',
+    styleUrls: ['./stacked-input-actions.component.scss']
 })
 export class StackedInputActionsComponent implements OnInit, OnDestroy {
 

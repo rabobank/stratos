@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { from as observableFrom, Subject } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
@@ -24,7 +24,7 @@ describe('LogViewerComponent', () => {
   let stream: Subject<string>;
   let contentEl: HTMLDivElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         TestHostComponent,

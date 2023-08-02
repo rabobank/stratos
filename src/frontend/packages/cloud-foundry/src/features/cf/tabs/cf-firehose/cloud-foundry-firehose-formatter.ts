@@ -8,7 +8,7 @@ import { FireHoseItem, HTTP_METHODS } from './cloud-foundry-firehose.types';
  * Formats log messages from the Cloud Foundry firehose
  */
 
-/* eslint-disable no-control-regex */
+ 
 const ANSI_ESCAPE_MATCHER = new RegExp('\x1B\\[([0-9;]*)m', 'g');
 /* eslint-enable no-control-regex */
 

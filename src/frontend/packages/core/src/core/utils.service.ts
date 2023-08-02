@@ -45,23 +45,21 @@ export const urlValidationExpression =
   '(?::\\d{2,5})?' +
   // resource path
   '(?:[/?#]\\S*)?' +
-  '$'
-  ;
+  '$';
 
 @Injectable()
 export class UtilsService {
-
   private units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
 
   /*
-     * Expression used to validate URLs in the Endpoint registration form.
-     * Expression explanation available from https://gist.github.com/dperini/729294
-     * Passes the following criteria: https://mathiasbynens.be/demo/url-regex
-     *
-     */
+   * Expression used to validate URLs in the Endpoint registration form.
+   * Expression explanation available from https://gist.github.com/dperini/729294
+   * Passes the following criteria: https://mathiasbynens.be/demo/url-regex
+   *
+   */
   public urlValidationExpression = urlValidationExpression;
 
-  constructor() { }
+  constructor() {}
 
   precisionIfUseful(size: number, precision: number = 1) {
     const floored = Math.floor(size);
@@ -115,9 +113,13 @@ export class UtilsService {
     const used = usage[0];
     const total = usage[1];
 
-    if (isNaN(parseFloat(used)) || !isFinite(used) ||
-      isNaN(parseFloat(total)) || !isFinite(total) ||
-      total === 0) {
+    if (
+      isNaN(parseFloat(used)) ||
+      !isFinite(used) ||
+      isNaN(parseFloat(total)) ||
+      !isFinite(total) ||
+      total === 0
+    ) {
       return '-';
     }
 
@@ -130,7 +132,9 @@ export class UtilsService {
     let usedNumber = null;
 
     // Values to display
-    const totalDisplay = this.getReducedValue(total, value).toFixed(totalPrecision);
+    const totalDisplay = this.getReducedValue(total, value).toFixed(
+      totalPrecision
+    );
     const usedValue = this.getReducedValue(used, value);
     let usedDisplay = usedValue.toFixed(totalPrecision);
 
@@ -138,10 +142,19 @@ export class UtilsService {
     if (used !== 0 && usedPrecision === 0 && usedValue < 1) {
       // Use the units relative to the used value instead of total (20MB of 1GB instead of 0 of 1GB)
       usedNumber = this.getNumber(used);
-      usedDisplay = this.getReducedValue(used, usedNumber).toFixed(totalPrecision);
+      usedDisplay = this.getReducedValue(used, usedNumber).toFixed(
+        totalPrecision
+      );
     }
 
-    return usedDisplay + (usedNumber ? ' ' + this.units[usedNumber] : '') + ' / ' + totalDisplay + ' ' + this.units[value];
+    return (
+      usedDisplay +
+      (usedNumber ? ' ' + this.units[usedNumber] : '') +
+      ' / ' +
+      totalDisplay +
+      ' ' +
+      this.units[value]
+    );
   }
 
   /**
@@ -181,7 +194,7 @@ export class UtilsService {
   }
 
   private getReducedValue(value: number, multiplier: number): number {
-    return (value / Math.pow(1024, Math.floor(multiplier)));
+    return value / Math.pow(1024, Math.floor(multiplier));
   }
 
   private getDefaultPrecision(precision: number): number {
@@ -225,7 +238,7 @@ export function pathGet(path: string, object: any): any {
   while (object !== null && object !== undefined && index < length) {
     object = object[params[index++]];
   }
-  return (index && index === length) ? object : undefined;
+  return index && index === length ? object : undefined;
 }
 
 export function pathSet(path: string, object: any, value: any) {
@@ -237,7 +250,7 @@ export function pathSet(path: string, object: any, value: any) {
   while (object !== null && object !== undefined && index < length) {
     object = object[params[index++]];
   }
-  if ((index && index === length)) {
+  if (index && index === length) {
     object[params[index++]] = value;
   }
 }
@@ -259,7 +272,7 @@ export function safeStringToObj<T = object>(value: string): T {
 }
 
 export const safeUnsubscribe = (...subs: Subscription[]) => {
-  subs.forEach(sub => {
+  subs.forEach((sub) => {
     if (sub) {
       sub.unsubscribe();
     }
@@ -267,7 +280,8 @@ export const safeUnsubscribe = (...subs: Subscription[]) => {
 };
 
 export const truthyIncludingZero = (obj: any): boolean => !!obj || obj === 0;
-export const truthyIncludingZeroString = (obj: any): string => truthyIncludingZero(obj) ? obj.toString() : null;
+export const truthyIncludingZeroString = (obj: any): string =>
+  truthyIncludingZero(obj) ? obj.toString() : null;
 
 /**
  * Real basic, shallow check
@@ -293,13 +307,10 @@ export const arraysEqual = (a: any[], b: any[]): boolean => {
   return false;
 };
 
-
-/* tslint:disable:no-bitwise  */
 export const createGuid = (): string => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 };
-/* tslint:enable */

@@ -1,7 +1,8 @@
+@use '@angular/material' as mat;
 @mixin page-404($theme, $app-theme) {
   $primary: map-get($theme, primary);
   .page-not-found {
-    background-color: mat-contrast($primary, 500);
-    color: mat-color($primary, 500);
+    background-color: mat.get-contrast-color-from-palette($primary, 500);
+    color: mat.get-color-from-palette($primary, 500);
   }
 }

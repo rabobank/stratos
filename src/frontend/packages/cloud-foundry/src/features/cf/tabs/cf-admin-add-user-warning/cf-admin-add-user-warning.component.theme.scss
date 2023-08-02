@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @mixin cf-admin-add-user-warning($theme, $app-theme) {
   $is-dark: map-get($theme, is-dark);
   $status-colors: map-get($app-theme, status);
@@ -6,7 +7,7 @@
   .user-warning {
     background-color: lighten($warning, 45%);
     @if $is-dark == true {
-      color: mat-color($background-colors, background);
+      color: mat.get-color-from-palette($background-colors, background);
     }
   }
 }

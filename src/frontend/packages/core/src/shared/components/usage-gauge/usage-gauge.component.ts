@@ -1,12 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-usage-gauge',
   templateUrl: './usage-gauge.component.html',
-  styleUrls: ['./usage-gauge.component.scss']
+  styleUrls: ['./usage-gauge.component.scss'],
 })
-export class UsageGaugeComponent implements OnInit {
-
+export class UsageGaugeComponent {
   @Input() public title: string;
 
   @Input() public value: number;
@@ -20,9 +19,4 @@ export class UsageGaugeComponent implements OnInit {
 
   // Change bar color to error if this threshold is reached
   @Input() public errorAt: number;
-
-  constructor() { }
-
-  ngOnInit() { }
-
 }

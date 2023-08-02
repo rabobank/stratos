@@ -1,14 +1,15 @@
+@use '@angular/material' as mat;
 @mixin app-mat-snack-bar-theme($theme, $app-theme) {
   $is-dark: map-get($theme, is-dark);
   $background-colors: map-get($theme, background);
   $foreground-colors: map-get($theme, foreground);
 
-  $background-color: mat-color($foreground-colors, text);
-  $color: mat-color($background-colors, text);
+  $background-color: mat.get-color-from-palette($foreground-colors, text);
+  $color: mat.get-color-from-palette($background-colors, text);
 
   @if $is-dark == true {
-    $background-color: lighten(mat-color($background-colors, background), 5%);
-    $color: mat-color($foreground-colors, text);
+    $background-color: lighten(mat.get-color-from-palette($background-colors, background), 5%);
+    $color: mat.get-color-from-palette($foreground-colors, text);
   }
 
   .mat-snack-bar-container {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, filter, map, skipWhile, take } from 'rxjs/operators';
@@ -29,7 +29,7 @@ export class ConsoleUaaWizardComponent implements OnInit {
     this.clientRedirectURI = getSSOClientRedirectURI();
   }
 
-  uaaForm: FormGroup;
+  uaaForm: UntypedFormGroup;
   validateUAAForm: Observable<boolean>;
   uaaScopes = [];
   selectedScope = '';
@@ -112,14 +112,14 @@ export class ConsoleUaaWizardComponent implements OnInit {
       }));
   }
   ngOnInit() {
-    this.uaaForm = new FormGroup({
-      apiUrl: new FormControl('', [Validators.required as any]),
-      skipSll: new FormControl(false),
-      clientId: new FormControl('', [Validators.required as any]),
-      clientSecret: new FormControl(''),
-      adminUsername: new FormControl('', [Validators.required as any]),
-      adminPassword: new FormControl('', [Validators.required as any]),
-      useSSO: new FormControl(false),
+    this.uaaForm = new UntypedFormGroup({
+      apiUrl: new UntypedFormControl('', [Validators.required as any]),
+      skipSll: new UntypedFormControl(false),
+      clientId: new UntypedFormControl('', [Validators.required as any]),
+      clientSecret: new UntypedFormControl(''),
+      adminUsername: new UntypedFormControl('', [Validators.required as any]),
+      adminPassword: new UntypedFormControl('', [Validators.required as any]),
+      useSSO: new UntypedFormControl(false),
     });
 
     let observer;

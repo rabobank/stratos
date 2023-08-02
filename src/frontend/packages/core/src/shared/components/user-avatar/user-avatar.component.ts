@@ -25,7 +25,7 @@ export class UserAvatarComponent {
     this.update();
   }
 
-  @Input('user')
+  @Input()
   set user(user: UserProfileInfo) {
     this.userInfo = user;
     this.update();

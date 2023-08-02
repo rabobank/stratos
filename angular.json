@@ -12,16 +12,16 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "deepmerge",
+              "intersect",
+              "lodash/cloneDeep",
+              "moment",
               "moment-timezone",
-              "js-yaml",
-              "webcola",
-              "dagre",
-              "lodash/isEqual",
-              "ajv",
-              "lodash/filter",
-              "lodash/map",
-              "lodash/uniqueId",
-              "lodash/cloneDeep"
+              "marked",
+              "rfdc",
+              "xterm",
+              "xterm-addon-fit",
+              "ts-md5/dist/md5"
             ],
             "customWebpackConfig": {
               "path": "./dist-devkit/build/main.js"
@@ -63,7 +63,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -80,7 +79,6 @@
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
@@ -98,7 +96,6 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "aot": true,
             "sslCert": "dev-ssl/server.crt",
             "proxyConfig": "proxy.conf.js",
             "ssl": true,
@@ -157,7 +154,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "preserveSymlinks": true,
             "outputPath": "dist/core",
@@ -186,7 +183,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -221,11 +217,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/core/tslint.json",
-            "files": ["src/frontend/packages/core/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/core/**/*.ts",
+              "src/frontend/packages/core/**/*.html"
+            ]
           }
         }
       }
@@ -237,7 +234,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/frontend/packages/store/tsconfig.lib.json",
             "project": "src/frontend/packages/store/ng-package.json"
@@ -257,11 +254,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/store/tslint.json",
-            "files": ["src/frontend/packages/store/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/store/**/*.ts",
+              "src/frontend/packages/store/**/*.html"
+            ]
           }
         }
       }
@@ -273,7 +271,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/frontend/packages/shared/tsconfig.lib.json",
             "project": "src/frontend/packages/shared/ng-package.json"
@@ -288,11 +286,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/shared/tslint.json",
-            "files": ["src/frontend/packages/shared/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/shared/**/*.ts",
+              "src/frontend/packages/shared/**/*.html"
+            ]
           }
         }
       }
@@ -304,7 +303,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/frontend/packages/cloud-foundry/tsconfig.lib.json",
             "project": "src/frontend/packages/cloud-foundry/ng-package.json"
@@ -324,11 +323,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/cloud-foundry/tslint.json",
-            "files": ["src/frontend/packages/cloud-foundry/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/cloud-foundry/**/*.ts",
+              "src/frontend/packages/cloud-foundry/**/*.html"
+            ]
           }
         }
       }
@@ -340,7 +340,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/frontend/packages/cf-autoscaler/tsconfig.lib.json",
             "project": "src/frontend/packages/cf-autoscaler/ng-package.json"
@@ -360,11 +360,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/cf-autoscaler/tslint.json",
-            "files": ["src/frontend/packages/cf-autoscaler/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/cf-autoscaler/**/*.ts",
+              "src/frontend/packages/cf-autoscaler/**/*.html"
+            ]
           }
         }
       }
@@ -384,17 +385,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.json"],
-            "tslintConfig": "src/frontend/packages/git/tslint.json",
-            "files": ["src/frontend/packages/git/src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/frontend/packages/git/**/*.ts",
+              "src/frontend/packages/git/**/*.html"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "stratos",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -403,5 +404,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

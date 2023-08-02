@@ -1,4 +1,4 @@
-// tslint:disable:max-line-length
+ 
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ import { BaseCfListConfig } from '../base-cf/base-cf-list-config';
 import { CfCellsDataSource } from './cf-cells-data-source';
 
 
-// tslint:enable:max-line-length
+/* eslint-enable max-len */
 
 @Injectable()
 export class CfCellsListConfigService extends BaseCfListConfig<IMetricVectorResult<IMetricCell>> {

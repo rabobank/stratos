@@ -1,4 +1,3 @@
-/* eslint-disable no-control-regex */
 const ansiEscapeMatcher = new RegExp('(?:\x1B\\[[0-9;]*m[\n]*)+', 'g');
 const ansiEscapeExtractor = new RegExp('\x1B\\[([0-9;]*)m([\n]*)', 'g');
 /* eslint-enable no-control-regex */
@@ -12,7 +11,7 @@ const fgAnsiToNames = {
   34: 'blue',
   35: 'magenta',
   36: 'cyan',
-  37: 'white'
+  37: 'white',
 };
 
 // Map of ANSI background color codes to color names
@@ -25,7 +24,6 @@ for (const ansiColor in fgAnsiToNames) {
 }
 
 export class AnsiColors {
-
   spanOpen = false;
   currentFg = null;
   currentBg = null;
@@ -75,7 +73,9 @@ export class AnsiColors {
 
   smartReplacer(match) {
     // First flatten all consecutive mode switches into a single string
-    const modes = match.replace(ansiEscapeExtractor, this.ansiGroupParser.bind(this)).split(';');
+    const modes = match
+      .replace(ansiEscapeExtractor, this.ansiGroupParser.bind(this))
+      .split(';');
     let lineFeeds = '';
 
     // Support n-modes switching like a real terminal
@@ -130,7 +130,7 @@ export class AnsiColors {
     }
   }
 
-  ansiGroupParser(match, graphicModes, lineFeeds) {
+  ansiGroupParser(_match, graphicModes, lineFeeds) {
     let ret = '';
     if (lineFeeds) {
       ret += -lineFeeds.length + ';';

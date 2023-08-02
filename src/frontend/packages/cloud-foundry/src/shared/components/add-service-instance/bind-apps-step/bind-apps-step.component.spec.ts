@@ -1,10 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialDesignFrameworkModule } from '@cfstratos/ajsf-material';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MaterialDesignFrameworkModule } from '@ajsf/material';
 
 import { PaginationMonitorFactory } from '../../../../../../store/src/monitors/pagination-monitor.factory';
-import {
-  generateCfBaseTestModulesNoShared,
-} from '../../../../../test-framework/cloud-foundry-endpoint-service.helper';
+import { generateCfBaseTestModulesNoShared } from '../../../../../test-framework/cloud-foundry-endpoint-service.helper';
 import { ServicesService } from '../../../../features/service-catalog/services.service';
 import { ServicesServiceMock } from '../../../../features/service-catalog/services.service.mock';
 import { SchemaFormComponent } from '../../schema-form/schema-form.component';
@@ -15,26 +13,22 @@ describe('BindAppsStepComponent', () => {
   let component: BindAppsStepComponent;
   let fixture: ComponentFixture<BindAppsStepComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        BindAppsStepComponent,
-        SchemaFormComponent
-      ],
-      imports: [
-        generateCfBaseTestModulesNoShared(),
-        MaterialDesignFrameworkModule
-      ],
-      providers: [
-        { provide: ServicesService, useClass: ServicesServiceMock },
-        CsiGuidsService,
-        PaginationMonitorFactory
-      ]
-
-
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BindAppsStepComponent, SchemaFormComponent],
+        imports: [
+          generateCfBaseTestModulesNoShared(),
+          MaterialDesignFrameworkModule
+        ],
+        providers: [
+          { provide: ServicesService, useClass: ServicesServiceMock },
+          CsiGuidsService,
+          PaginationMonitorFactory
+        ]
+      }).compileComponents();
     })
-      .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BindAppsStepComponent);

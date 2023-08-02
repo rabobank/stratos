@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @mixin app-simple-usage-chart($theme, $app-theme) {
   $foreground: map-get($theme, foreground);
   $status-colors: map-get($app-theme, status);
@@ -7,7 +8,7 @@
   $status-tentative: map-get($status-colors, tentative);
   $colors: 'danger' $status-danger, 'warning' $status-warning, 'ok' $status-ok, 'unknown' $status-tentative;
   .simple-graph__wrapper {
-    color: transparentize(mat-color($foreground, text), .4);
+    color: transparentize(mat.get-color-from-palette($foreground, text), .4);
    }
   .simple-usage-graph-color {
     @each $color in $colors {

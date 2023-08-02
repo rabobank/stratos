@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, mergeMap } from 'rxjs/operators';
 
@@ -51,21 +51,21 @@ export class EndpointsEffect {
     private store: Store<DispatchOnlyAppState>
   ) { }
 
-  @Effect() getEndpoint$ = this.actions$.pipe(
+   getEndpoint$ = createEffect(() => this.actions$.pipe(
     ofType<GetEndpoint>(GET_ENDPOINT),
     mergeMap((action: GetEndpoint) => [
       stratosEntityCatalog.systemInfo.actions.getSystemInfo(false, action)
     ])
-  );
+  ));
 
-  @Effect() getAllEndpointsBySystemInfo$ = this.actions$.pipe(
+   getAllEndpointsBySystemInfo$ = createEffect(() => this.actions$.pipe(
     ofType<GetAllEndpoints>(GET_ENDPOINTS),
     mergeMap((action: GetAllEndpoints) => [
       stratosEntityCatalog.systemInfo.actions.getSystemInfo(false, action)
     ])
-  );
+  ));
 
-  @Effect() getAllEndpoints$ = this.actions$.pipe(
+   getAllEndpoints$ = createEffect(() => this.actions$.pipe(
     ofType<GetSystemSuccess>(GET_SYSTEM_INFO_SUCCESS),
     mergeMap(action => {
       const { associatedAction } = action;
@@ -98,9 +98,9 @@ export class EndpointsEffect {
         new WrapperRequestActionSuccess(mappedData, associatedAction, 'fetch'),
         new GetAllEndpointsSuccess(mappedData, isLogin),
       ];
-    }));
+    })));
 
-  @Effect() connectEndpoint$ = this.actions$.pipe(
+   connectEndpoint$ = createEffect(() => this.actions$.pipe(
     ofType<ConnectEndpoint>(CONNECT_ENDPOINTS),
     mergeMap(action => {
       // Special-case SSO login - redirect to the back-end
@@ -151,9 +151,9 @@ export class EndpointsEffect {
         body,
         response => httpErrorResponseToSafeString(response) || 'Could not connect, please try again',
       );
-    }));
+    })));
 
-  @Effect() disconnect$ = this.actions$.pipe(
+   disconnect$ = createEffect(() => this.actions$.pipe(
     ofType<DisconnectEndpoint>(DISCONNECT_ENDPOINTS),
     mergeMap(action => {
 
@@ -167,9 +167,9 @@ export class EndpointsEffect {
         null,
         'DELETE'
       );
-    }));
+    })));
 
-  @Effect() unregister$ = this.actions$.pipe(
+   unregister$ = createEffect(() => this.actions$.pipe(
     ofType<UnregisterEndpoint>(UNREGISTER_ENDPOINTS),
     mergeMap(action => {
       return this.doEndpointAction(
@@ -182,9 +182,9 @@ export class EndpointsEffect {
         null,
         'DELETE'
       );
-    }));
+    })));
 
-  @Effect() register$ = this.actions$.pipe(
+   register$ = createEffect(() => this.actions$.pipe(
     ofType<RegisterEndpoint>(REGISTER_ENDPOINTS),
     mergeMap(action => {
 
@@ -220,9 +220,9 @@ export class EndpointsEffect {
         body,
         this.processRegisterError
       );
-    }));
+    })));
 
-  @Effect() updateEndpoint$ = this.actions$.pipe(
+   updateEndpoint$ = createEffect(() => this.actions$.pipe(
     ofType<UpdateEndpoint>(UPDATE_ENDPOINT),
     mergeMap((action: UpdateEndpoint) => {
       const paramsObj = {
@@ -249,7 +249,7 @@ export class EndpointsEffect {
         body,
         this.processUpdateError
       );
-    }));
+    })));
 
   private processUpdateError(e: HttpErrorResponse): string {
     const err = e.error ? e.error.error : {};

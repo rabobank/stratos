@@ -16,7 +16,7 @@ import { ApplicationStateData, ApplicationStateService } from '../../../../../se
 export class TableCellAppStatusComponent extends TableCellCustom<APIResource<IApp>> implements OnInit {
 
   applicationState: ApplicationStateData;
-  @Input('config')
+  @Input()
   set config(value: { hideIcon: boolean, initialStateOnly: boolean, }) {
     super.config = value;
     value = value || {

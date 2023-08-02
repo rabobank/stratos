@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 
 import { IRouterNavPayload } from '../../../../../../store/src/actions/router.actions';
@@ -21,16 +29,18 @@ export interface StepOnNextResult {
   data?: any;
 }
 
-export type StepOnNextFunction = (index: number, step: StepComponent) => Observable<StepOnNextResult>;
+export type StepOnNextFunction = (
+  index: number,
+  step: StepComponent
+) => Observable<StepOnNextResult>;
 
 @Component({
   selector: 'app-step',
   templateUrl: './step.component.html',
   styleUrls: ['./step.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StepComponent {
-
   public pOnEnter: (data?: any) => void;
   active = false;
   complete = false;
@@ -42,6 +52,7 @@ export class StepComponent {
   @Input()
   title: string;
 
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onHidden = new EventEmitter<boolean>();
 
   @Input()
@@ -94,13 +105,13 @@ export class StepComponent {
   showBusy = false;
 
   @Input()
-  onNext: StepOnNextFunction = () => observableOf({ success: true })
+  onNext: StepOnNextFunction = () => observableOf({ success: true });
 
   @Input()
-  onEnter: (data: any) => void = () => { }
+  onEnter: (data: any) => void = () => {};
 
   @Input()
-  onLeave: (isNext?: boolean) => void = () => { }
+  onLeave: (isNext?: boolean) => void = () => {};
 
   constructor() {
     this.pOnEnter = (data?: any) => {
@@ -115,5 +126,4 @@ export class StepComponent {
       }
     };
   }
-
 }

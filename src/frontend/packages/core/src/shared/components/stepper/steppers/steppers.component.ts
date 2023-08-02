@@ -4,34 +4,42 @@ import {
   ContentChildren,
   Input,
   OnDestroy,
-  OnInit,
   QueryList,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  SimpleSnackBar,
+} from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { catchError, first, map, switchMap } from 'rxjs/operators';
 
-import { IRouterNavPayload, RouterNav } from '../../../../../../store/src/actions/router.actions';
+import {
+  IRouterNavPayload,
+  RouterNav,
+} from '../../../../../../store/src/actions/router.actions';
 import { AppState } from '../../../../../../store/src/app-state';
 import { getPreviousRoutingState } from '../../../../../../store/src/types/routing.type';
 import { BASE_REDIRECT_QUERY } from '../stepper.types';
 import { SteppersService } from '../steppers.service';
 import { StepComponent, StepOnNextResult } from './../step/step.component';
 
-
-
 @Component({
   selector: 'app-steppers',
   templateUrl: './steppers.component.html',
   styleUrls: ['./steppers.component.scss'],
   providers: [SteppersService],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
-
+export class SteppersComponent implements AfterContentInit, OnDestroy {
   private nextSub: Subscription;
   cancel$: Observable<string>;
 
@@ -39,9 +47,12 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
 
   @Input() cancel = null;
   @Input() nextButtonProgress = true;
-  @Input() basePreviousRedirect: IRouterNavPayload = this.route.snapshot.queryParams[BASE_REDIRECT_QUERY] ? {
-    path: this.route.snapshot.queryParams[BASE_REDIRECT_QUERY]
-  } : null;
+  @Input() basePreviousRedirect: IRouterNavPayload = this.route.snapshot
+    .queryParams[BASE_REDIRECT_QUERY]
+    ? {
+        path: this.route.snapshot.queryParams[BASE_REDIRECT_QUERY],
+      }
+    : null;
 
   steps: StepComponent[] = [];
   allSteps: StepComponent[] = [];
@@ -66,24 +77,28 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
   ) {
     const previousRoute$ = store.select(getPreviousRoutingState).pipe(first());
     this.cancel$ = previousRoute$.pipe(
-      map(previousState => {
+      map((previousState) => {
         // If we have a previous state, and that previous state was not login (i.e. we've come from afresh), go to whatever the default
         // cancel state is
         if (this.cancel) {
           return this.cancel;
         }
-        return previousState && previousState.url !== '/login' ? previousState.url.split('?')[0] : '/home';
+        return previousState && previousState.url !== '/login'
+          ? previousState.url.split('?')[0]
+          : '/home';
       })
     );
     this.cancelQueryParams$ = previousRoute$.pipe(
-      map(previousState => previousState && previousState.url !== '/login' ? previousState.state.queryParams : {})
+      map((previousState) =>
+        previousState && previousState.url !== '/login'
+          ? previousState.state.queryParams
+          : {}
+      )
     );
   }
 
-  ngOnInit() { }
-
   ngOnDestroy() {
-    this.hiddenSubs.forEach(sub => sub.unsubscribe());
+    this.hiddenSubs.forEach((sub) => sub.unsubscribe());
     this.unsubscribeNext();
     if (this.snackBarRef) {
       this.snackBar.dismiss();
@@ -94,16 +109,18 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
     this.allSteps = this.stepComponents.toArray();
     this.setActive(0);
 
-    this.allSteps.forEach((step => {
-      this.hiddenSubs.push(step.onHidden.subscribe((hidden) => {
-        this.filterSteps();
-      }));
-    }));
+    this.allSteps.forEach((step) => {
+      this.hiddenSubs.push(
+        step.onHidden.subscribe((hidden) => {
+          this.filterSteps();
+        })
+      );
+    });
     this.filterSteps();
   }
 
   private filterSteps() {
-    this.steps = this.allSteps.filter((step => !step.hidden));
+    this.steps = this.allSteps.filter((step) => !step.hidden);
   }
 
   goNext() {
@@ -120,36 +137,50 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
         return;
       }
       this.showNextButtonProgress = this.nextButtonProgress;
-      this.nextSub = obs$.pipe(
-        first(),
-        catchError(err => {
-          console.warn('Stepper failed: ', err);
-          return observableOf({
-            success: false,
-            message: err || 'Failed',
-            redirectPayload: null,
-            redirect: false,
-            data: {},
-            ignoreSuccess: false
-          } as StepOnNextResult);
-        }),
-        switchMap(({ success, data, message, redirect, redirectPayload, ignoreSuccess }) => {
-          this.showNextButtonProgress = false;
-          step.error = !success;
-          step.busy = false;
-          this.enterData = data;
-          if (success && !ignoreSuccess) {
-            if (redirect) {
-              // Must sub to this
-              return this.redirect(redirectPayload);
-            } else {
-              this.setActive(this.currentIndex + 1);
+      this.nextSub = obs$
+        .pipe(
+          first(),
+          catchError((err) => {
+            console.warn('Stepper failed: ', err);
+            return observableOf({
+              success: false,
+              message: err || 'Failed',
+              redirectPayload: null,
+              redirect: false,
+              data: {},
+              ignoreSuccess: false,
+            } as StepOnNextResult);
+          }),
+          switchMap(
+            ({
+              success,
+              data,
+              message,
+              redirect,
+              redirectPayload,
+              ignoreSuccess,
+            }) => {
+              this.showNextButtonProgress = false;
+              step.error = !success;
+              step.busy = false;
+              this.enterData = data;
+              if (success && !ignoreSuccess) {
+                if (redirect) {
+                  // Must sub to this
+                  return this.redirect(redirectPayload);
+                } else {
+                  this.setActive(this.currentIndex + 1);
+                }
+              } else if (!success && message) {
+                this.snackBarRef = this.snackBar.open(message, 'Dismiss', {
+                  panelClass: 'stepper-snack-bar',
+                });
+              }
+              return [];
             }
-          } else if (!success && message) {
-            this.snackBarRef = this.snackBar.open(message, 'Dismiss', { panelClass: 'stepper-snack-bar' });
-          }
-          return [];
-        })).subscribe();
+          )
+        )
+        .subscribe();
     }
   }
 
@@ -157,10 +188,7 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
     if (redirectPayload) {
       return observableOf(this.dispatchRedirect(redirectPayload));
     }
-    return combineLatest(
-      this.cancel$,
-      this.cancelQueryParams$
-    ).pipe(
+    return combineLatest(this.cancel$, this.cancelQueryParams$).pipe(
       map(([path, params]) => {
         this.dispatchRedirect({ path, query: params });
       })
@@ -221,11 +249,12 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
     // Candidate step index
     index = Math.min(index, this.steps.length - 1);
     // Create list of all not skipped stepped. Any candidate step to go to should exist in here
-    const nonSkipSteps = this.steps.filter(step => !step.skip);
+    const nonSkipSteps = this.steps.filter((step) => !step.skip);
     // Iterate through steps until we find a valid one
     while (true) {
       // Can this step be activated (exists in nonSkippedSteps)?
-      const found = nonSkipSteps.findIndex(step => step === this.steps[index]) >= 0;
+      const found =
+        nonSkipSteps.findIndex((step) => step === this.steps[index]) >= 0;
       if (found) {
         // Yes, step is valid
         return index;
@@ -277,10 +306,7 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   canCancel(index: number) {
-    if (
-      !this.steps[index] ||
-      !this.steps[index].canClose
-    ) {
+    if (!this.steps[index] || !this.steps[index].canClose) {
       return false;
     }
     return true;
@@ -291,9 +317,9 @@ export class SteppersComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   getNextButtonText(currentIndex: number): string {
-    return currentIndex + 1 < this.steps.length ?
-      this.steps[currentIndex].nextButtonText :
-      this.steps[currentIndex].finishButtonText;
+    return currentIndex + 1 < this.steps.length
+      ? this.steps[currentIndex].nextButtonText
+      : this.steps[currentIndex].finishButtonText;
   }
 
   getCancelButtonText(currentIndex: number): string {

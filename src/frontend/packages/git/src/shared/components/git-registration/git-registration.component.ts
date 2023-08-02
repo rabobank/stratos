@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { filter, first, map, pairwise } from 'rxjs/operators';
@@ -55,7 +55,7 @@ export class GitRegistrationComponent implements OnDestroy {
 
   public epSubType: GIT_ENDPOINT_SUB_TYPES;
 
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
 
   private sub: Subscription;
 
@@ -68,7 +68,7 @@ export class GitRegistrationComponent implements OnDestroy {
   constructor(
     gitSCMService: GitSCMService,
     activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBarService: SnackBarService,
     private endpointsService: EndpointsService,
   ) {

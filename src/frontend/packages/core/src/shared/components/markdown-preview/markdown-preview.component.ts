@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Input, SecurityContext, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  SecurityContext,
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import markdown from 'marked';
 
@@ -8,16 +14,14 @@ import { PreviewableComponent } from '../../previewable-component';
 @Component({
   selector: 'app-markdown-preview',
   templateUrl: './markdown-preview.component.html',
-  styleUrls: ['./markdown-preview.component.scss']
+  styleUrls: ['./markdown-preview.component.scss'],
 })
 export class MarkdownPreviewComponent implements PreviewableComponent {
-
   markdownHtml: string;
-  documentUrl: string;
   title = null;
 
-  @Input('documentUrl')
-  set setDocumentUrl(value: string) {
+  @Input()
+  set documentUrl(value: string) {
     if (value && this.documentUrl !== value) {
       this.documentUrl = value;
       this.title = null;
@@ -30,10 +34,10 @@ export class MarkdownPreviewComponent implements PreviewableComponent {
   constructor(
     private httpClient: HttpClient,
     private domSanitizer: DomSanitizer
-  ) { }
+  ) {}
 
-  setProps(props: { [key: string]: any, }) {
-    this.setDocumentUrl = props.documentUrl;
+  setProps(props: { [key: string]: any }) {
+    this.documentUrl = props.documentUrl;
   }
 
   private loadDocument() {
@@ -43,18 +47,29 @@ export class MarkdownPreviewComponent implements PreviewableComponent {
           // Basic sanitization
           markdown.setOptions({
             sanitize: true,
-            sanitizer: dirty => this.domSanitizer.sanitize(SecurityContext.HTML, dirty),
+            sanitizer: (dirty) =>
+              this.domSanitizer.sanitize(SecurityContext.HTML, dirty),
           });
           const renderer = new markdown.Renderer();
           // Ensure links in the readme open in a new tab
           renderer.link = (href, title, text) => {
-            const link = markdown.Renderer.prototype.link.call(renderer, href, title, text);
+            const link = markdown.Renderer.prototype.link.call(
+              renderer,
+              href,
+              title,
+              text
+            );
             return link.replace('<a', '<a target="_blank" ');
           };
           this.markdownHtml = markdown(markText, { renderer });
         }
       },
-      (error) => console.warn(`Failed to fetch markdown with url ${this.documentUrl}: `, error));
+      (error) =>
+        console.warn(
+          `Failed to fetch markdown with url ${this.documentUrl}: `,
+          error
+        )
+    );
   }
 
   public markdownRendered() {
@@ -73,5 +88,4 @@ export class MarkdownPreviewComponent implements PreviewableComponent {
       }
     }
   }
-
 }

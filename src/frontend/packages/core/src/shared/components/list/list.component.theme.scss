@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 @import '../../../../sass/mixins';
 @mixin list-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
@@ -9,9 +9,9 @@
 
   $header-selected-color: #fff;
   @if $is-dark == true {
-    $header-selected-color: lighten(mat-color($background-colors, background), 20%);
+    $header-selected-color: lighten(mat.get-color-from-palette($background-colors, background), 20%);
   } @else {
-    $header-selected-color: mat-color($primary, 50);
+    $header-selected-color: mat.get-color-from-palette($primary, 50);
   }
 
   .list-component {
@@ -26,7 +26,7 @@
         }
       }
 
-      @include accent(mat-color($accent));
+      @include accent(mat.get-color-from-palette($accent));
       .sort {
         @include accent(unset)
       }

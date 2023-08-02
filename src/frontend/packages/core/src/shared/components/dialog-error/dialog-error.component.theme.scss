@@ -1,8 +1,9 @@
+@use '@angular/material' as mat;
 @mixin dialog-error-theme($theme, $app-theme) {
   $warn: map-get($theme, warn);
   .dialog-error {
     &__content {
-      color: mat-color($warn);
+      color: mat.get-color-from-palette($warn);
     }
   }
 }

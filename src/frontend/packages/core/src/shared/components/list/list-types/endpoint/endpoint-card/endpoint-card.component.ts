@@ -34,10 +34,9 @@ import { RouterNav } from './../../../../../../../../store/src/actions/router.ac
 import { CopyToClipboardComponent } from './../../../../copy-to-clipboard/copy-to-clipboard.component';
 
 @Component({
-  selector: 'app-endpoint-card',
-  templateUrl: './endpoint-card.component.html',
-  styleUrls: ['./endpoint-card.component.scss'],
-  entryComponents: [...coreEndpointListDetailsComponents]
+    selector: 'app-endpoint-card',
+    templateUrl: './endpoint-card.component.html',
+    styleUrls: ['./endpoint-card.component.scss']
 })
 export class EndpointCardComponent extends CardCell<EndpointModel> implements OnInit, OnDestroy {
 
@@ -66,7 +65,7 @@ export class EndpointCardComponent extends CardCell<EndpointModel> implements On
 
   @ViewChild('copyToClipboard') copyToClipboard: CopyToClipboardComponent;
 
-  @Input('row')
+  @Input()
   set row(row: EndpointModel) {
     super.row = row;
     if (!row) {
@@ -88,7 +87,7 @@ export class EndpointCardComponent extends CardCell<EndpointModel> implements On
     return super.row;
   }
 
-  @Input('dataSource')
+  @Input()
   set dataSource(ds: BaseEndpointsDataSource) {
     super.dataSource = ds;
 

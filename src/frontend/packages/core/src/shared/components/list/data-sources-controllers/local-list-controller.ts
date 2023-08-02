@@ -1,6 +1,13 @@
 import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { tag } from 'rxjs-spy/operators/tag';
-import { distinctUntilChanged, map, publishReplay, refCount, switchMap, tap } from 'rxjs/operators';
+import { tag } from 'rxjs-spy/operators';
+import {
+  distinctUntilChanged,
+  map,
+  publishReplay,
+  refCount,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 import { LocalPaginationHelpers } from '../../../../../../store/src/helpers/local-list.helpers';
 import { PaginationEntityState } from '../../../../../../store/src/types/pagination.types';
@@ -12,13 +19,28 @@ export class LocalListController<T = any> {
   constructor(
     page$: Observable<T[]>,
     pagination$: Observable<PaginationEntityState>,
-    private setResultCount: (pagination: PaginationEntityState, entities: (T | T[])[]) => void,
+    private setResultCount: (
+      pagination: PaginationEntityState,
+      entities: (T | T[])[]
+    ) => void,
     dataFunctions?: DataFunction<any>[]
   ) {
-    const pagesObservable$ = this.buildPagesObservable(page$, pagination$, dataFunctions);
-    const currentPageIndexObservable$ = this.buildCurrentPageNumberObservable(pagination$);
-    const currentPageSizeObservable$ = this.buildCurrentPageSizeObservable(pagination$);
-    this.page$ = this.buildCurrentPageObservable(pagesObservable$, currentPageIndexObservable$, currentPageSizeObservable$);
+    const pagesObservable$ = this.buildPagesObservable(
+      page$,
+      pagination$,
+      dataFunctions
+    );
+    const currentPageIndexObservable$ = this.buildCurrentPageNumberObservable(
+      pagination$
+    );
+    const currentPageSizeObservable$ = this.buildCurrentPageSizeObservable(
+      pagination$
+    );
+    this.page$ = this.buildCurrentPageObservable(
+      pagesObservable$,
+      currentPageIndexObservable$,
+      currentPageSizeObservable$
+    );
   }
 
   private pageSplitCache: (T | T[])[] = null;
@@ -29,13 +51,20 @@ export class LocalListController<T = any> {
   private buildPagesObservable(
     page$: Observable<T[]>,
     pagination$: Observable<PaginationEntityState>,
-    dataFunctions?: DataFunction<any>[]) {
+    dataFunctions?: DataFunction<any>[]
+  ) {
     // Updates whenever a page setting changes (current page, page size, sorting, etc) and not when
     const cleanPagination$ = pagination$.pipe(
-      distinctUntilChanged((oldVal, newVal) => !this.paginationHasChanged(oldVal, newVal))
+      distinctUntilChanged(
+        (oldVal, newVal) => !this.paginationHasChanged(oldVal, newVal)
+      )
     );
 
-    return this.buildFullCleanPageObservable(page$, cleanPagination$, dataFunctions);
+    return this.buildFullCleanPageObservable(
+      page$,
+      cleanPagination$,
+      dataFunctions
+    );
   }
 
   /*
@@ -44,20 +73,25 @@ export class LocalListController<T = any> {
   private buildFullCleanPageObservable(
     cleanPage$: Observable<T[]>,
     cleanPagination$: Observable<PaginationEntityState>,
-    dataFunctions?: DataFunction<any>[]) {
-    const fullPageObs$ = combineLatest(
-      cleanPagination$,
-      cleanPage$
-    ).pipe(
+    dataFunctions?: DataFunction<any>[]
+  ) {
+    const fullPageObs$ = combineLatest(cleanPagination$, cleanPage$).pipe(
       map(([paginationEntity, entities]) => {
         this.pageSplitCache = null;
         // `entities` can become out of sync with `paginationEntity.ids`. If either are empty just return empty,
         // otherwise this leads to churn and result count flip flopping
-        if (!entities || !entities.length || Object.keys(paginationEntity.ids).length === 0) {
+        if (
+          !entities ||
+          !entities.length ||
+          Object.keys(paginationEntity.ids).length === 0
+        ) {
           return { paginationEntity, entities: [] };
         }
         if (dataFunctions && dataFunctions.length) {
-          entities = dataFunctions.reduce((value, fn) => fn(value, paginationEntity), entities);
+          entities = dataFunctions.reduce(
+            (value, fn) => fn(value, paginationEntity),
+            entities
+          );
         }
         return { paginationEntity, entities };
       }),
@@ -67,21 +101,22 @@ export class LocalListController<T = any> {
       map(({ entities }) => entities)
     );
     return cleanPagination$.pipe(
-      map(pagination => LocalPaginationHelpers.isPaginationMaxed(pagination)),
+      map((pagination) => LocalPaginationHelpers.isPaginationMaxed(pagination)),
       distinctUntilChanged(),
-      switchMap(maxed => {
+      switchMap((maxed) => {
         return maxed ? observableOf([]) : fullPageObs$;
       })
     );
-
   }
 
   /*
    * Emit client side page changes
    */
-  private buildCurrentPageNumberObservable(pagination$: Observable<PaginationEntityState>) {
+  private buildCurrentPageNumberObservable(
+    pagination$: Observable<PaginationEntityState>
+  ) {
     return pagination$.pipe(
-      map(pagination => pagination.clientPagination.currentPage),
+      map((pagination) => pagination.clientPagination.currentPage),
       distinctUntilChanged((oldPage, newPage) => oldPage === newPage)
     );
   }
@@ -89,9 +124,11 @@ export class LocalListController<T = any> {
   /*
    * Emit client side page size changes
    */
-  private buildCurrentPageSizeObservable(pagination$: Observable<PaginationEntityState>) {
+  private buildCurrentPageSizeObservable(
+    pagination$: Observable<PaginationEntityState>
+  ) {
     return pagination$.pipe(
-      map(pagination => pagination.clientPagination.pageSize),
+      map((pagination) => pagination.clientPagination.pageSize),
       distinctUntilChanged()
     );
   }
@@ -109,18 +146,16 @@ export class LocalListController<T = any> {
   ) {
     return combineLatest(
       entities$,
-      currentPageSizeObservable$.pipe(tap(() => {
-        this.pageSplitCache = null;
-      })),
-      currentPageNumber$,
+      currentPageSizeObservable$.pipe(
+        tap(() => {
+          this.pageSplitCache = null;
+        })
+      ),
+      currentPageNumber$
     ).pipe(
       map(([entities, pageSize, currentPage]) => {
         const pages = this.pageSplitCache ? this.pageSplitCache : entities;
-        const data = splitCurrentPage(
-          pages,
-          pageSize,
-          currentPage
-        );
+        const data = splitCurrentPage(pages, pageSize, currentPage);
         this.pageSplitCache = data.entities;
         return (data.entities[data.index] || []) as T[];
       }),
@@ -132,17 +167,26 @@ export class LocalListController<T = any> {
 
   private getPaginationCompareString(paginationEntity: PaginationEntityState) {
     // Unique string excluding local pagination (watched elsewhere)
-    return paginationEntity.totalResults
-      + (paginationEntity.params['order-direction-field'] as string || '') + ','
-      + (paginationEntity.params['order-direction'] as string || '') + ','
-      + paginationEntity.clientPagination.filter.string + ','
-      + paginationEntity.clientPagination.filter.filterKey + ','
-      + paginationEntity.forcedLocalPage
-      + Object.values(paginationEntity.clientPagination.filter.items);
+    return (
+      paginationEntity.totalResults +
+      ((paginationEntity.params['order-direction-field'] as string) || '') +
+      ',' +
+      ((paginationEntity.params['order-direction'] as string) || '') +
+      ',' +
+      paginationEntity.clientPagination.filter.string +
+      ',' +
+      paginationEntity.clientPagination.filter.filterKey +
+      ',' +
+      paginationEntity.forcedLocalPage +
+      Object.values(paginationEntity.clientPagination.filter.items)
+    );
     // Some outlier cases actually fetch independently from this list (looking at you app variables)
   }
 
-  private paginationHasChanged(oldPag: PaginationEntityState, newPag: PaginationEntityState) {
+  private paginationHasChanged(
+    oldPag: PaginationEntityState,
+    newPag: PaginationEntityState
+  ) {
     const oldPagCompareString = this.getPaginationCompareString(oldPag);
     const newPagCompareString = this.getPaginationCompareString(newPag);
     return oldPagCompareString !== newPagCompareString;

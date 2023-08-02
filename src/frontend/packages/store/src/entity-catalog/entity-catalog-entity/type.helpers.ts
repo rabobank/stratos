@@ -4,9 +4,9 @@
  *  - https://github.com/Microsoft/TypeScript/issues/25987#issuecomment-441224690
  *  - https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-414808995
  */
-export type KnownKeys<T> = {
-  [K in keyof T]: string extends K ? never : number extends K ? never : K
-} extends { [_ in keyof T]: infer U } ? ({} extends U ? never : U) : never;
+export type KnownKeys<T> = keyof { [K in keyof T as
+    string extends K ? never : number extends K ? never : K
+    ]: T[K]; };
 
 export type NonOptionalKeys<T extends object> = Exclude<{
   [K in keyof T]: T extends Record<K, T[K]>

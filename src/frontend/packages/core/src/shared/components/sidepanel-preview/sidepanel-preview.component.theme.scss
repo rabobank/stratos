@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @mixin app-sidepanel-preview-theme($theme, $app-theme) {
   $primary: map-get($theme, primary);
   $background-color: map-get($app-theme, app-background-color);
@@ -9,7 +10,7 @@
     background-color: $darker-background-color;
 
     @if not $header-border or $header-border == 'none' {
-      border-top: 1px solid mat-color($foreground, divider);
+      border-top: 1px solid mat.get-color-from-palette($foreground, divider);
     }
   }
 
@@ -22,7 +23,7 @@
       overflow: hidden;
     }
     blockquote {
-      border-left: 4px solid mat-color($primary);
+      border-left: 4px solid mat.get-color-from-palette($primary);
       margin: 0;
       padding-left: 12px;
     }
