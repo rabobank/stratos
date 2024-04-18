@@ -6,7 +6,7 @@
   <app-tile-grid class="app-autoscaler-tile-grid-100">
     <app-tile-group *ngFor="let rule of policy.schedules && policy.schedules.recurring_schedule; let index = index">
       <app-tile>
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header>
             <mat-card-title> Schedule {{ index + 1 }}: </mat-card-title>
           </mat-card-header>

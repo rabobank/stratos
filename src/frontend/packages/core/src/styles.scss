@@ -6,6 +6,7 @@
 @import '../sass/scroll-bar-measure';
 @import '../sass/components/card-wall';
 @import '../sass/components/mat-card';
+@import '../sass/components/mat-form-field';
 @import '../sass/components/mat-popup';
 @import '../sass/components/mat-snack-bar';
 @import '../sass/components/mat-tabs';
@@ -41,13 +42,11 @@ html {
   .mat-drawer-side {
     border: 0;
   }
-  .mat-card-title {
+  .mat-mdc-card-title {
     font-size: inherit;
     font-weight: inherit;
   }
 }
-
-
 
 html {
   box-sizing: border-box;
@@ -59,7 +58,7 @@ html {
   box-sizing: inherit;
 }
 
-button.mat-simple-snackbar-action {
+button.mat-mdc-snack-bar-action {
   margin-left: 0;
 }
 
@@ -68,7 +67,6 @@ button.mat-simple-snackbar-action {
 //   flex: 1;
 //   flex-direction: column;
 // }
-
 
 // Add selector so that the UI can detect if a dark theme is available
 @if $stratos-dark-theme-supported {

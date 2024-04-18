@@ -15,7 +15,7 @@ mat-header-cell {
   &__loading {
     margin-top: 5px;
     position: relative;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of progress-bar that may no longer apply for the MDC version.*/
     mat-progress-bar {
       position: absolute;
       top: -5px;
@@ -40,7 +40,7 @@ mat-header-cell {
     &[hidden] {
 
       *,
-      &.mat-header-row {
+      &.mat-mdc-header-row {
         display: none;
       }
     }
@@ -109,7 +109,7 @@ mat-header-cell {
 
   &__row {
 
-    .mat-cell {
+    .mat-mdc-cell {
       align-items: center;
       display: flex;
     }

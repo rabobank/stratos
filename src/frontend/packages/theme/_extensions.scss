@@ -1,0 +1,11 @@
+@import 'packages/cf-autoscaler/sass/_all-theme';
+@import 'packages/cloud-foundry/sass/_all-theme';
+@import 'packages/git/sass/_all-theme';
+@import 'packages/shared/sass/_all-theme';
+
+@mixin apply-theme($stratos-theme) {
+  @include apply-theme-stratos-autoscaler($stratos-theme);
+  @include apply-theme-stratos-cloud-foundry($stratos-theme);
+  @include apply-theme-git($stratos-theme);
+  @include apply-theme-stratos-shared($stratos-theme);
+}

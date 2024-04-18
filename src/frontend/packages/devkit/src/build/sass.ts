@@ -1,74 +1,17 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import { StratosConfig } from '../lib/stratos.config';
 
-/**
- * Sass Handler
- *
- * Provides some custom resolution of sass files so that the theming
- * is applied to components and that the chosen theme is used.
- *
- * Essentially intercepts package imports of the form ~@startosui/theme
- * and ensures the correct package is used.
- */
 export class SassHandler {
   constructor() {}
 
-  //  Set options on the Webpack sass-loader plugin to use us as a custom importer
-  public apply(webpackConfig: any, config: StratosConfig) {
-    // Find the node-saas plugin and add a custom import resolver
-    webpackConfig.module.rules.forEach(ruleSet => {
-      if (ruleSet.rules) {
-        ruleSet.rules.forEach(rule => {
-          if (rule.use) {
-            rule.use.forEach(p => {
-              if (p.loader && p.loader.indexOf('sass-loader') > 0) {
-                p.options.sassOptions = {
-                  importer: this.customSassImport(config)
-                };
-              }
-            });
-          }
-        });
-      }
-    });
-  }
+  public apply(_, config: StratosConfig) {
+    const extensionsFilePath = config.resolvePackage(
+      config.getTheme().name,
+      '_extensions.scss'
+    );
 
-  private customSassImport(config: StratosConfig) {
-    const that = this;
-    return (url, resourcePath) => {
-      if (url === '~@stratosui/theme/extensions') {
-        // Generate SCSS to appy theming to the packages that need to be themed
-        return {
-          contents: that.getThemingForPackages(config)
-        };
-      } else if (url === '~@stratosui/theme') {
-        return {
-          file: config.resolvePackage(config.getTheme().name, '_index.scss')
-        };
-      } else if (url.indexOf('~') === 0) {
-        // See if we have an override
-        const pkg = url.substr(1);
-        const pkgParts = pkg.split('/');
-        let pkgName = '';
-        if (pkgParts[0].indexOf('@') === 0) {
-          // Package name has a scope
-          pkgName = pkgParts.shift() + '/' + pkgParts.shift();
-        } else {
-          pkgName = pkgParts.shift();
-        }
-        const pkgPath = pkgParts.join(path.sep);
-        // See if we can resolve the package name
-        const knownPath = config.resolveKnownPackage(pkgName);
-        if (knownPath) {
-          return {
-            file: path.join(knownPath, pkgPath + '.scss')
-          };
-        }
-      }
-
-      // We could not resolve, so leave to the default resolver
-      return null;
-    };
+    fs.writeFileSync(extensionsFilePath, this.getThemingForPackages(config));
   }
 
   // Generate an import and include for each themable package so that we theme

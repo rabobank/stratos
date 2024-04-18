@@ -7,7 +7,7 @@
       </mat-select>
     </mat-form-field>
   </form>
-  <mat-card class="select-plan__details" *ngIf="selectedPlan$ | async as selPlan">
+  <mat-card appearance="outlined" class="select-plan__details" *ngIf="selectedPlan$ | async as selPlan">
     <app-card-status *ngIf="(selectedPlanAccessibility$ | async)" [status$]="selectedPlanAccessibility$"></app-card-status>
     <app-metadata-item label="Name"> {{ getDisplayName(selPlan)}} </app-metadata-item>
     <app-metadata-item label="Description"> {{selPlan.entity.description}} </app-metadata-item>

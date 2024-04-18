@@ -1,6 +1,6 @@
 <!-- history is set when used in the dropdown menu to only show recent history-->
 
-<mat-card *ngIf="!history && ((hasHits$ | async) === true)">
+<mat-card appearance="outlined" *ngIf="!history && ((hasHits$ | async) === true)">
   <ng-container *ngTemplateOutlet="historyTemplate"></ng-container>
 </mat-card>
 

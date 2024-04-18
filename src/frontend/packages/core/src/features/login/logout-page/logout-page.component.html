@@ -1,5 +1,5 @@
 <app-intro-screen id="app-login-page" class="logout">
-  <mat-card class="logout__card">
+  <mat-card appearance="outlined" class="logout__card">
     <app-stratos-title></app-stratos-title>
     <div class="logout__body" *ngIf="error$ | async; else loading">
       <div class="logout__msg">An error occurred logging out</div>

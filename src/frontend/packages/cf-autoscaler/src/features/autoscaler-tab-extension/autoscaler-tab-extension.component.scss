@@ -9,7 +9,7 @@
     right: 24px;
     text-align: right;
   }
-  .mat-header-cell:first-of-type {
+  .mat-mdc-header-cell:first-of-type {
     padding-left: unset;
   }
   .autoscaler-tab-table-no-record {
@@ -69,7 +69,7 @@ table {
     height: 40px;
     justify-content: space-between;
     padding-top: 0;
-
+    /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
     mat-card-title {
       margin-bottom: 0;
     }

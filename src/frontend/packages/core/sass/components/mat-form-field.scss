@@ -1,0 +1,28 @@
+.default {
+  .mat-mdc-form-field {
+    .mdc-text-field--outlined {
+      .mat-mdc-form-field-infix {
+        padding: 8px 0;
+        min-height: 40px;
+      }
+    }
+
+    .mat-mdc-form-field-bottom-align {
+      &::before {
+        content: unset;
+      }
+    }
+
+    .mdc-text-field__input,
+    .mat-mdc-select {
+      font-size: 14px;
+    }
+  }
+
+  .mat-mdc-option {
+    min-height: 40px;
+    .mdc-list-item__primary-text {
+      font-size: 14px;
+    }
+  }
+}

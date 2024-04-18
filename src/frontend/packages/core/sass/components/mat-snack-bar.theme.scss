@@ -12,9 +12,9 @@
     $color: mat.get-color-from-palette($foreground-colors, text);
   }
 
-  .mat-snack-bar-container {
+  .mat-mdc-snack-bar-container {
     background-color: $background-color;
-    .mat-simple-snackbar {
+    .mat-mdc-simple-snack-bar {
       color: $color;
     }
   }

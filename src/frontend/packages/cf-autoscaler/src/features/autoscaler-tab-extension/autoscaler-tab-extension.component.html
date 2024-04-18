@@ -38,7 +38,7 @@
       </app-tile>
       <app-tile *ngIf="policy.enabled" class="autoscaler-tab__latest-metrics">
         <app-card-app-usage *ngIf="policy.scaling_rules.length === 0"></app-card-app-usage>
-        <mat-card *ngIf="policy.scaling_rules.length > 0">
+        <mat-card appearance="outlined" *ngIf="policy.scaling_rules.length > 0">
           <mat-card-header>
             <mat-card-title>Latest Metrics</mat-card-title>
           </mat-card-header>
@@ -82,7 +82,7 @@
     <div *ngIf="appAutoscalerPolicy$ | async as policy" class="autoscaler-tab-policy">
       <app-tile-group *ngIf="policy.enabled">
         <app-tile class="autoscaler-tab-policy-trigger">
-          <mat-card>
+          <mat-card appearance="outlined">
             <mat-card-header>
               <mat-card-title>Scaling Rules </mat-card-title>
             </mat-card-header>
@@ -119,7 +119,7 @@
           </mat-card>
         </app-tile>
         <app-tile class="autoscaler-tab-policy-schedule">
-          <mat-card>
+          <mat-card appearance="outlined">
             <mat-card-header>
               <mat-card-title>
                 Scheduled Limit Rules
@@ -229,7 +229,7 @@
         {{ noPolicyMessageFirstLine }}. {{ noPolicyMessageSecondLine.text }}
       </span>
       <app-tile *ngIf="appAutoscalerScalingHistory$ | async as scalingHistory">
-        <mat-card>
+        <mat-card appearance="outlined">
           <mat-card-header class="autoscaler-tile-events__header">
             <mat-card-title>Latest Events </mat-card-title>
           </mat-card-header>

@@ -9,6 +9,7 @@
 
   &__option {
     padding-bottom: 20px;
+    /* TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version. */
     mat-radio-button {
       &:first-of-type {
         padding-right: 12px;

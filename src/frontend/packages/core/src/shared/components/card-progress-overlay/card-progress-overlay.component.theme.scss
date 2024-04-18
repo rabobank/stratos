@@ -2,7 +2,7 @@
 @mixin app-card-progerss-overlay-theme($theme, $app-theme) {
   $background: map-get($theme, background);
 
-  .mat-card__progress-overlay {
+  .mat-mdc-card__progress-overlay {
     background: mat.get-color-from-palette($background, card);
     z-index: 100;
   }

@@ -6,17 +6,19 @@
 
     &__container {
       // Default hover only effects mat-button and mat-stroked-button. Also apply it to mat-icon-button to make click action more noticable
-      .mat-icon-button:hover .mat-button-focus-overlay {
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
+      .mat-mdc-icon-button:hover .mat-button-focus-overlay {
         opacity: .08;
       }
-
+      /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
       .mat-button-wrapper,  {
         align-items: center;
         display: flex;
         justify-content: center;
       }
 
-      button:not(.mat-icon-button) {
+      button:not(.mat-mdc-icon-button) {
+        /* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version.*/
         .mat-button-wrapper {
           mat-icon {
             margin-right: 5px;

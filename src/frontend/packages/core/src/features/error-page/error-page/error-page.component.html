@@ -30,7 +30,7 @@
           Dismiss all
         </button>
       </div>
-      <mat-card class="error-page__event-row-card" *ngFor="let error of errorDetails.errors">
+      <mat-card appearance="outlined" class="error-page__event-row-card" *ngFor="let error of errorDetails.errors">
         <mat-card-header>
           <mat-card-title class="error-page__header ">
             <app-stateful-icon class="error-page__event-row-icon" [state]="icon">
@@ -59,6 +59,6 @@
     </div>
   </div>
   <ng-template #noEvents>
-    <mat-card class="error-page__no-errors-message">No recent errors</mat-card>
+    <mat-card appearance="outlined" class="error-page__no-errors-message">No recent errors</mat-card>
   </ng-template>
 </ng-container>

@@ -1,5 +1,5 @@
 import { Directive, Input, Optional } from '@angular/core';
-import { RouterLink, RouterLinkWithHref } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Directive({
   selector: '[routerLink][appDisableRouterLink]'
@@ -11,7 +11,7 @@ export class DisableRouterLinkDirective {
   constructor(
     // Inject routerLink
     @Optional() routerLink: RouterLink,
-    @Optional() routerLinkWithHref: RouterLinkWithHref
+    @Optional() routerLinkWithHref: RouterLink
   ) {
 
     const link = routerLink || routerLinkWithHref;
